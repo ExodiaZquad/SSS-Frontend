@@ -3,7 +3,7 @@ import BlogReview from '../pages/BlogReview';
 import Home from '../pages/Home';
 import ScheduleGenerator from '../pages/ScheduleGenerator';
 import SubjectFilter from '../pages/SubjectFilter';
-import Login from '../pages/Login';
+import Login from '../pages/LoginPage';
 
 const Routes = () => {
   return (
