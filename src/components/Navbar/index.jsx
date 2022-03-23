@@ -15,11 +15,13 @@ const Navbar = () => {
     <div className="bg-white-800 h-16 shadow-md w-full mb-6">
       <div className="max-w-screen-2xl mx-auto h-full flex justify-between items-center">
         <div className="flex justify-center items-center gap-10">
-          <img
-            src="https://media.discordapp.net/attachments/903302214859255818/955820487735394364/Logo.png"
-            alt=""
-            className="h-16 w-16"
-          />
+          <Link to="/">
+            <img
+              src="https://media.discordapp.net/attachments/903302214859255818/955820487735394364/Logo.png"
+              alt=""
+              className="h-16 w-16"
+            />
+          </Link>
           <nav className="flex text-gray-800 font-medium gap-10">
             <Link to="/generator">
               <div className="hover:cursor-pointer hover:text-gray-500">Schedule Generator</div>
