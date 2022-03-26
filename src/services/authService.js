@@ -12,9 +12,20 @@ export async function login(user) {
     localStorage.setItem('token', data.token);
   } catch (error) {
     console.log(error);
+    return null;
   }
 }
 
 export async function logout() {
   localStorage.removeItem('token');
+}
+
+export function getToken() {
+  try {
+    const token = localStorage.getItem('token');
+    return token;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }
