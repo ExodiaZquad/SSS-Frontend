@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
+import { login, logout } from '../../services/authService';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 const clientId = '483892147915-374s85caqvj99gcantphbqmlb804tp3o.apps.googleusercontent.com';
 
 const Login = () => {
   const [showloginButton, setShowloginButton] = useState(true);
-  const [showlogoutButton, setShowlogoutButton] = useState(false);
-  const onLoginSuccess = res => {
-    console.log('Login Success:', res.profileObj);
+
+  const onLoginSuccess = async res => {
+    console.log('User profile:', res.profileObj);
+    await login(res.profileObj);
     setShowloginButton(false);
-    setShowlogoutButton(true);
   };
 
   const onLoginFailure = res => {
     console.log('Login Failed:', res);
   };
 
-  const onSignoutSuccess = () => {
+  const onSignoutSuccess = async () => {
+    await logout();
     alert('You have been logged out successfully');
     console.clear();
     setShowloginButton(true);
-    setShowlogoutButton(false);
   };
 
   return (
@@ -34,11 +35,9 @@ const Login = () => {
           cookiePolicy={'single_host_origin'}
           isSignedIn={true}
         />
-      ) : null}
-
-      {showlogoutButton ? (
+      ) : (
         <GoogleLogout clientId={clientId} buttonText="Sign Out" onLogoutSuccess={onSignoutSuccess}></GoogleLogout>
-      ) : null}
+      )}
     </div>
   );
 };
