@@ -1,15 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Login from '../Login';
 
 import { GoChevronDown } from 'react-icons/go';
 
 const Navbar = () => {
-  const [isAuthen, setIsAuthen] = useState('false');
-
-  useEffect(() => {
-    setIsAuthen(true);
-  }, []);
+  const [isAuthen, setIsAuthen] = useState(false);
 
   return (
     <div className="bg-white-800 h-16 shadow-md w-full mb-6">
@@ -46,9 +43,10 @@ const Navbar = () => {
             <GoChevronDown className="hover:cursor-pointer text-gray-400" />
           </div>
         ) : (
-          <button className="bg-black py-2 px-6 rounded-full text-white font-medium hover:cursor-pointer hover:scale-105  transition-all ease-in-out ">
-            Sign In
-          </button>
+          // <button className="bg-black py-2 px-6 rounded-full text-white font-medium hover:cursor-pointer hover:scale-105  transition-all ease-in-out ">
+          //   Sign In
+          // </button>
+          <Login />
         )}
       </div>
     </div>
