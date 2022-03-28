@@ -1,0 +1,46 @@
+.sch_box-shadow{
+    background-color: rgb(236, 234, 234);
+    width: 1200px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sch_box{
+    background-color: rgb(255, 255, 255);
+    width: 99%;
+    height: 98%;
+    /* box-shadow: 0 0 7px 1px; */
+    border-radius: 15px;
+    display:grid;
+    grid-template-rows: 1fr repeat(6,1fr) 0.5fr;
+}
+
+.sch_body{
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    /* position: relative; */
+}
+
+.sch_hourbox{
+    display: flex;
+    align-items: flex-end;
+}
+
+.sch_daybox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.sch_eachhour{
+    height: 70%;
+    width: 7.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(223, 217, 217);
+    background-color: rgb(95, 95, 95);
+}
