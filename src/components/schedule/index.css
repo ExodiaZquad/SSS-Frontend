@@ -46,14 +46,16 @@
 }
 
 .sch_barbox{
-    display: grid;
+    display: flex;
     /* background-color: rgb(207, 214, 207); */
 }
-.ez{
+.sch_barbox-act{
     height: 100%;
     width: 7.5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: rgb(69, 184, 155);
+}
+.sch_barbox-nact{
+    height: 100%;
+    width: 7.5%;
+    background-color: rgb(255, 255, 255);
 }

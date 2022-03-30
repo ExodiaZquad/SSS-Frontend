@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './index.css';
 import fake from './testData.json';
 
@@ -32,10 +32,10 @@ const Schedule = () => {
     return(
         <div className='sch_box-shadow'>
             <div className='sch_box'>
-                <div class="sch_headbox"></div>
-                <div class="sch_body">
+                <div className="sch_headbox"></div>
+                <div className="sch_body">
                     <div></div>
-                    <div class="sch_hourbox">
+                    <div className="sch_hourbox">
                         {(() =>{
                             let posts=[];
                             for(let i=0;i<13;i++)
@@ -46,14 +46,17 @@ const Schedule = () => {
                 </div>
 
                 {days.map((day,index) => (
-                    <div key={index} class="sch_body">
-                        <div class="sch_daybox">{day}</div>
-                        <div class="sch_barbox">
-                            <div className='ez'></div>
+                    <div key={index} className="sch_body">
+                        <div className="sch_daybox">{day}</div>
+                        <div className="sch_barbox">
+                            {bars[index].map((bar) => (
+                                bar ? <div className='sch_barbox-act'></div> : <div className='sch_barbox-nact'></div>
+                            ))}
+
                         </div>
                     </div>
                 ))}
-                <div class="sch_tailbox"></div>
+                <div className="sch_tailbox"></div>
             </div>
         </div>
     )
