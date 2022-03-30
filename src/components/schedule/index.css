@@ -17,22 +17,9 @@
     grid-template-rows: 1fr repeat(6,1fr) 0.5fr;
 }
 
-.sch_body{
-    display: grid;
-    grid-template-columns: 1fr 9fr;
-    /* position: relative; */
-}
-
 .sch_hourbox{
     display: flex;
     align-items: flex-end;
-}
-
-.sch_daybox{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
 }
 
 .sch_eachhour{
@@ -43,4 +30,30 @@
     align-items: center;
     color: rgb(223, 217, 217);
     background-color: rgb(95, 95, 95);
+}
+
+.sch_body{
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    /* position: relative; */
+}
+
+.sch_daybox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.sch_barbox{
+    display: grid;
+    /* background-color: rgb(207, 214, 207); */
+}
+.ez{
+    height: 100%;
+    width: 7.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(69, 184, 155);
 }

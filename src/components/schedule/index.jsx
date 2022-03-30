@@ -1,9 +1,23 @@
 import React from 'react';
-import './index.css'
+import './index.css';
+import fake from './testData.json';
 
 const Schedule = () => {
 
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    const bars = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
+    const alldate = [];
+
+    const dateReviver = function (value) {
+        return new Date(value)
+    }
+    
+    fake.map((fak) => {
+        alldate.push(dateReviver(fak.class.start));
+        alldate.push(dateReviver(fak.class.end));
+    })
+    console.log(alldate)
+
     return(
         <div className='sch_box-shadow'>
             <div className='sch_box'>
@@ -14,7 +28,7 @@ const Schedule = () => {
                         {(() =>{
                             let posts=[];
                             for(let i=0;i<13;i++)
-                            {posts.push(<div key={i} className="sch_eachhour">{i}</div>)}
+                            {posts.push(<div key={i} className="sch_eachhour">{i+8}</div>)}
                             return posts
                         })()}
                     </div>
@@ -23,7 +37,9 @@ const Schedule = () => {
                 {days.map((day,index) => (
                     <div key={index} class="sch_body">
                         <div class="sch_daybox">{day}</div>
-                        <div class="sch_barbox"></div>
+                        <div class="sch_barbox">
+                            <div className='ez'></div>
+                        </div>
                     </div>
                 ))}
                 <div class="sch_tailbox"></div>
