@@ -7,16 +7,27 @@ const Schedule = () => {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     const bars = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
     const alldate = [];
+    const allhours =[];
 
     const dateReviver = function (value) {
         return new Date(value)
     }
     
     fake.map((fak) => {
-        alldate.push(dateReviver(fak.class.start));
-        alldate.push(dateReviver(fak.class.end));
+        alldate.push(dateReviver(fak.class.start).getDay());
+        alldate.push(dateReviver(fak.class.end).getDay());
+
+        allhours.push(dateReviver(fak.class.start).getHours())
+        allhours.push(dateReviver(fak.class.end).getHours())
     })
-    console.log(alldate)
+    // console.log(alldate);
+    console.log(allhours);
+
+    alldate.map((i, index) =>{
+        bars[i-1][allhours[index]-8] = 1 ;
+    })
+
+    console.log(bars);
 
     return(
         <div className='sch_box-shadow'>
