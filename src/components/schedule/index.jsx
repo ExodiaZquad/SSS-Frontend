@@ -8,9 +8,23 @@ const Schedule = () => {
     const bars = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
     const alldate = [];
     const allhours =[];
+    const [stay,setStay] = useState(false)
 
     const dateReviver = function (value) {
         return new Date(value)
+    }
+
+    const rentHour= (stay) => {
+        if(stay){
+            return <div className='sch_barbox-act'></div>
+        }
+        else{
+            return <div className='sch_barbox-nact'></div>
+        }
+    }
+
+    const isToggle= () => {
+        return rentHour(stay)
     }
     
     fake.map((fak) => {
@@ -50,7 +64,7 @@ const Schedule = () => {
                         <div className="sch_daybox">{day}</div>
                         <div className="sch_barbox">
                             {bars[index].map((bar) => (
-                                bar ? <div className='sch_barbox-act'></div> : <div className='sch_barbox-nact'></div>
+                                bar ? isToggle() : rentHour(stay)
                             ))}
 
                         </div>
