@@ -1,15 +1,46 @@
-import React,{useState} from 'react';
+import React from 'react';
 import './index.css';
 import fake from './testData.json';
 
 const Schedule = () => {
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-
-
     const dateReviver = function (value) {
         return new Date(value)
     }
+
+    let alldate = [];
+    let allhour = [];
+    fake.map((fak) => {
+        alldate.push(dateReviver(fak.class.start).getDay());
+        alldate.push(dateReviver(fak.class.end).getDay());
+
+        allhour.push(dateReviver(fak.class.start).getHours());
+        allhour.push(dateReviver(fak.class.end).getHours());
+    })
+    console.log(alldate,allhour);
+
+    let bars_temp = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
+    for (let i = 0; i < alldate.length; i++) {
+        bars_temp[alldate[i]-1][allhour[i]-8]=1;
+    }
+    console.log(bars_temp)
+
+    let bars=[];
+    for (let i = 0; i < bars_temp.length; i++) {
+        let toggle = false;
+        let between1 = [];
+        for (let j = 0; j< bars_temp[i].length; j++){
+            if (bars_temp[i][j] === 1){
+                toggle = !toggle;
+            }
+            between1.push(toggle);
+        }
+        bars.push(between1);
+        // console.log(between1);
+    }
+    console.log(bars);
+    
 
 
     return(
@@ -32,7 +63,9 @@ const Schedule = () => {
                     <div key={index} className="sch_body">
                         <div className="sch_daybox">{day}</div>
                         <div className="sch_barbox">
-                            
+                            {bars[index].map((bar) => (
+                                bar ? <div className='sch_barbox-act'></div> : <div className='sch_barbox-nact'></div>
+                            ))}
 
                         </div>
                     </div>
