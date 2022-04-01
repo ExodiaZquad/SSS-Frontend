@@ -22,6 +22,7 @@ const Schedule = () => {
 
     let bars_temp = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
     for (let i = 0; i < alldate.length; i++) {
+        //if number is already 1 next index will be set to 1
         bars_temp[alldate[i]-1][allhour[i]-8]=1;
     }
     console.log(bars_temp)
