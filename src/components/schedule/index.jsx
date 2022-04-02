@@ -23,7 +23,7 @@ const Schedule = () => {
     let bars_temp = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
     for (let i = 0; i < alldate.length; i++) {
         //if number is already 1 next index will be set to 1
-        bars_temp[alldate[i]-1][allhour[i]-8]=1;
+        bars_temp[alldate[i]-1][allhour[i]-8]+=1;
     }
     console.log(bars_temp)
 
@@ -64,8 +64,8 @@ const Schedule = () => {
                     <div key={index} className="sch_body">
                         <div className="sch_daybox">{day}</div>
                         <div className="sch_barbox">
-                            {bars[index].map((bar) => (
-                                bar ? <div className='sch_barbox-act'></div> : <div className='sch_barbox-nact'></div>
+                            {bars[index].map((bar,indey) => (
+                                bar ? <div key={indey} className='sch_barbox-act'></div> : <div key={indey} className='sch_barbox-nact'></div>
                             ))}
 
                         </div>
