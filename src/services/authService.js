@@ -10,8 +10,10 @@ export async function login(user) {
 
     const { data } = await axios.post(apiLogin, { email, name, googleId, imageUrl });
     localStorage.setItem('token', data.token);
-  } catch (error) {
-    console.log(error);
+
+    return data.token;
+  } catch (ex) {
+    console.log(ex);
     return null;
   }
 }
