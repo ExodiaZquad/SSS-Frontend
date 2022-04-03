@@ -33,7 +33,7 @@ const Login = () => {
           onSuccess={onLoginSuccess}
           onFailure={onLoginFailure}
           cookiePolicy={'single_host_origin'}
-          isSignedIn={true}
+          isSignedIn={false}
         />
       ) : (
         <GoogleLogout clientId={clientId} buttonText="Sign Out" onLogoutSuccess={onSignoutSuccess}></GoogleLogout>
