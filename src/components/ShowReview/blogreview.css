@@ -116,6 +116,7 @@
 .review__like {
   display: flex;
   justify-content: center;
+  background-color: #0583f2;
   /* padding: 40px 20px 0px 40px; */
 }
 .main {

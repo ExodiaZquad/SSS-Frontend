@@ -40,7 +40,7 @@ const Blogpage = () => {
           <h1 className="">Subject</h1>
           <h1>Date</h1>
           <h1>Review</h1>
-          <h1 className="place-self-center">Like</h1>
+          <h1 className="flex justify-center bg-red-300">Like</h1>
         </div>
         <div className="h-[68vh] overflow-auto">
           <ShowReview
