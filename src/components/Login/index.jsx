@@ -8,9 +8,10 @@ const Login = () => {
   const [showloginButton, setShowloginButton] = useState(true);
 
   const onLoginSuccess = async res => {
-    console.log('User profile:', res.profileObj);
-    await login(res.profileObj);
-    setShowloginButton(false);
+    const token = await login(res.profileObj);
+    if (token) return setShowloginButton(false);
+
+    alert('Please login with your KMITL account.');
   };
 
   const onLoginFailure = res => {
@@ -20,7 +21,6 @@ const Login = () => {
   const onSignoutSuccess = async () => {
     await logout();
     alert('You have been logged out successfully');
-    console.clear();
     setShowloginButton(true);
   };
 
@@ -33,7 +33,7 @@ const Login = () => {
           onSuccess={onLoginSuccess}
           onFailure={onLoginFailure}
           cookiePolicy={'single_host_origin'}
-          isSignedIn={true}
+          isSignedIn={false}
         />
       ) : (
         <GoogleLogout clientId={clientId} buttonText="Sign Out" onLogoutSuccess={onSignoutSuccess}></GoogleLogout>
