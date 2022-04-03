@@ -66,15 +66,9 @@ function Dropdown({ selected, setSelected }) {
 }
 function Modal({ setOpenModal }) {
   return (
-    <div className="modalBackground">
-      <div className="modalContainer">
-        <div className="titleCloseBtn">
-          <button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-          ></button>
-        </div>
+    <div className="modalBackground ">
+      <div className="w-screen h-screen absolute z-10 cursor-pointer" onClick={() => setOpenModal(false)}></div>
+      <div className="modalContainer relative z-20">
         <div className="head-sub">Subject ID :</div>
         <div className="name__review">
           <input type="text" name="Name" />
