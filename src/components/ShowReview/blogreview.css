@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/* like & dislike */
+.review_button{
+    display: flex;
+    flex-direction: column;
+}
+.review_button button{
+    display: flex;
+    border-radius: 20px;
+    width: fit-content;
+    width: 70px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+} 
+.btn-like{
+    background-color: white;
+    color: black;
+    border: 2px solid #9A9A9A;
+    font-size: 18px;
+}
+.img_btn{
+    width: 18px;
+    margin-right: 10px;
+}
+.active_like{
+    background-color: #0583F2;
+    color: white;
+    border: 2px solid #0583F2;
+    font-size: 18px;
+}
+.active_like img{
+    filter:brightness(0) invert(1)
+}
+.btn-like:hover{
+    background-color: #cdcdcd; /* Green */
+}
+
+
+/* review box */
+.review__box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.review__type{
+    display: grid;
+    grid-template-columns: 30% 22% 33% 15%;
+    background-color: white;
+    width: 1100px;
+    height: 220px;
+    /* width: 960px;
+    height: 200px; */
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.review__sub {
+    display: flex;
+    flex-direction: column;
+}
+.review__sub .sub_name{
+    font-size: 20px;
+    max-width: 300px;
+    font-weight: bold;
+    padding: 40px 0px 0px 40px; /*บน  ขวา  ล่าง  ซ้าย*/
+}
+
+.review__sub .sub_num{
+    max-width: 300px;
+    font-size: 18px;
+    padding: 0px 0px 0px 40px; /*บน  ขวา  ล่าง  ซ้าย*/
+    color: #bebebe;
+    font-weight: bold;
+}
+.review_reviewer{
+    display: flex;
+    margin-right: 35px;
+}
+.review__img img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 40px 0px 0px 0px; /*บน  ขวา  ล่าง  ซ้าย*/
+}
+
+.review__name_date{
+    padding: 40px 20px 0px 10px; /*บน  ขวา  ล่าง  ซ้าย*/
+}
+
+.r_name{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.r_date{
+    font-size: 18px;
+    font-weight: bold;
+    color: #BEBEBE;
+}
+.review__star img{
+    width: 80px;
+}
+.review__text {
+    overflow: auto;
+    font-size: 16px;
+    padding: 40px 0px 0px 20px; /*บน  ขวา  ล่าง  ซ้าย*/
+}
+
+.review__like{
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px 0px 40px; /*บน  ขวา  ล่าง  ซ้าย*/
+}
+.main{
+    background-color: #E9ECF4;
+}
