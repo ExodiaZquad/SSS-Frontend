@@ -1,17 +1,25 @@
-.Blog-contain {
-  width: 100vw;
+.Review-container{
   height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.Blog-contain{
+  height: 10rem;
+  width: 95rem;
 }
 .Blog-header {
   font-weight: bold;
-  margin-top: 1rem;
-  margin-left: 10rem;
   font-size: 2rem;
+}
+.Blog-function {
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+  justify-content: space-between;
 }
 .dropdown {
   width: 15rem;
-  margin-top: 1rem;
-  margin-left: 10rem;
   font-size: 0.8rem;
   user-select: none;
   position: relative;
@@ -52,6 +60,37 @@
 .dropdown .dropdown-content .dropdown-item:hover {
   background: #fcfcfc;
 }
+.search-post{
+  width: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.search-bar {
+  max-width: 19rem;
+  width: 100%;
+  height: 2rem;
+  background-color: #f0f0f0;
+  border-radius: 5.5rem;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  align-items: center;
+  position: relative;
+}
+.search-bar i{
+  margin-left: 1rem;
+}
+.search-bar input{
+  width: 17rem;
+  background: none;
+  outline: none;
+  border: none;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #333;
+}
+
+
 .modalBackground {
   position: fixed;
   width: 100%;
@@ -63,7 +102,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .modalContainer {
   width: 450px;
   height: 400px;
@@ -74,25 +112,21 @@
   flex-direction: column;
   padding: 25px;
 }
-
 .modalContainer .title {
   display: inline-block;
   text-align: center;
   margin-top: 10px;
 }
-
 .titleCloseBtn {
   display: flex;
   justify-content: flex-end;
 }
-
 .titleCloseBtn button {
   background-color: transparent;
   border: none;
   font-size: 25px;
   cursor: pointer;
 }
-
 .modalContainer .body {
   flex: 50%;
   display: flex;
@@ -101,7 +135,10 @@
   font-size: 1.7rem;
   text-align: center;
 }
-
+.head-sub{
+  font-size: 1.5rem;
+  font-weight:500;
+}
 .modalContainer .footer {
   flex: 20%;
   display: flex;
@@ -146,32 +183,9 @@
   font-size: 1rem;
   color: #333;
 }
-.review__box {
-  max-width: 19rem;
-  width: 100%;
-  height: 2rem;
-  background-color: #f0f0f0;
-  margin: 1rem;
-  border-radius: 5.5rem;
-  display: grid;
-  grid-template-columns: 23% 77%;
-  position: relative;
-}
-.post__review input {
-  width: 17rem;
-  background: none;
-  outline: none;
-  border: none;
-  padding-left: 1rem;
-  font-weight: 40;
-  font-size: 1rem;
-  color: #333;
-}
 .openModalBtn {
   width: 130px;
-  height: 40px;
-  margin-left: 2rem;
-  margin-top: 1rem;
+  height: 40px; 
   border: none;
   font-weight: 500;
   border-radius: 6px;
@@ -179,36 +193,8 @@
   color: white;
   cursor: pointer;
 }
-.search-bar {
-  max-width: 19rem;
-  width: 100%;
-  margin-left: 50rem;
-  margin-top: 1.2rem;
-  height: 2rem;
-  background-color: #f0f0f0;
-  border-radius: 5.5rem;
-  display: grid;
-  grid-template-columns: 15% 85%;
-  align-items: center;
-  position: relative;
-}
-.search-bar i{
-  margin-left: 1rem;
-}
-.search-bar input{
-  width: 17rem;
-  background: none;
-  outline: none;
-  border: none;
-  font-weight: 500;
-  font-size: 1rem;
-  color: #333;
-}
-.Blog-function {
-  display: flex;
-}
-.head-sub{
-  font-size: 1.5rem;
-  font-weight:500;
-}
+
+
+
+
 

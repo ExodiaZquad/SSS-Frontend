@@ -7,25 +7,30 @@ const Blogpage = () => {
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
   return (
-    <div className="Blog-contain">
-      <div className="Blog-header">Blog Review</div>
-      <div className="Blog-function">
-        <Dropdown selected={selected} setSelected={setSelected} />
-        <div className="search-bar">
-          <i>
-            <FaSistrix color="grey" size={20} />
-          </i>
-          <input type="text" placeholder="search" />
+    <div className="Review-container">
+      <div className="Blog-contain">
+        <div className="Blog-header">Blog Review</div>
+        <div className="Blog-function">
+          <Dropdown selected={selected} setSelected={setSelected} />
+          <div className="search-post">
+            <div className="search-bar">
+              <i>
+                <FaSistrix color="grey" size={20} />
+              </i>
+              <input type="text" placeholder="search" />
+            </div>
+            <button
+              className="openModalBtn"
+              onClick={() => {
+                setModalOpen(true);
+              }}
+            >
+              Post +
+            </button>
+          </div>
+
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
         </div>
-        <button
-          className="openModalBtn"
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          Post +
-        </button>
-        {modalOpen && <Modal setOpenModal={setModalOpen} />}
       </div>
     </div>
   );
