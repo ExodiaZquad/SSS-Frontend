@@ -1,12 +1,15 @@
 .Review-container {
-  height: 100vh;
+  height: calc(100vh - 64px);
   width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e9ecf4;
+  padding-top: 3.2rem;
 }
 .Blog-contain {
-  height: 10rem;
   width: 95rem;
+  margin-bottom: 3rem;
 }
 .Blog-header {
   font-weight: bold;
