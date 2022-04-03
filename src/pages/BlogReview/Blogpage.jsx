@@ -35,14 +35,14 @@ const Blogpage = () => {
         </div>
       </div>
 
-      <div className="Blog-contain">
+      <div className="Blog-contain ">
         <div className="review__grid--column px-[40px]">
           <h1 className="">Subject</h1>
           <h1>Date</h1>
           <h1>Review</h1>
           <h1 className="flex justify-center">Like</h1>
         </div>
-        <div className="h-[68vh] overflow-auto">
+        <div className="h-[68vh] overflow-auto mt-3">
           <ShowReview
             subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
             subject_id="90201039"
