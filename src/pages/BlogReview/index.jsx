@@ -1,11 +1,13 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
+import './blogpage.css';
+import Blogpage from '../../pages/BlogReview/Blogpage';
 
 const BlogReview = () => {
   return (
     <div>
       <Navbar />
-      <h1>Blog Review page.</h1>
+      <Blogpage />
     </div>
   );
 };
