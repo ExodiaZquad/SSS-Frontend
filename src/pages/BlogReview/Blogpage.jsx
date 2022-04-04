@@ -126,27 +126,66 @@ function Dropdown({ selected, setSelected }) {
     </div>
   );
 }
+// function Modal({ setOpenModal }) {
+//   return (
+//     <div className="modalBackground ">
+//       <div className="w-screen h-screen absolute z-10 cursor-pointer" onClick={() => setOpenModal(false)}></div>
+//       <div className="modalContainer relative z-20">
+//         <div className="head-sub">Subject ID :</div>
+//         <div className="name__review">
+//           <input type="text" name="Name" />
+//         </div>
+//         <div className="head-sub">Detail :</div>
+//         <Star />
+//         <div className="footer">
+//           <button
+//             onClick={() => {
+//               setOpenModal(false);
+//             }}
+//             id="cancelBtn"
+//           >
+//             Cancel
+//           </button>
+//           <button>Submit</button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 function Modal({ setOpenModal }) {
   return (
-    <div className="modalBackground ">
-      <div className="w-screen h-screen absolute z-10 cursor-pointer" onClick={() => setOpenModal(false)}></div>
-      <div className="modalContainer relative z-20">
-        <div className="head-sub">Subject ID :</div>
-        <div className="name__review">
-          <input type="text" name="Name" />
+    <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center">
+      <div
+        className="w-screen h-screen absolute top-0 left-0 bg-black/70 cursor-pointer"
+        onClick={() => setOpenModal(false)}
+      ></div>
+      <div className="bg-white px-16 py-14 absolute rounded-lg shadow-lg">
+        <div className="mb-5">
+          <h1 className="text-2xl font-bold mb-2">
+            Subject ID<span className="text-red-500">*</span>
+          </h1>
+          <input type="text" className="text-lg px-4 py-2 border rounded" placeholder="รหัสวิชา" />
         </div>
-        <div className="head-sub">Detail :</div>
+
+        <div className="mb-2">
+          <h1 className="text-2xl font-bold mb-2">
+            Detail<span className="text-red-500">*</span>
+          </h1>
+          <textarea
+            placeholder="รีวิววิชา"
+            className="p-4 w-[700px] h-80 border rounded text-lg resize-none"
+          ></textarea>
+        </div>
+
         <Star />
-        <div className="footer">
-          <button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-            id="cancelBtn"
+
+        <div className="flex justify-center mt-6">
+          <div
+            className="bg-blue-300 px-6 py-3 rounded-full select-none cursor-pointer active:bg-blue-500"
+            onClick={() => alert('Click tum kuay rai ???')}
           >
-            Cancel
-          </button>
-          <button>Submit</button>
+            Confirm
+          </div>
         </div>
       </div>
     </div>
@@ -171,8 +210,10 @@ function Star() {
 
   return (
     <div style={styles.container}>
-      <textarea placeholder="What's your experience?" style={styles.textarea} />
-      <div className="head-sub">Rate :</div>
+      {/* <textarea placeholder="What's your experience?" style={styles.textarea} /> */}
+      <h1 className="text-2xl font-bold mb-2">
+        Rate<span className="text-red-500">*</span>
+      </h1>
       <div style={styles.stars}>
         {stars.map((_, index) => {
           return (
