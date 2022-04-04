@@ -126,32 +126,6 @@ function Dropdown({ selected, setSelected }) {
     </div>
   );
 }
-// function Modal({ setOpenModal }) {
-//   return (
-//     <div className="modalBackground ">
-//       <div className="w-screen h-screen absolute z-10 cursor-pointer" onClick={() => setOpenModal(false)}></div>
-//       <div className="modalContainer relative z-20">
-//         <div className="head-sub">Subject ID :</div>
-//         <div className="name__review">
-//           <input type="text" name="Name" />
-//         </div>
-//         <div className="head-sub">Detail :</div>
-//         <Star />
-//         <div className="footer">
-//           <button
-//             onClick={() => {
-//               setOpenModal(false);
-//             }}
-//             id="cancelBtn"
-//           >
-//             Cancel
-//           </button>
-//           <button>Submit</button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 function Modal({ setOpenModal }) {
   return (
     <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center">
@@ -211,9 +185,7 @@ function Star() {
   return (
     <div style={styles.container}>
       {/* <textarea placeholder="What's your experience?" style={styles.textarea} /> */}
-      <h1 className="text-2xl font-bold mb-2">
-        Rate<span className="text-red-500">*</span>
-      </h1>
+      <h1 className="text-2xl font-bold mb-2">Rate</h1>
       <div style={styles.stars}>
         {stars.map((_, index) => {
           return (
