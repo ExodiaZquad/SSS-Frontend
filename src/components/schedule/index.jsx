@@ -1,5 +1,4 @@
-import { stringify } from 'postcss';
-import React,{useState} from 'react';
+import React,{useState,useRef} from 'react';
 import {AiFillHeart} from 'react-icons/ai';
 import {BsSquareFill} from 'react-icons/bs';
 import './index.css';
@@ -8,14 +7,24 @@ import fake from './testData.json';
 const Schedule = () => {
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const colors = ['45B99B','DD8430','9253A1','F063A4','2DC5F4']
+    const colors = ['#45B99B','#DD8430','#9253A1','#F063A4','#2DC5F4']
     const [fav,setFav] = useState(false)
+    const runcolor = useRef(0)
     const dateReviver = function (value) {
         return new Date(value)
     }
     const isLike = () => {
         setFav(!fav)
-
+    }
+    const nextColor = () => {
+        runcolor.current += 1
+        runcolor.current = runcolor.current%5
+    }
+    const reColor = () => {
+        runcolor.current = 0
+    }
+    const setColor = (color) => {
+        document.documentElement.style.setProperty('--sch_color_act',color)
     }
 
     let alldate = [];
@@ -56,7 +65,7 @@ const Schedule = () => {
         // console.log(between1);
     }
     console.log("bars = ",bars);
-    
+    reColor()
 
 
     return(
@@ -83,7 +92,17 @@ const Schedule = () => {
                         <div className="sch_barbox">
                             {   
                                 bars[index].map((bar,indey) => {
-                                    return (bar ? <div key={indey} className='sch_barbox-act'></div> : <div key={indey} className='sch_barbox-nact'></div>)
+                                    if (bars_temp[index][indey] == 1 || bars_temp[index][indey]==2){
+                                        nextColor()
+                                        setColor(colors[runcolor.current])
+                                        console.log('setColor',colors[runcolor.current],' row',index)
+                                    }
+                                    if (bar==1){
+                                        return (<div key={indey} className='sch_barbox-act'></div>)
+                                    }
+                                    else{
+                                        return (<div key={indey} className='sch_barbox-nact'></div>)
+                                    }
                                 })
                             }
 
