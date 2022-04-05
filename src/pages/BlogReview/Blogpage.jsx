@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { FaCaretDown } from 'react-icons/fa';
@@ -8,6 +9,30 @@ import ShowReview from '../../components/ShowReview';
 const Blogpage = () => {
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
+
+  const [subjectId, setSubjecdtId] = useState('XXX');
+  const [textBlogReview, setTextBlogReview] = useState('XXXX');
+  const [userIdBlogReview, setUserIdBlogReview] = useState('XXXX');
+  const [usernameBlogReview, setUsernameBlogReview] = useState('XXX');
+  const [typeOfSubject, setTypeOfSubject] = useState('XXX');
+  const [rate, setRate] = useState(0);
+
+  const submitReview = async () => {
+    const res = await axios.post('http://localhost:3005/api/blogreviews/', {
+      subjectId: '9010599',
+      subjectName: 'noctis',
+      textBlogreview: 'apex',
+      userId_Blogreview: '63010190',
+      userName_Blogreview: 'hello',
+      userId_Like: [],
+      userId_Dislike: [],
+      typeOfsubject: 'Computer',
+      rate: 0,
+    });
+
+    console.log(res.data);
+  };
+
   return (
     <div className="Review-container">
       <div className="Blog-contain">
@@ -31,7 +56,7 @@ const Blogpage = () => {
             </button>
           </div>
 
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          {modalOpen && <Modal setOpenModal={setModalOpen} rate={rate} setRate={setRate} submitReview={submitReview} />}
         </div>
       </div>
 
@@ -126,7 +151,7 @@ function Dropdown({ selected, setSelected }) {
     </div>
   );
 }
-function Modal({ setOpenModal }) {
+function Modal({ setOpenModal, rate, setRate, submitReview }) {
   return (
     <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center">
       <div
@@ -151,12 +176,12 @@ function Modal({ setOpenModal }) {
           ></textarea>
         </div>
 
-        <Star />
+        <Star rate={rate} setRate={setRate} />
 
         <div className="flex justify-center mt-6">
           <div
             className="bg-blue-300 px-6 py-3 rounded-full select-none cursor-pointer active:bg-blue-500"
-            onClick={() => alert('Click tum kuay rai ???')}
+            onClick={submitReview}
           >
             Confirm
           </div>
@@ -165,8 +190,8 @@ function Modal({ setOpenModal }) {
     </div>
   );
 }
-function Star() {
-  const [currentValue, setCurrentValue] = useState(0);
+function Star({ rate: currentValue, setRate: setCurrentValue }) {
+  // const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0);
 
