@@ -1,12 +1,18 @@
-import React from 'react';
+import React,{useState} from 'react';
+import {AiFillHeart} from 'react-icons/ai';
 import './index.css';
 import fake from './testData.json';
 
 const Schedule = () => {
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    const [fav,setFav] = useState(false)
     const dateReviver = function (value) {
         return new Date(value)
+    }
+    const isLike = () => {
+        setFav(!fav)
+
     }
 
     let alldate = [];
@@ -47,7 +53,9 @@ const Schedule = () => {
     return(
         <div className='sch_box-shadow'>
             <div className='sch_box'>
-                <div className="sch_headbox"></div>
+                <div className="sch_headbox">
+                    {fav ? <AiFillHeart color='red' size='2.5em' className='sch_like' onClick={isLike}/> : <AiFillHeart color='gray' size='2.5em' className='sch_like' onClick={isLike}/>}
+                </div>
                 <div className="sch_body">
                     <div></div>
                     <div className="sch_hourbox">
@@ -71,7 +79,11 @@ const Schedule = () => {
                         </div>
                     </div>
                 ))}
-                <div className="sch_tailbox"></div>
+                <div className="sch_tailbox">
+                    <div>eiei</div>
+                    <div>eiei</div>
+                    <div>eiei</div>
+                </div>
             </div>
         </div>
     )

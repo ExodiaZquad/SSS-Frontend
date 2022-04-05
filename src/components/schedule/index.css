@@ -14,7 +14,17 @@
     /* box-shadow: 0 0 7px 1px; */
     border-radius: 15px;
     display:grid;
-    grid-template-rows: 1fr repeat(6,1fr) 0.5fr;
+    grid-template-rows: repeat(8,1fr);
+}
+
+.sch_headbox{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.sch_like{
+    cursor: pointer;
 }
 
 .sch_hourbox{
@@ -58,4 +68,11 @@
     height: 100%;
     width: 7.5%;
     background-color: rgb(255, 255, 255);
+}
+
+.sch_tailbox{
+    /* background-color: aliceblue; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
