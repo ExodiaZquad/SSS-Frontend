@@ -1,7 +1,7 @@
 [
   {
       "id": "01076008",
-      "name": "SOFTWARE DEVELOPMENT PROCESSES",
+      "name": "SOFTWARE",
       "category": "010",
       "sec": 1,
       "credit": 4,
@@ -24,7 +24,7 @@
     },
     {
       "id": "01076008",
-      "name": "SOFTWARE DEVELOPMENT PROCESSES",
+      "name": "SOFTWARE",
       "category": "010",
       "sec": 101,
       "credit": 4,
@@ -47,7 +47,7 @@
       },
     {
       "id": "01076008",
-      "name": "SOFTWARE DEVELOPMENT PROCESSES",
+      "name": "SOFTWARE",
       "category": "010",
       "sec": 2,
       "credit": 4,
@@ -70,7 +70,7 @@
     },
     {
       "id": "01076008",
-      "name": "SOFTWARE DEVELOPMENT PROCESSES",
+      "name": "SOFTWARE",
       "category": "010",
       "sec": 102,
       "credit": 4,
@@ -93,7 +93,7 @@
       },
     {
       "id": "01076008",
-      "name": "SOFTWARE DEVELOPMENT PROCESSES",
+      "name": "SOFTWARE",
       "category": "010",
       "sec": 3,
       "credit": 4,
@@ -116,7 +116,7 @@
     },
     {
       "id": "01076008",
-      "name": "SOFTWARE DEVELOPMENT PROCESSES",
+      "name": "SOFTWARE",
       "category": "010",
       "sec": 103,
       "credit": 4,
@@ -139,7 +139,7 @@
       },
       {
         "id": "01076008",
-        "name": "SOFTWARE DEVELOPMENT PROCESSES",
+        "name": "SOFTWARE",
         "category": "010",
         "sec": 2,
         "credit": 4,
@@ -147,8 +147,8 @@
         "note": "รับเฉพาะกู",
         "teachers": ["ผศ.ดร.ชุติเมษฏ์ ศรีนิลทา"],
         "class": {
-          "start": "March 6, 2020 08:45:00",
-          "end": "March 6, 2020 12:00:00"
+          "start": "March 6, 2020 15:45:00",
+          "end": "March 6, 2020 19:00:00"
         },
         "midterm": {
           "start": "March 9, 2022 09:30:00",

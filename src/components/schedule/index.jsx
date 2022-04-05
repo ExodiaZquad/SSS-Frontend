@@ -1,11 +1,14 @@
+import { stringify } from 'postcss';
 import React,{useState} from 'react';
 import {AiFillHeart} from 'react-icons/ai';
+import {BsSquareFill} from 'react-icons/bs';
 import './index.css';
 import fake from './testData.json';
 
 const Schedule = () => {
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    const colors = ['45B99B','DD8430','9253A1','F063A4','2DC5F4']
     const [fav,setFav] = useState(false)
     const dateReviver = function (value) {
         return new Date(value)
@@ -27,11 +30,17 @@ const Schedule = () => {
     console.log(alldate,allhour);
 
     let bars_temp = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
+    let start_point = [[],[],[],[],[]]
     for (let i = 0; i < alldate.length; i++) {
         //if number is already 1 next index will be set to 1
         bars_temp[alldate[i]-1][allhour[i]-8]+=1;
     }
-    console.log(bars_temp)
+    for (let i = 0; i < alldate.length; i+=2) {
+        //if number is already 1 next index will be set to 1
+        start_point[alldate[i]-1].push(allhour[i]-8);
+    }
+    console.log("start point(index) = ",start_point)
+    console.log("bars_temp = ",bars_temp)
 
     let bars=[];
     for (let i = 0; i < bars_temp.length; i++) {
@@ -46,7 +55,7 @@ const Schedule = () => {
         bars.push(between1);
         // console.log(between1);
     }
-    console.log(bars);
+    console.log("bars = ",bars);
     
 
 
@@ -72,17 +81,19 @@ const Schedule = () => {
                     <div key={index} className="sch_body">
                         <div className="sch_daybox">{day}</div>
                         <div className="sch_barbox">
-                            {bars[index].map((bar,indey) => (
-                                bar ? <div key={indey} className='sch_barbox-act'></div> : <div key={indey} className='sch_barbox-nact'></div>
-                            ))}
+                            {   
+                                bars[index].map((bar,indey) => {
+                                    return (bar ? <div key={indey} className='sch_barbox-act'></div> : <div key={indey} className='sch_barbox-nact'></div>)
+                                })
+                            }
 
                         </div>
                     </div>
                 ))}
                 <div className="sch_tailbox">
-                    <div>eiei</div>
-                    <div>eiei</div>
-                    <div>eiei</div>
+                {fake.map((fak,index) => 
+                    <div key={index} className='sch_each-detail'><BsSquareFill color={String(colors[index % 5])} size='1.2em'/>{fak.name}</div>
+                )}
                 </div>
             </div>
         </div>

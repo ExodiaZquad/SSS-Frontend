@@ -62,7 +62,7 @@
 .sch_barbox-act{
     height: 100%;
     width: 7.5%;
-    background-color: rgb(69, 184, 155);
+    background-color: #45B99B;
 }
 .sch_barbox-nact{
     height: 100%;
@@ -75,4 +75,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.sch_each-detail{
+    font-size: 10px;
+    display: flex;
 }
