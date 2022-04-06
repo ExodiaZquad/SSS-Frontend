@@ -1,7 +1,3 @@
-:root{
-    --sch_color_act : #45B99B;
-}
-
 .sch_box-shadow{
     background-color: rgb(236, 234, 234);
     width: 1200px;
@@ -63,11 +59,39 @@
     display: flex;
     /* background-color: rgb(207, 214, 207); */
 }
-.sch_barbox-act{
+
+/* const colors = ['#45B99B','#DD8430','#9253A1','#F063A4','#2DC5F4'] */
+.sch_barbox-act0{
     height: 100%;
     width: 7.5%;
-    background-color: var(--sch_color_act);
+    background-color: #45B99B;
 }
+.sch_barbox-act1{
+    height: 100%;
+    width: 7.5%;
+    background-color: #DD8430;
+}
+.sch_barbox-act2{
+    height: 100%;
+    width: 7.5%;
+    background-color: #9253A1;
+}
+.sch_barbox-act3{
+    height: 100%;
+    width: 7.5%;
+    background-color: #F063A4;
+}
+.sch_barbox-act4{
+    height: 100%;
+    width: 7.5%;
+    background-color: #2DC5F4;
+}
+.sch_barbox-act5{
+    height: 100%;
+    width: 7.5%;
+    background-color: #78e787;
+}
+
 .sch_barbox-nact{
     height: 100%;
     width: 7.5%;

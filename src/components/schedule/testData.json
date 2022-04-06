@@ -114,29 +114,6 @@
       },
       "type": "Theory"
     },
-    {
-      "id": "01076008",
-      "name": "SOFTWARE",
-      "category": "010",
-      "sec": 103,
-      "credit": 4,
-      "day": 5,
-      "note": "รับเฉพาะกู",
-      "teachers": ["ผศ.ดร.ชุติเมษฏ์ ศรีนิลทา"],
-      "class": {
-          "start": "March 5, 2020 13:00:00",
-          "end": "March 5, 2020 16:00:00"
-      },
-      "midterm": {
-          "start": "จัดสอบเอง",
-          "end": "จัดสอบเอง"
-      }, 
-      "final": {
-          "start": "จัดสอบเอง",
-          "end": "จัดสอบเอง"
-        },
-      "type": "Lab"
-      },
       {
         "id": "01076008",
         "name": "SOFTWARE",

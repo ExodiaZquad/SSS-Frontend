@@ -18,13 +18,10 @@ const Schedule = () => {
     }
     const nextColor = () => {
         runcolor.current += 1
-        runcolor.current = runcolor.current%5
+        runcolor.current = runcolor.current%6
     }
     const reColor = () => {
         runcolor.current = 0
-    }
-    const setColor = (color) => {
-        document.documentElement.style.setProperty('--sch_color_act',color)
     }
 
     let alldate = [];
@@ -92,20 +89,18 @@ const Schedule = () => {
                         <div className="sch_barbox">
                             {   
                                 bars[index].map((bar,indey) => {
-                                    if (bars_temp[index][indey] == 1 || bars_temp[index][indey]==2){
+                                    for(let i=0;i<start_point[index].length;i++)
+                                    {if(indey == start_point[index][i]) {
                                         nextColor()
-                                        setColor(colors[runcolor.current])
-                                        console.log('setColor',colors[runcolor.current],' row',index)
-                                    }
-                                    if (bar==1){
-                                        return (<div key={indey} className='sch_barbox-act'></div>)
+                                    }}
+                                    if (bar){
+                                        return (<div key={indey} className={'sch_barbox-act'+String(runcolor.current)}></div>)
                                     }
                                     else{
                                         return (<div key={indey} className='sch_barbox-nact'></div>)
                                     }
                                 })
                             }
-
                         </div>
                     </div>
                 ))}
