@@ -491,8 +491,8 @@ const Table = () => {
   const [subjects, setSubjects] = useState([]);
 
   return (
-    <div>
-      <table className="mx-auto w-9/12 text-center font-medium ">
+    <div className="mt-4">
+      <table className="w-full text-center font-medium ">
         <tr className="rounded">
           <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500">รหัสวิชา</th>
           <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500">ชื่อวิชา</th>
