@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { FaCaretDown } from 'react-icons/fa';
 import { FaSistrix } from 'react-icons/fa';
@@ -17,6 +17,8 @@ const Blogpage = () => {
     textBlogreview: '',
     rate: 0,
   });
+
+  const [reviews, setReviews] = useState([]);
 
   const handleNewReview = ({ currentTarget: target }) => {
     let temp = { ...newReview };
@@ -40,6 +42,24 @@ const Blogpage = () => {
 
     setModalOpen(false);
     alert('Auan tum kuay rai i sus !?');
+  };
+
+  const getReviews = async () => {
+    const token = getToken();
+    const res = await axios.get('http://localhost:3005/api/blogreviews/', {
+      headers: { 'x-auth-token': token },
+    });
+
+    // console.log(res.data);
+    setReviews(res.data);
+  };
+
+  useEffect(() => {
+    getReviews();
+  }, []);
+
+  const transformDate = date => {
+    return date.slice(0, 10);
   };
 
   return (
@@ -85,54 +105,20 @@ const Blogpage = () => {
           <h1 className="flex justify-center">Like</h1>
         </div>
         <div className="h-[68vh] overflow-auto mt-3">
-          <ShowReview
-            subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
-            subject_id="90201039"
-            img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-            reviewer_name="Thanakorn"
-            date="19 Mar 2022"
-            star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
-            text="เป็นวิชาที่น่าเรียนมากๆ อาจารย์น่ารักมีให้
-            ร้องเพลงอิ๊งกับแสดงละครเป็นกลุ่มไม่มีการบ้าน 
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ
-            "
-          />
-          <ShowReview
-            subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
-            subject_id="90201039"
-            img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-            reviewer_name="Thanakorn"
-            date="19 Mar 2022"
-            star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
-            text="เป็นวิชาที่น่าเรียนมากๆ อาจารย์น่ารักมีให้
-            ร้องเพลงอิ๊งกับแสดงละครเป็นกลุ่มไม่มีการบ้าน 
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ"
-          />
-          <ShowReview
-            subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
-            subject_id="90201039"
-            img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-            reviewer_name="Thanakorn"
-            date="19 Mar 2022"
-            star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
-            text="เป็นวิชาที่น่าเรียนมากๆ อาจารย์น่ารักมีให้
-            ร้องเพลงอิ๊งกับแสดงละครเป็นกลุ่มไม่มีการบ้าน 
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ"
-          />
-          <ShowReview
-            subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
-            subject_id="90201039"
-            img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-            reviewer_name="Thanakorn"
-            date="19 Mar 2022"
-            star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
-            text="เป็นวิชาที่น่าเรียนมากๆ อาจารย์น่ารักมีให้
-            ร้องเพลงอิ๊งกับแสดงละครเป็นกลุ่มไม่มีการบ้าน 
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ"
-          />
+          {reviews.map((review, index) => {
+            return (
+              <ShowReview
+                key={index}
+                subject_name={'ENGLISH FROM ENTERTAINMENT MEDIA'}
+                subject_id={review.subjectId}
+                img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
+                reviewer_name="Thanakorn"
+                date={transformDate(review.date)}
+                star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
+                text={review.textBlogreview}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
