@@ -7,7 +7,7 @@ import fake from './testData.json';
 const Schedule = () => {
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const colors = ['#45B99B','#DD8430','#9253A1','#F063A4','#2DC5F4']
+    const colors = ['#19afd0','#6967ce','#ffb900','#fd636b','#8ad879','#a5e1e9','#d5edb9','#c4bdf3','#fce8a5','#ffc296','#f8cadc','#3ae8b0'];
     const [fav,setFav] = useState(false)
     const runcolor = useRef(0)
     const dateReviver = function (value) {
@@ -18,7 +18,8 @@ const Schedule = () => {
     }
     const nextColor = () => {
         runcolor.current += 1
-        runcolor.current = runcolor.current%6
+        runcolor.current = runcolor.current%12
+        console.log(runcolor.current)
     }
     const reColor = () => {
         runcolor.current = 0
@@ -26,23 +27,25 @@ const Schedule = () => {
 
     let alldate = [];
     let allhour = [];
-    fake.map((fak) => {
+    //get day,hour of data
+    fake.map((fak,index) => {
         alldate.push(dateReviver(fak.class.start).getDay());
         alldate.push(dateReviver(fak.class.end).getDay());
 
         allhour.push(dateReviver(fak.class.start).getHours());
         allhour.push(dateReviver(fak.class.end).getHours());
+
     })
     console.log(alldate,allhour);
 
     let bars_temp = [[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0]];
     let start_point = [[],[],[],[],[]]
     for (let i = 0; i < alldate.length; i++) {
-        //if number is already 1 next index will be set to 1
+        //if number is already 1 next index will be plus 1
         bars_temp[alldate[i]-1][allhour[i]-8]+=1;
     }
     for (let i = 0; i < alldate.length; i+=2) {
-        //if number is already 1 next index will be set to 1
+        //collect start point what box is start
         start_point[alldate[i]-1].push(allhour[i]-8);
     }
     console.log("start point(index) = ",start_point)
@@ -62,7 +65,21 @@ const Schedule = () => {
         // console.log(between1);
     }
     console.log("bars = ",bars);
+
+    //ColorZone
     reColor()
+    let subjects = [];
+    let subjects_name_sort = [];
+    for (let i = 0; i < 5; i++) {
+        for (let j=0; j< start_point[i].length; j++)
+        fake.map((fak) =>{
+            if (dateReviver(fak.class.start).getDay()-1 == i && dateReviver(fak.class.start).getHours() == start_point[i][j]+8){
+                subjects.push(fak);
+                subjects_name_sort.push(fak.name)
+            }
+        })
+    }
+    console.log(subjects,subjects_name_sort)
 
 
     return(
@@ -74,6 +91,7 @@ const Schedule = () => {
                 <div className="sch_body">
                     <div></div>
                     <div className="sch_hourbox">
+                        {/* <div className="sch_eachhour"></div> */}
                         {(() =>{
                             let posts=[];
                             for(let i=0;i<13;i++)
@@ -104,10 +122,13 @@ const Schedule = () => {
                         </div>
                     </div>
                 ))}
-                <div className="sch_tailbox">
-                {fake.map((fak,index) => 
-                    <div key={index} className='sch_each-detail'><BsSquareFill color={String(colors[index % 5])} size='1.2em'/>{fak.name}</div>
-                )}
+                <div className='sch_body'>
+                    <div></div>
+                    <div className="sch_tailbox">
+                        {subjects_name_sort.map((s,index) => 
+                            <div key={index} className='sch_each-detail'><BsSquareFill color={String(colors[index])} size='1.2em'/>{s}</div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -61,35 +61,66 @@
 }
 
 /* const colors = ['#45B99B','#DD8430','#9253A1','#F063A4','#2DC5F4'] */
+/* const colors = ['#3ae8b0','#19afd0','#6967ce','#ffb900','#fd636b','#8ad879','#a5e1e9','#d5edb9','#c4bdf3','#fce8a5','#ffc296','#f8cadc'] */
 .sch_barbox-act0{
     height: 100%;
     width: 7.5%;
-    background-color: #45B99B;
+    background-color: #3ae8b0;
 }
 .sch_barbox-act1{
     height: 100%;
     width: 7.5%;
-    background-color: #DD8430;
+    background-color: #19afd0;
 }
 .sch_barbox-act2{
     height: 100%;
     width: 7.5%;
-    background-color: #9253A1;
+    background-color: #6967ce;
 }
 .sch_barbox-act3{
     height: 100%;
     width: 7.5%;
-    background-color: #F063A4;
+    background-color: #ffb900;
 }
 .sch_barbox-act4{
     height: 100%;
     width: 7.5%;
-    background-color: #2DC5F4;
+    background-color: #fd636b;
 }
 .sch_barbox-act5{
     height: 100%;
     width: 7.5%;
-    background-color: #78e787;
+    background-color: #8ad879;
+}
+.sch_barbox-act6{
+    height: 100%;
+    width: 7.5%;
+    background-color: #a5e1e9;
+}
+.sch_barbox-act7{
+    height: 100%;
+    width: 7.5%;
+    background-color: #d5edb9;
+}
+.sch_barbox-act8{
+    height: 100%;
+    width: 7.5%;
+    background-color: #c4bdf3;
+}
+.sch_barbox-act9{
+    height: 100%;
+    width: 7.5%;
+    background-color: #fce8a5;
+}
+.sch_barbox-act10{
+    height: 100%;
+    width: 7.5%;
+    background-color: #ffc296;
+}
+.sch_barbox-act11{
+    height: 100%;
+    width: 7.5%;
+    background-color: #f8cadc;
 }
 
 .sch_barbox-nact{
