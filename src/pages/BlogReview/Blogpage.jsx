@@ -196,6 +196,7 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
             onChange={handleNewReview}
             className="text-lg px-4 py-2 border rounded"
             placeholder="รหัสวิชา"
+            maxLength="8"
           />
         </div>
 
@@ -208,6 +209,7 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
             placeholder="รีวิววิชา"
             onChange={handleNewReview}
             className="p-4 w-[700px] h-80 border rounded text-lg resize-none"
+            maxLength="250"
           ></textarea>
         </div>
 
