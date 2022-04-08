@@ -9,7 +9,7 @@ const Navbar = () => {
   const [isAuthen, setIsAuthen] = useState(false);
 
   return (
-    <div className="bg-white-800 h-16 shadow-md w-full mb-6">
+    <div className="bg-white-800 h-16 w-full mb-6">
       <div className="max-w-screen-2xl mx-auto h-full flex justify-between items-center">
         <div className="flex justify-center items-center gap-10">
           <Link to="/">
