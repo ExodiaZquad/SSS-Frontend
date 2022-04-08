@@ -11,7 +11,7 @@ import { getToken } from '../../services/authService';
 const Blogpage = () => {
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
-
+  const [search, setSearch] = useState('');
   const [newReview, setNewReview] = useState({
     subjectId: '',
     textBlogreview: '',
@@ -62,19 +62,30 @@ const Blogpage = () => {
     return date.slice(0, 10);
   };
 
+  let filter = reviews;
+  if (search) {
+    const filterSubjectNum = filter.filter(review => review.subjectId.toString().includes(search));
+    filter = [...new Set([...filterSubjectNum])];
+  }
+  if (selected) {
+    const subjectMajorFilter = filter.filter(review => {
+      if (selected === 'All' || selected === 'Subject Major filter') {
+        return review;
+      } else {
+        return review.subjectId.toString().includes(selected);
+      }
+    });
+    filter = [...new Set([...subjectMajorFilter])];
+  }
+
   return (
-    <div className="Review-container">
+    <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
         <div className="Blog-header">Blog Review</div>
         <div className="Blog-function">
           <Dropdown selected={selected} setSelected={setSelected} />
           <div className="search-post">
-            <div className="search-bar">
-              <i>
-                <FaSistrix color="grey" size={20} />
-              </i>
-              <input type="text" placeholder="search" />
-            </div>
+            <Searchbar search={search} setSearch={setSearch} />
             <button
               className="openModalBtn"
               onClick={() => {
@@ -105,7 +116,7 @@ const Blogpage = () => {
           <h1 className="flex justify-center">Like</h1>
         </div>
         <div className="h-[68vh] overflow-auto mt-3">
-          {reviews.map((review, index) => {
+          {filter.map((review, index) => {
             return (
               <ShowReview
                 key={index}
@@ -151,6 +162,19 @@ function Dropdown({ selected, setSelected }) {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+function Searchbar({ search, setSearch }) {
+  const searchWord = word => {
+    setSearch(word);
+  };
+  return (
+    <div className="search-bar">
+      <i>
+        <FaSistrix />
+      </i>
+      <input type="text" placeholder="search" onChange={e => searchWord(e.currentTarget.value)} />
     </div>
   );
 }
