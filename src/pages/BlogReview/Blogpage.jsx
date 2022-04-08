@@ -79,7 +79,7 @@ const Blogpage = () => {
   }
 
   return (
-    <div className="Review-container">
+    <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
         <div className="Blog-header">Blog Review</div>
         <div className="Blog-function">
