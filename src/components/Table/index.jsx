@@ -506,7 +506,7 @@ const Table = () => {
             <td className="p-3 max-w-xs">{subject.name}</td>
             <td className="p-3">{subject.credit}</td>
             <td className="p-3">{subject.sec}</td>
-            <td className="p-3">Monday 9:30 - 12:30</td>
+            <td className="p-3">{subject.class.start}</td>
           </tr>
         ))}
         {/* input field table row */}
