@@ -3,6 +3,7 @@ import { getToken, getUserData, login, logout } from '../../services/authService
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Link } from 'react-router-dom';
 import { VscTriangleDown } from 'react-icons/vsc';
+import axios from 'axios';
 
 const clientId = '483892147915-374s85caqvj99gcantphbqmlb804tp3o.apps.googleusercontent.com';
 
@@ -37,9 +38,20 @@ const Login = () => {
     setShowloginButton(true);
   };
 
-  useEffect(() => {
+  // get user's data (name + imgUrl)
+  const getUserData = async () => {
     const token = getToken();
-    if (token) setShowloginButton(false);
+    const res = await axios.get('http://localhost:3005/api/users/', {
+      headers: { 'x-auth-token': token },
+    });
+
+    setUserName(res.data.name);
+    setUserImg(res.data.imgUrl);
+    setShowloginButton(false);
+  };
+
+  useEffect(() => {
+    getUserData();
   }, []);
 
   return (
