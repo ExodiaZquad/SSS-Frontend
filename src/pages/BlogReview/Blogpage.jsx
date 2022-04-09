@@ -65,6 +65,7 @@ const Blogpage = () => {
   let filter = reviews;
   if (search) {
     const filterSubjectNum = filter.filter(review => review.subjectId.toString().includes(search));
+    // const filterSubjectName = filter.filter(review => review.toLowerCase().includes(search.toLowerCase()));
     filter = [...new Set([...filterSubjectNum])];
   }
   if (selected) {
@@ -77,7 +78,7 @@ const Blogpage = () => {
     });
     filter = [...new Set([...subjectMajorFilter])];
   }
-
+  console.log(filter);
   return (
     <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
@@ -110,11 +111,32 @@ const Blogpage = () => {
 
       <div className="Blog-contain ">
         <div className="review__grid--column px-[40px]">
-          <h1 className="">Subject</h1>
-          <h1>Date</h1>
-          <h1>Review</h1>
-          <h1 className="flex justify-center">Like</h1>
+          <div className="sort-subject">
+            <h1>Subject</h1>
+            <i>
+              <FaCaretDown size={20} />
+            </i>
+          </div>
+          <div className="sort-date">
+            <h1>Date</h1>
+            <i>
+              <FaCaretDown size={20} />
+            </i>
+          </div>
+          <div className="sort-review">
+            <h1>Review</h1>
+            <i>
+              <FaCaretDown size={20} />
+            </i>
+          </div>
+          <div className="sort-like">
+            <h1>Like</h1>
+            <i>
+              <FaCaretDown size={20} />
+            </i>
+          </div>
         </div>
+        <hr className="line-sort" />
         <div className="h-[68vh] overflow-auto mt-3">
           {filter.map((review, index) => {
             return (
