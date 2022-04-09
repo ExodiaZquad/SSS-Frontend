@@ -535,6 +535,7 @@ const Table = () => {
           <td className="p-3"></td>
         </tr>
       </table>
+      <h2 className="text-center font-bold">หน่วยกิตทั้งหมด {12}</h2>
     </div>
   );
 };
