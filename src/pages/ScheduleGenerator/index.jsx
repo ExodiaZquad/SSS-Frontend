@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 import Table from '../../components/Table';
-import Schedule from '../../components/schedule'
+import Schedule from '../../components/Schedule';
 
 const ScheduleGenerator = () => {
   return (
@@ -13,9 +13,8 @@ const ScheduleGenerator = () => {
         <div className="flex justify-center items-center mt-7">
           <button className="bg-blue-500 py-3 px-7 rounded-lg text-white hover:brightness-105">Generate</button>
         </div>
-      <Schedule/>
+        <Schedule />
       </div>
-
     </div>
   );
 };
