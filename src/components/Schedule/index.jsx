@@ -2,9 +2,8 @@ import React, { useState, useRef } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
 import { BsSquareFill } from 'react-icons/bs';
 import './index.css';
-import fake from './testData.json';
 
-const Schedule = () => {
+const Schedule = ({ data }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const colors = [
     '#19afd0',
@@ -40,7 +39,7 @@ const Schedule = () => {
   let alldate = [];
   let allhour = [];
   //get day,hour of data
-  fake.map((fak, index) => {
+  data.map((fak, index) => {
     alldate.push(dateReviver(fak.class.start).getDay());
     alldate.push(dateReviver(fak.class.end).getDay());
 
@@ -89,7 +88,7 @@ const Schedule = () => {
   let subjects_name_sort = [];
   for (let i = 0; i < 5; i++) {
     for (let j = 0; j < start_point[i].length; j++)
-      fake.map(fak => {
+      data.map(fak => {
         if (
           dateReviver(fak.class.start).getDay() - 1 == i &&
           dateReviver(fak.class.start).getHours() == start_point[i][j] + 8
