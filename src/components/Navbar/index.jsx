@@ -1,13 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import Login from '../Login';
 
-import { GoChevronDown } from 'react-icons/go';
-
 const Navbar = () => {
-  const [isAuthen, setIsAuthen] = useState(false);
-
   return (
     <div className="bg-white-800 h-16 w-full">
       <div className="max-w-screen-2xl mx-auto h-full flex justify-between items-center">
@@ -31,23 +26,7 @@ const Navbar = () => {
             </Link>
           </nav>
         </div>
-        {isAuthen ? (
-          <div className="font-medium flex justify-center items-center gap-2">
-            {/* user's image and user's firstname goes here */}
-            <img
-              src="https://media.discordapp.net/attachments/904607198263509024/915881080706461696/ExodiatheForbiddenOne-TF04-JP-VG.jpg"
-              alt=""
-              className="h-10 w-10 border-2 border-orange-400 rounded-full shadow-md"
-            />
-            <div className="">Username</div>
-            <GoChevronDown className="hover:cursor-pointer text-gray-400" />
-          </div>
-        ) : (
-          // <button className="bg-black py-2 px-6 rounded-full text-white font-medium hover:cursor-pointer hover:scale-105  transition-all ease-in-out ">
-          //   Sign In
-          // </button>
-          <Login />
-        )}
+        <Login />
       </div>
     </div>
   );

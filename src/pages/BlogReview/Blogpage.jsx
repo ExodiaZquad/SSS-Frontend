@@ -1,51 +1,91 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { FaCaretDown } from 'react-icons/fa';
 import { FaSistrix } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import ShowReview from '../../components/ShowReview';
+import config from '../../config';
+import { getToken } from '../../services/authService';
 
 const Blogpage = () => {
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const [newReview, setNewReview] = useState({
+    subjectId: '',
+    textBlogreview: '',
+    rate: 0,
+  });
 
-  const [subjectId, setSubjecdtId] = useState('XXX');
-  const [textBlogReview, setTextBlogReview] = useState('XXXX');
-  const [userIdBlogReview, setUserIdBlogReview] = useState('XXXX');
-  const [usernameBlogReview, setUsernameBlogReview] = useState('XXX');
-  const [typeOfSubject, setTypeOfSubject] = useState('XXX');
-  const [rate, setRate] = useState(0);
+  const [reviews, setReviews] = useState([]);
 
-  const submitReview = async () => {
-    const res = await axios.post('http://localhost:3005/api/blogreviews/', {
-      subjectId: '9010599',
-      subjectName: 'noctis',
-      textBlogreview: 'apex',
-      userId_Blogreview: '63010190',
-      userName_Blogreview: 'hello',
-      userId_Like: [],
-      userId_Dislike: [],
-      typeOfsubject: 'Computer',
-      rate: 0,
-    });
-
-    console.log(res.data);
+  const handleNewReview = ({ currentTarget: target }) => {
+    let temp = { ...newReview };
+    temp[target.name] = target.value;
+    setNewReview(temp);
   };
 
+  const setRate = value => {
+    let temp = { ...newReview };
+    temp.rate = value;
+    setNewReview(temp);
+  };
+
+  const submitReview = async () => {
+    const token = getToken();
+    const res = await axios.post(config.API_URL + '/blogreviews', newReview, {
+      headers: { 'x-auth-token': token },
+    });
+
+    if (res) console.log(res.data);
+
+    setModalOpen(false);
+    alert('Auan tum kuay rai i sus !?');
+  };
+
+  const getReviews = async () => {
+    const token = getToken();
+    const res = await axios.get('http://localhost:3005/api/blogreviews/', {
+      headers: { 'x-auth-token': token },
+    });
+
+    // console.log(res.data);
+    setReviews(res.data);
+  };
+
+  useEffect(() => {
+    getReviews();
+  }, []);
+
+  const transformDate = date => {
+    return date.slice(0, 10);
+  };
+
+  let filter = reviews;
+  if (search) {
+    const filterSubjectNum = filter.filter(review => review.subjectId.toString().includes(search));
+    filter = [...new Set([...filterSubjectNum])];
+  }
+  if (selected) {
+    const subjectMajorFilter = filter.filter(review => {
+      if (selected === 'All' || selected === 'Subject Major filter') {
+        return review;
+      } else {
+        return review.subjectId.toString().includes(selected);
+      }
+    });
+    filter = [...new Set([...subjectMajorFilter])];
+  }
+
   return (
-    <div className="Review-container">
+    <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
         <div className="Blog-header">Blog Review</div>
         <div className="Blog-function">
           <Dropdown selected={selected} setSelected={setSelected} />
           <div className="search-post">
-            <div className="search-bar">
-              <i>
-                <FaSistrix color="grey" size={20} />
-              </i>
-              <input type="text" placeholder="search" />
-            </div>
+            <Searchbar search={search} setSearch={setSearch} />
             <button
               className="openModalBtn"
               onClick={() => {
@@ -56,7 +96,15 @@ const Blogpage = () => {
             </button>
           </div>
 
-          {modalOpen && <Modal setOpenModal={setModalOpen} rate={rate} setRate={setRate} submitReview={submitReview} />}
+          {modalOpen && (
+            <Modal
+              setOpenModal={setModalOpen}
+              rate={newReview.rate}
+              setRate={setRate}
+              submitReview={submitReview}
+              handleNewReview={handleNewReview}
+            />
+          )}
         </div>
       </div>
 
@@ -68,54 +116,20 @@ const Blogpage = () => {
           <h1 className="flex justify-center">Like</h1>
         </div>
         <div className="h-[68vh] overflow-auto mt-3">
-          <ShowReview
-            subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
-            subject_id="90201039"
-            img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-            reviewer_name="Thanakorn"
-            date="19 Mar 2022"
-            star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
-            text="เป็นวิชาที่น่าเรียนมากๆ อาจารย์น่ารักมีให้
-            ร้องเพลงอิ๊งกับแสดงละครเป็นกลุ่มไม่มีการบ้าน 
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ
-            "
-          />
-          <ShowReview
-            subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
-            subject_id="90201039"
-            img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-            reviewer_name="Thanakorn"
-            date="19 Mar 2022"
-            star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
-            text="เป็นวิชาที่น่าเรียนมากๆ อาจารย์น่ารักมีให้
-            ร้องเพลงอิ๊งกับแสดงละครเป็นกลุ่มไม่มีการบ้าน 
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ"
-          />
-          <ShowReview
-            subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
-            subject_id="90201039"
-            img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-            reviewer_name="Thanakorn"
-            date="19 Mar 2022"
-            star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
-            text="เป็นวิชาที่น่าเรียนมากๆ อาจารย์น่ารักมีให้
-            ร้องเพลงอิ๊งกับแสดงละครเป็นกลุ่มไม่มีการบ้าน 
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ"
-          />
-          <ShowReview
-            subject_name="ENGLISH FROM ENTERTAINMENT MEDIA"
-            subject_id="90201039"
-            img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-            reviewer_name="Thanakorn"
-            date="19 Mar 2022"
-            star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
-            text="เป็นวิชาที่น่าเรียนมากๆ อาจารย์น่ารักมีให้
-            ร้องเพลงอิ๊งกับแสดงละครเป็นกลุ่มไม่มีการบ้าน 
-            แต่อาจารย์ชอบเรียกถาม แต่ก็น่าจะไม่มีเช็คชื่อ"
-          />
+          {filter.map((review, index) => {
+            return (
+              <ShowReview
+                key={index}
+                subject_name={'ENGLISH FROM ENTERTAINMENT MEDIA'}
+                subject_id={review.subjectId}
+                img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
+                reviewer_name="Thanakorn"
+                date={transformDate(review.date)}
+                star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
+                text={review.textBlogreview}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
@@ -151,7 +165,20 @@ function Dropdown({ selected, setSelected }) {
     </div>
   );
 }
-function Modal({ setOpenModal, rate, setRate, submitReview }) {
+function Searchbar({ search, setSearch }) {
+  const searchWord = word => {
+    setSearch(word);
+  };
+  return (
+    <div className="search-bar">
+      <i>
+        <FaSistrix />
+      </i>
+      <input type="text" placeholder="search" onChange={e => searchWord(e.currentTarget.value)} />
+    </div>
+  );
+}
+function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
   return (
     <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center">
       <div
@@ -163,7 +190,14 @@ function Modal({ setOpenModal, rate, setRate, submitReview }) {
           <h1 className="text-2xl font-bold mb-2">
             Subject ID<span className="text-red-500">*</span>
           </h1>
-          <input type="text" className="text-lg px-4 py-2 border rounded" placeholder="รหัสวิชา" />
+          <input
+            name="subjectId"
+            type="text"
+            onChange={handleNewReview}
+            className="text-lg px-4 py-2 border rounded"
+            placeholder="รหัสวิชา"
+            maxLength="8"
+          />
         </div>
 
         <div className="mb-2">
@@ -171,8 +205,11 @@ function Modal({ setOpenModal, rate, setRate, submitReview }) {
             Detail<span className="text-red-500">*</span>
           </h1>
           <textarea
+            name="textBlogreview"
             placeholder="รีวิววิชา"
+            onChange={handleNewReview}
             className="p-4 w-[700px] h-80 border rounded text-lg resize-none"
+            maxLength="250"
           ></textarea>
         </div>
 
