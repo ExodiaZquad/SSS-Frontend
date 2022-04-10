@@ -81,7 +81,7 @@ const data = [
     id: '01076010',
     name: 'COMPUTER NETWORKS',
     category: '010',
-    sec: [1, 2, 3],
+    sec: [1, 2],
     credit: 4,
     day: 3,
     note: 'รับเฉพาะกู',
@@ -128,9 +128,9 @@ const data = [
 ];
 
 const Table = () => {
-  const [selected, setSelected] = useState('ALL');
   const [classId, setClassId] = useState('');
   const [subjects, setSubjects] = useState([]);
+  const [dropDownControl, setDropDownControl] = useState([]);
 
   return (
     <div className="mt-4">
@@ -143,18 +143,18 @@ const Table = () => {
           <th className="p-3 bg-orange-200 text-orange-500">กลุ่ม</th>
           <th className="p-3 bg-orange-200 text-orange-500">เวลาเรียน</th>
         </tr>
-        {subjects.map(subject => {
+        {subjects.map((subject, index) => {
           return (
-            <tr className="hover:bg-zinc-100">
-              <td className="p-3">{subject.id}</td>
-              <td className="p-3 max-w-xs">{subject.name}</td>
-              <td className="p-3">{subject.credit}</td>
-              <td className="p-3">{subject.type}</td>
-              <td className="p-3 flex justify-center items-center">
-                <Dropdown sections={subject.sec} selected={selected} setSelected={setSelected} />
-              </td>
-              <td className="p-3">{subject.class.start}</td>
-            </tr>
+            <TableRow
+              index={index}
+              id={subject.id}
+              name={subject.name}
+              credit={subject.credit}
+              type={subject.type}
+              sec={subject.sec}
+              dropdownControl={dropDownControl}
+              setDropDownControl={setDropDownControl}
+            />
           );
         })}
         {/* input field table row */}
@@ -173,6 +173,9 @@ const Table = () => {
                   });
                   setSubjects([...subjects.concat(res)]);
                   setClassId('');
+                  for (let i = 0; i < res.length; i++) {
+                    setDropDownControl([...dropDownControl.concat(false)]);
+                  }
                   console.log(subjects);
                 }
               }}
@@ -190,14 +193,60 @@ const Table = () => {
   );
 };
 
-const Dropdown = ({ sections, selected, setSelected }) => {
+const TableRow = ({ index, id, name, credit, type, sec, date, dropDownControl, setDropDownControl }) => {
+  const [selected, setSelected] = useState('ALL');
   const [isActive, setIsActive] = useState(false);
+
+  if (dropDownControl[index]) {
+    setIsActive(true);
+  }
+
+  return (
+    <tr className="hover:bg-zinc-100">
+      <td className="p-3">{id}</td>
+      <td className="p-3 max-w-xs">{name}</td>
+      <td className="p-3">{credit}</td>
+      <td className="p-3">{type}</td>
+      <td className="p-3 flex justify-center items-center">
+        <Dropdown
+          sections={sec}
+          selected={selected}
+          setSelected={setSelected}
+          isActive={isActive}
+          setIsActive={setIsActive}
+          dropdownControl={dropDownControl}
+          setDropDownControl={setDropDownControl}
+          index={index}
+        />
+      </td>
+      <td className="p-3">{date}</td>
+    </tr>
+  );
+};
+
+const Dropdown = ({
+  sections,
+  selected,
+  setSelected,
+  isActive,
+  setIsActive,
+  dropDownControl,
+  setDropDownControl,
+  index,
+}) => {
   const options = ['ALL', ...sections];
   return (
     <div className="select-none relative">
       <div
         className="bg-white w-14 py-1 rounded shadow-md flex justify-evenly items-center text-sm"
-        onClick={e => setIsActive(!isActive)}
+        onClick={e => {
+          setIsActive(!isActive);
+          setDropDownControl(
+            dropDownControl.map((item, i) => {
+              if (i === index) item = false;
+            }),
+          );
+        }}
       >
         {selected}
         <VscTriangleDown color="orange" />
