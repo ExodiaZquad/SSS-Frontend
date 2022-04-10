@@ -201,6 +201,7 @@ const ScheduleGenerator = () => {
             Generate
           </button>
         </div>
+        <h1 className="mt-14 font-bold text-3xl">My Schedule</h1>
         <Schedule data={data} />
       </div>
     </div>

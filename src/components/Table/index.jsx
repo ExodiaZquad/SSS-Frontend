@@ -519,9 +519,9 @@ const Table = () => {
               onChange={e => setClassId(e.target.value)}
               onKeyDown={e => {
                 // not the best approach! ask someone later!
-                if (e.key == 'Enter') {
+                if (e.key === 'Enter') {
                   const res = data.filter(item => {
-                    return item.id == classId;
+                    return item.id === classId;
                   });
                   setSubjects([...subjects.concat(res)]);
                   setClassId('');
