@@ -101,7 +101,7 @@ const Schedule = ({ data }) => {
   console.log(subjects, subjects_name_sort);
 
   return (
-    <div className="sch_box-shadow">
+    <div className="sch_box-shadow mt-7">
       <div className="sch_box">
         <div className="sch_headbox">
           {fav ? (
