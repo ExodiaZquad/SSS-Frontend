@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { VscTriangleDown } from 'react-icons/vsc';
+import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
+import axios from 'axios';
 
 const data = [
   {
@@ -131,6 +132,23 @@ const Table = () => {
   const [classId, setClassId] = useState('');
   const [subjects, setSubjects] = useState([]);
   const [dropDownControl, setDropDownControl] = useState([]);
+  const [creditCount, setCreditCount] = useState(0);
+
+  const getSubject = async () => {
+    const res = await axios.get('http://localhost:3005/api/subject/', {
+      params: { id: classId },
+    });
+    console.log(classId);
+    const arr = [];
+    for (let i = 0; i < res.data.length; i++) {
+      arr.push(false);
+    }
+    // setDropDownControl([...dropDownControl.concat(arr)]);
+    setDropDownControl(prev => prev.concat(arr));
+    // setSubjects([...subjects.concat(res.data)]);
+    setSubjects(prevSubjects => prevSubjects.concat(res.data));
+    setClassId('');
+  };
 
   return (
     <div className="mt-4">
@@ -164,23 +182,11 @@ const Table = () => {
               type="text"
               className="rounded border-none outline-none py-2 pl-2 w-1/2 h-3/4 font-medium bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-orange-200"
               value={classId}
-              onChange={e => setClassId(e.target.value)}
+              onChange={e => setClassId(e.currentTarget.value)}
               onKeyDown={e => {
                 // not the best approach! ask someone later!
                 if (e.key === 'Enter') {
-                  const res = data.filter(item => {
-                    return item.id === classId;
-                  });
-                  setSubjects([...subjects.concat(res)]);
-                  setClassId('');
-                  // wtf is this abomination
-                  const arr = [];
-                  for (let i = 0; i < res.length; i++) {
-                    arr.push(false);
-                  }
-                  setDropDownControl([...dropDownControl.concat(arr)]);
-                  // console.log('controller for dropdown : ', dropDownControl);
-                  // console.log(subjects);
+                  getSubject();
                 }
               }}
             />
@@ -192,7 +198,7 @@ const Table = () => {
           <td className="p-3"></td>
         </tr>
       </table>
-      <h2 className="text-center font-bold">หน่วยกิตทั้งหมด {12}</h2>
+      <h2 className="text-center font-bold">หน่วยกิตทั้งหมด {creditCount}</h2>
     </div>
   );
 };
@@ -239,13 +245,13 @@ const Dropdown = ({ sections, selected, setSelected, dropDownControl, setDropDow
         }}
       >
         {selected}
-        <VscTriangleDown color="orange" />
+        {dropDownControl[index] ? <VscTriangleUp color="orange" /> : <VscTriangleDown color="orange" />}
       </div>
       {dropDownControl[index] && (
-        <div className="absolute bg-white top-[120%] left-0 z-10">
+        <div className="absolute bg-white rounded-md shadow-lg top-[120%] left-0 z-10">
           {options.map(option => (
             <div
-              className="py-1 px-3 hover:bg-zinc-200 active:ring transition hover:cursor-pointer"
+              className="py-1 px-3 hover:bg-zinc-200 rounded-md active:ring transition hover:cursor-pointer"
               onClick={e => {
                 setSelected(option);
                 dropDownControl[index] = false;
