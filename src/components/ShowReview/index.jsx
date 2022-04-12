@@ -4,9 +4,9 @@ import likeIcon from '../../assets/icons/like.svg';
 import dislikeIcon from '../../assets/icons/dislike.svg';
 import { useState } from 'react';
 
-const LikeDislike = () => {
-  const [like, setlike] = useState(0); //like
-  const [dislike, setdislike] = useState(0); //dislike
+const LikeDislike = ({ likeCount, dislikeCount }) => {
+  const [like, setlike] = useState(likeCount); //like
+  const [dislike, setdislike] = useState(dislikeCount); //dislike
   const [likeactive, setlikeactive] = useState(false); //likeactive
   const [dislikeactive, setdislikeactive] = useState(false); //dislikeactive
 
@@ -54,7 +54,7 @@ const LikeDislike = () => {
   );
 };
 
-const ShowReview = ({ subject_id, subject_name, img, reviewer_name, date, text, star }) => {
+const ShowReview = ({ subject_id, subject_name, img, reviewer_name, date, text, star, likeCount, dislikeCount }) => {
   return (
     <div className="review__box">
       <div className="review__type review__grid--column">
@@ -86,7 +86,7 @@ const ShowReview = ({ subject_id, subject_name, img, reviewer_name, date, text, 
           <p className="overflow-auto h-20">{text}</p>
         </div>
         <div className="review__like">
-          <LikeDislike />
+          <LikeDislike likeCount={likeCount} dislikeCount={dislikeCount} />
         </div>
       </div>
     </div>
