@@ -195,3 +195,40 @@
   color: white;
   cursor: pointer;
 }
+.sort-subject{
+  color: #8F97AD;
+  display: flex;
+  align-items: center;
+}
+.sort-subject h1,i{
+  cursor: pointer;
+}
+.sort-date{
+  color: #8F97AD;
+  display: flex;
+  align-items: center;
+}
+.sort-date h1,i{
+  cursor: pointer;
+}
+.sort-review{
+  color: #8F97AD;
+  display: flex;
+  align-items: center;
+}
+.sort-review h1,i{
+  cursor: pointer;
+}
+.sort-like{
+  color: #8F97AD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sort-like h1,i{
+  cursor: pointer;
+}
+hr.line-sort{
+  border: 1px solid #8F97AD;
+  border-radius: 5px;
+}
