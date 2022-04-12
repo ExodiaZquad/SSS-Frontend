@@ -12,13 +12,9 @@ const Table = () => {
     const res = await axios.get('http://localhost:3005/api/subject/', {
       params: { id: classId },
     });
-    console.log(classId);
-    const arr = [];
-    for (let i = 0; i < res.data.length; i++) {
-      arr.push(false);
-    }
-    // setDropDownControl([...dropDownControl.concat(arr)]);
-    setDropDownControl(prev => prev.concat(arr));
+    // setDropDownControl([...dropDownControl.concat([false])]);
+    setDropDownControl(prev => prev.concat([false]));
+    console.log('control: ', dropDownControl);
     // setSubjects([...subjects.concat(res.data)]);
     setSubjects(prevSubjects => prevSubjects.concat(res.data));
     setClassId('');
@@ -67,6 +63,7 @@ const Table = () => {
               onKeyDown={e => {
                 // not the best approach! ask someone later!
                 if (e.key === 'Enter') {
+                  // prevent error here vvvv (no more 8 char no less 8 char no special char no alphabet)
                   getSubject();
                 }
               }}
