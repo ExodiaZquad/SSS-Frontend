@@ -72,7 +72,7 @@
 .review__sub .sub_num {
   max-width: 300px;
   font-size: 18px;
-  color: #bebebe;
+  color: #a3adb4;
   font-weight: bold;
 }
 .review_reviewer {
@@ -93,7 +93,7 @@
 .r_date {
   font-size: 18px;
   font-weight: bold;
-  color: #bebebe;
+  color: #a3adb4;
 }
 .review__star img {
   width: 80px;
