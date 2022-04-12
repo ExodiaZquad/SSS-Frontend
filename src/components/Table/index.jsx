@@ -2,132 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import axios from 'axios';
 
-const data = [
-  {
-    id: '01076008',
-    name: 'SOFTWARE DEVELOPMENT PROCESSES',
-    category: '010',
-    sec: [1, 2, 3],
-    credit: 4,
-    day: 2,
-    note: 'รับเฉพาะกู',
-    teachers: ['ผศ.ดร.รัฐชัย ชาวอุทัย'],
-    class: [
-      {
-        start: 'March 2, 2020 13:00:00',
-        end: 'March 2, 2020 16:15:00',
-      },
-      {
-        start: 'March 3, 2020 08:45:00',
-        end: 'March 3, 2020 12:00:00',
-      },
-      {
-        start: 'March 4, 2020 08:45:00',
-        end: 'March 4, 2020 12:00:00',
-      },
-    ],
-    type: 'Theory',
-    hasLab: true,
-  },
-  {
-    id: '01076008',
-    name: 'SOFTWARE DEVELOPMENT PROCESSES',
-    category: '010',
-    sec: [101, 102, 103],
-    credit: 4,
-    day: 2,
-    note: 'รับเฉพาะกู',
-    teachers: ['ผศ.ดร.รัฐชัย ชาวอุทัย'],
-    class: [
-      {
-        start: 'March 5, 2020 13:00:00',
-        end: 'March 5, 2020 16:00:00',
-      },
-      {
-        start: 'March 5, 2020 09:00:00',
-        end: 'March 5, 2020 12:00:00',
-      },
-      {
-        start: 'March 5, 2020 13:00:00',
-        end: 'March 5, 2020 16:00:00',
-      },
-    ],
-    type: 'Lab',
-    hasLab: true,
-  },
-  {
-    id: '01076253',
-    name: 'PROBABILITY AND STATISTICS',
-    category: '010',
-    sec: [1, 2, 3],
-    credit: 3,
-    day: 5,
-    note: 'รับเฉพาะกู',
-    teachers: ['รศ.ดร.ศักดิ์ชัย ทิพย์จักษุรัตน์'],
-    class: {
-      start: 'March 5, 2020 08:45:00',
-      end: 'March 5, 2020 12:00:00',
-    },
-    midterm: {
-      start: 'March 8, 2022 09:30:00',
-      end: 'March 8, 2022 12:30:00',
-    },
-    final: {
-      ' start': 'May 17, 2022 09:30:00',
-      end: 'May 17, 2022 12:30:00',
-    },
-    type: 'Theory',
-  },
-  {
-    id: '01076010',
-    name: 'COMPUTER NETWORKS',
-    category: '010',
-    sec: [1, 2],
-    credit: 4,
-    day: 3,
-    note: 'รับเฉพาะกู',
-    teachers: ['รศ.ดร.ศักดิ์ชัย ทิพย์จักษุรัตน์'],
-    class: {
-      start: 'March 3, 2020 08:45:00',
-      end: 'March 3, 2020 12:00:00',
-    },
-    midterm: {
-      start: 'March 11, 2022 09:30:00',
-      end: 'March 11, 2022 12:30:00',
-    },
-    final: {
-      start: 'May 20, 2022 13:30:00',
-      end: 'May 20, 2022 16:30:00',
-    },
-    type: 'Theory',
-    hasLab: true,
-  },
-  {
-    id: '01076009',
-    name: 'COMPUTER ORGANIZATION AND ASSEMBLY LANGUAGE',
-    category: '010',
-    sec: [1, 2, 3],
-    credit: 4,
-    day: 4,
-    note: 'รับเฉพาะกู',
-    teachers: ['ผศ.ดร.สุรินทร์ กิตติธรกุล'],
-    class: {
-      start: 'March 4, 2020 08:45:00',
-      end: 'March 4, 2020 12:00:00',
-    },
-    midterm: {
-      start: 'March 10, 2022 09:30:00',
-      end: 'March 10, 2022 12:30:00',
-    },
-    final: {
-      start: 'May 11, 2022 09:30:00',
-      end: 'May 11, 2022 12:30:00',
-    },
-    type: 'Theory',
-    hasLab: true,
-  },
-];
-
 const Table = () => {
   const [classId, setClassId] = useState('');
   const [subjects, setSubjects] = useState([]);
@@ -150,6 +24,12 @@ const Table = () => {
     setClassId('');
   };
 
+  useEffect(() => {
+    subjects.forEach(subject => {
+      setCreditCount(prev => prev + parseInt(subject.credit));
+    });
+  }, [subjects]);
+
   return (
     <div className="mt-4">
       <table className="w-full text-center font-medium ">
@@ -170,6 +50,7 @@ const Table = () => {
               credit={subject.credit}
               type={subject.type}
               sec={subject.sec}
+              hasLab={subject.hasLab}
               dropDownControl={dropDownControl}
               setDropDownControl={setDropDownControl}
             />
@@ -177,7 +58,7 @@ const Table = () => {
         })}
         {/* input field table row */}
         <tr className="hover:bg-zinc-100">
-          <td className="p-3">
+          <td className="p-3 w-[300px]">
             <input
               type="text"
               className="rounded border-none outline-none py-2 pl-2 w-1/2 h-3/4 font-medium bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-orange-200"
@@ -203,27 +84,59 @@ const Table = () => {
   );
 };
 
-const TableRow = ({ index, id, name, credit, type, sec, date, dropDownControl, setDropDownControl }) => {
+const TableRow = ({ index, id, name, credit, type, sec, date, hasLab, dropDownControl, setDropDownControl }) => {
   const [selected, setSelected] = useState('ALL');
 
   return (
-    <tr className="hover:bg-zinc-100">
-      <td className="p-3">{id}</td>
-      <td className="p-3 max-w-xs">{name}</td>
-      <td className="p-3">{credit}</td>
-      <td className="p-3">{type}</td>
-      <td className="p-3 flex justify-center items-center">
-        <Dropdown
-          sections={sec}
-          selected={selected}
-          setSelected={setSelected}
-          dropDownControl={dropDownControl}
-          setDropDownControl={setDropDownControl}
-          index={index}
-        />
-      </td>
-      <td className="p-3">{date}</td>
-    </tr>
+    <>
+      {hasLab ? (
+        <>
+          <tr className="hover:bg-zinc-100">
+            <td className="p-3 border-x border-t">{id}</td>
+            <td className="p-3 max-w-xs border-x border-t">{name}</td>
+            <td className="p-3 border-x border-t">{credit}</td>
+            <td className="p-3 border">{type}</td>
+            <td className="p-3 flex justify-center items-center border">
+              <Dropdown
+                sections={sec}
+                selected={selected}
+                setSelected={setSelected}
+                dropDownControl={dropDownControl}
+                setDropDownControl={setDropDownControl}
+                index={index}
+              />
+            </td>
+            <td className="p-3 border">{date}</td>
+          </tr>
+          <tr className="hover:bg-zinc-100">
+            <td className="p-3 border-x border-b"></td>
+            <td className="p-3 max-w-xs border-x border-b"></td>
+            <td className="p-3 border-x border-b"></td>
+            <td className="p-3 border">Lab</td>
+            <td className="p-3 flex justify-center items-center border">yo</td>
+            <td className="p-3 border">{date}</td>
+          </tr>
+        </>
+      ) : (
+        <tr className="hover:bg-zinc-100">
+          <td className="p-3 border">{id}</td>
+          <td className="p-3 max-w-xs border">{name}</td>
+          <td className="p-3 border">{credit}</td>
+          <td className="p-3 border">{type}</td>
+          <td className="p-3 flex justify-center items-center border">
+            <Dropdown
+              sections={sec}
+              selected={selected}
+              setSelected={setSelected}
+              dropDownControl={dropDownControl}
+              setDropDownControl={setDropDownControl}
+              index={index}
+            />
+          </td>
+          <td className="p-3 border">{date}</td>
+        </tr>
+      )}
+    </>
   );
 };
 
