@@ -32,7 +32,7 @@ const data = [
     id: '01076008',
     name: 'SOFTWARE DEVELOPMENT PROCESSES',
     category: '010',
-    sec: [1, 2, 3],
+    sec: [101, 102, 103],
     credit: 4,
     day: 2,
     note: 'รับเฉพาะกู',
@@ -143,16 +143,16 @@ const Table = () => {
           <th className="p-3 bg-orange-200 text-orange-500">กลุ่ม</th>
           <th className="p-3 bg-orange-200 text-orange-500">เวลาเรียน</th>
         </tr>
-        {subjects.map((subject, index) => {
+        {subjects.map((subject, idx) => {
           return (
             <TableRow
-              index={index}
+              index={idx}
               id={subject.id}
               name={subject.name}
               credit={subject.credit}
               type={subject.type}
               sec={subject.sec}
-              dropdownControl={dropDownControl}
+              dropDownControl={dropDownControl}
               setDropDownControl={setDropDownControl}
             />
           );
@@ -173,10 +173,14 @@ const Table = () => {
                   });
                   setSubjects([...subjects.concat(res)]);
                   setClassId('');
+                  // wtf is this abomination
+                  const arr = [];
                   for (let i = 0; i < res.length; i++) {
-                    setDropDownControl([...dropDownControl.concat(false)]);
+                    arr.push(false);
                   }
-                  console.log(subjects);
+                  setDropDownControl([...dropDownControl.concat(arr)]);
+                  // console.log('controller for dropdown : ', dropDownControl);
+                  // console.log(subjects);
                 }
               }}
             />
@@ -195,11 +199,6 @@ const Table = () => {
 
 const TableRow = ({ index, id, name, credit, type, sec, date, dropDownControl, setDropDownControl }) => {
   const [selected, setSelected] = useState('ALL');
-  const [isActive, setIsActive] = useState(false);
-
-  if (dropDownControl[index]) {
-    setIsActive(true);
-  }
 
   return (
     <tr className="hover:bg-zinc-100">
@@ -212,9 +211,7 @@ const TableRow = ({ index, id, name, credit, type, sec, date, dropDownControl, s
           sections={sec}
           selected={selected}
           setSelected={setSelected}
-          isActive={isActive}
-          setIsActive={setIsActive}
-          dropdownControl={dropDownControl}
+          dropDownControl={dropDownControl}
           setDropDownControl={setDropDownControl}
           index={index}
         />
@@ -224,41 +221,35 @@ const TableRow = ({ index, id, name, credit, type, sec, date, dropDownControl, s
   );
 };
 
-const Dropdown = ({
-  sections,
-  selected,
-  setSelected,
-  isActive,
-  setIsActive,
-  dropDownControl,
-  setDropDownControl,
-  index,
-}) => {
+const Dropdown = ({ sections, selected, setSelected, dropDownControl, setDropDownControl, index }) => {
   const options = ['ALL', ...sections];
   return (
     <div className="select-none relative">
       <div
-        className="bg-white w-14 py-1 rounded shadow-md flex justify-evenly items-center text-sm"
-        onClick={e => {
-          setIsActive(!isActive);
-          setDropDownControl(
-            dropDownControl.map((item, i) => {
-              if (i === index) item = false;
-            }),
-          );
+        className="bg-white w-14 py-1 rounded shadow-md flex justify-evenly items-center text-sm hover:cursor-pointer"
+        onClick={() => {
+          dropDownControl.forEach((dropdown, i) => {
+            if (i === index) {
+              dropDownControl[i] = !dropDownControl[i];
+            } else {
+              dropDownControl[i] = false;
+            }
+          });
+          setDropDownControl([...dropDownControl]);
         }}
       >
         {selected}
         <VscTriangleDown color="orange" />
       </div>
-      {isActive && (
+      {dropDownControl[index] && (
         <div className="absolute bg-white top-[120%] left-0 z-10">
           {options.map(option => (
             <div
-              className="py-1 px-3 hover:bg-zinc-200 active:ring transition"
+              className="py-1 px-3 hover:bg-zinc-200 active:ring transition hover:cursor-pointer"
               onClick={e => {
                 setSelected(option);
-                setIsActive(false);
+                dropDownControl[index] = false;
+                setDropDownControl([...dropDownControl]);
               }}
             >
               {option}
