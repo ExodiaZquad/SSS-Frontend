@@ -1,6 +1,11 @@
 *{
     box-sizing: border-box;
 }
+.home_main{
+    width: 1920px;
+    margin: 0 auto;
+    position: relative;
+}
 .home_container{
     display: flex;
     justify-content: center;
