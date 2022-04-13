@@ -17,7 +17,7 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId }) => {
   const [dislikeactive, setdislikeactive] = useState(false); //dislikeactive
 
   // console.log(userId_Like.includes(userId));
-  console.log(userId_Like, userId_Dislike);
+  // console.log(userId_Like, userId_Dislike);
 
   const isLiked = userId_Like.includes(userId);
   const isDisLiked = userId_Dislike.includes(userId);
@@ -45,6 +45,8 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId }) => {
         setdislike(dislike - 1);
       }
     }
+
+    // console.log(userId_Like, userId_Dislike);
   };
   //function Dislike
   const Dislike_on = () => {
@@ -62,7 +64,7 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId }) => {
       setdislike(dislike - 1);
     } else {
       setdislikeactive(true);
-      setdislike(like + 1);
+      setdislike(dislike + 1);
       if (likeactive) {
         setlikeactive(false);
         setdislike(dislike + 1);
