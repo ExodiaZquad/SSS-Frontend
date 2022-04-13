@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getToken } from '../../services/authService';
 import likeIcon from '../../assets/icons/like.svg';
 import dislikeIcon from '../../assets/icons/dislike.svg';
@@ -10,14 +10,30 @@ import axios from 'axios';
 import './blogreview.css';
 import { useLocation } from 'react-router-dom';
 
-const LikeDislike = ({ likeCount, dislikeCount }) => {
-  const [like, setlike] = useState(likeCount); //like
-  const [dislike, setdislike] = useState(dislikeCount); //dislike
+const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, setReRender }) => {
+  const [like, setlike] = useState(userId_Like.length); //like
+  const [dislike, setdislike] = useState(userId_Dislike.length); //dislike
   const [likeactive, setlikeactive] = useState(false); //likeactive
   const [dislikeactive, setdislikeactive] = useState(false); //dislikeactive
 
+  // console.log(userId_Like.includes(userId));
+  console.log(userId_Like, userId_Dislike);
+
+  const isLiked = userId_Like.includes(userId);
+  const isDisLiked = userId_Dislike.includes(userId);
+
   //function Like
   const Like_on = () => {
+    const token = getToken();
+    const res = axios.put(
+      'http://localhost:3005/api/blogreviews/like',
+      { target_id: objId },
+      {
+        headers: { 'x-auth-token': token },
+      },
+    );
+
+    // setReRender('xx');
     if (likeactive) {
       setlikeactive(false);
       setlike(like - 1);
@@ -33,6 +49,15 @@ const LikeDislike = ({ likeCount, dislikeCount }) => {
   };
   //function Dislike
   const Dislike_on = () => {
+    const token = getToken();
+    const res = axios.put(
+      'http://localhost:3005/api/blogreviews/dislike',
+      { target_id: objId },
+      {
+        headers: { 'x-auth-token': token },
+      },
+    );
+
     if (dislikeactive) {
       setdislikeactive(false);
       setdislike(dislike - 1);
@@ -46,6 +71,13 @@ const LikeDislike = ({ likeCount, dislikeCount }) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (isLiked) setlikeactive(true);
+
+    if (isDisLiked) setdislikeactive(true);
+  }, []);
+
   return (
     <div className="review_button">
       <button onClick={Like_on} className={likeactive ? 'active_like' : 'btn-like'}>
@@ -93,10 +125,12 @@ const ShowReview = ({
   rate,
   text,
   star,
-  likeCount,
-  dislikeCount,
+  userId_Like,
+  userId_Dislike,
   objId,
   getReviews,
+  userId,
+  setReRender,
 }) => {
   const colorStar = Array.from(Array(rate).keys());
   const lineStar = Array.from(Array(5 - rate).keys());
@@ -140,7 +174,13 @@ const ShowReview = ({
           <p className="overflow-auto h-20">{text}</p>
         </div>
         <div className="review__like">
-          <LikeDislike likeCount={likeCount} dislikeCount={dislikeCount} />
+          <LikeDislike
+            objId={objId}
+            userId_Like={userId_Like}
+            userId_Dislike={userId_Dislike}
+            userId={userId}
+            setReRender={setReRender}
+          />
         </div>
 
         {location.pathname === '/profile' && <DeleteBtn objId={objId} getReviews={getReviews} />}

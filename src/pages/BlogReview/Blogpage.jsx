@@ -6,9 +6,12 @@ import { FaSistrix } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import ShowReview from '../../components/ShowReview';
 import config from '../../config';
-import { getToken } from '../../services/authService';
+import { getToken, getUserObjId } from '../../services/authService';
 
 const Blogpage = () => {
+  const { id: userId } = getUserObjId();
+  const [reRender, setReRender] = useState('');
+
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -158,9 +161,11 @@ const Blogpage = () => {
                 rate={review.rate}
                 star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
                 text={review.textBlogreview}
-                likeCount={review.userId_Like.length}
-                dislikeCount={review.userId_Dislike.length}
+                userId_Like={review.userId_Like}
+                userId_Dislike={review.userId_Dislike}
                 getReviews={getReviews}
+                userId={userId}
+                setReRender={setReRender}
               />
             );
           })}
