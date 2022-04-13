@@ -24,6 +24,13 @@ const Schedule = ({ data }) => {
   const dateReviver = function (value) {
     return new Date(value);
   };
+  const hyperhour = (date) => {
+    if (date.getMinutes() >=30){
+      return date.getHours()+1
+    }
+    return date.getHours()
+  }
+
   const isLike = () => {
     setFav(!fav);
   };
@@ -43,9 +50,8 @@ const Schedule = ({ data }) => {
     alldate.push(dateReviver(fak.class.start).getDay());
     alldate.push(dateReviver(fak.class.end).getDay());
 
-
-    let st = dateReviver(fak.class.start).getHours();
-    let ed = dateReviver(fak.class.end).getHours();
+    let st = hyperhour(dateReviver(fak.class.start));
+    let ed = hyperhour(dateReviver(fak.class.end));
     allhour.push(st);
     allhour.push(ed);
   });
@@ -60,7 +66,7 @@ const Schedule = ({ data }) => {
   ];
   let start_point = [[], [], [], [], []];
   for (let i = 0; i < alldate.length; i++) {
-    //if number is already 1 next index will be plus 1
+    //plus 1 at index that start class and end class (box)
     bars_temp[alldate[i] - 1][allhour[i] - 8] += 1;
   }
   for (let i = 0; i < alldate.length; i += 2) {
@@ -94,7 +100,7 @@ const Schedule = ({ data }) => {
       data.map(fak => {
         if (
           dateReviver(fak.class.start).getDay() - 1 == i &&
-          dateReviver(fak.class.start).getHours() == start_point[i][j] + 8
+          hyperhour(dateReviver(fak.class.start)) == start_point[i][j] + 8
         ) {
           subjects.push(fak);
           subjects_name_sort.push(fak.name);
