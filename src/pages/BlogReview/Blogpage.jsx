@@ -19,6 +19,7 @@ const Blogpage = () => {
   });
 
   const [reviews, setReviews] = useState([]);
+  console.log(reviews);
 
   const handleNewReview = ({ currentTarget: target }) => {
     let temp = { ...newReview };
@@ -147,6 +148,7 @@ const Blogpage = () => {
                 img={review.imageUrl}
                 reviewer_name={review.userName_Blogreview}
                 date={transformDate(review.date)}
+                rate={review.rate}
                 star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
                 text={review.textBlogreview}
                 likeCount={review.userId_Like.length}
