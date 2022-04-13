@@ -1,6 +1,6 @@
 .Review-container {
-  height: calc(100vh - 64px);
-  width: 100vw;
+  /* height: calc(100vh - 64px); */
+  /* width: 100vw; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -231,4 +231,34 @@
 hr.line-sort{
   border: 1px solid #8F97AD;
   border-radius: 5px;
+}
+.pagination{
+  display: flex;
+  cursor:pointer;
+}
+.page-link{
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: black;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+.pagination :hover{
+  z-index: 2;
+  color: black;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+/* .page-item{
+  padding: 1rem;
+  border: #333;
+  border-width: 2px;
+  border-style:solid;
+} */
+.blog-pagination{
+  margin: 1rem;
 }
