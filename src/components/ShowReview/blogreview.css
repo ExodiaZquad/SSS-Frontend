@@ -81,10 +81,12 @@
 }
 .review__img img {
   width: 60px;
-  height: 60px;
+  margin-top: 3px;
   border-radius: 50%;
 }
-
+.review__name_date {
+  margin-left: 10px;
+}
 .r_name {
   font-size: 20px;
   font-weight: bold;
