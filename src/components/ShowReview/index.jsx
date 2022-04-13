@@ -1,5 +1,5 @@
 import React from 'react';
-import './blogreview.css';
+import { getToken } from '../../services/authService';
 import likeIcon from '../../assets/icons/like.svg';
 import dislikeIcon from '../../assets/icons/dislike.svg';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import { FaStar } from 'react-icons/fa';
 import { FaRegStar } from 'react-icons/fa';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
+import './blogreview.css';
 
 const LikeDislike = ({ likeCount, dislikeCount }) => {
   const [like, setlike] = useState(likeCount); //like
@@ -58,9 +59,20 @@ const LikeDislike = ({ likeCount, dislikeCount }) => {
   );
 };
 
-const DeleteBtn = id => {
-  const onDelete = () => {
-    // axios.delete('http://localhost:3005/api/blogreviews/delete', { target_id: id });
+const DeleteBtn = objId => {
+  const onDelete = async () => {
+    const token = getToken();
+    console.log(objId.objId);
+    const res = await axios.post(
+      'http://localhost:3005/api/blogreviews/delete',
+      { target_id: objId.objId },
+      {
+        headers: { 'x-auth-token': token },
+      },
+    );
+
+    alert('Delete on!!!');
+    console.log(res.data);
   };
 
   return (
@@ -81,6 +93,7 @@ const ShowReview = ({
   star,
   likeCount,
   dislikeCount,
+  objId,
 }) => {
   const colorStar = Array.from(Array(rate).keys());
   const lineStar = Array.from(Array(5 - rate).keys());
@@ -126,7 +139,7 @@ const ShowReview = ({
           <LikeDislike likeCount={likeCount} dislikeCount={dislikeCount} />
         </div>
 
-        <DeleteBtn />
+        <DeleteBtn objId={objId} />
       </div>
     </div>
   );
