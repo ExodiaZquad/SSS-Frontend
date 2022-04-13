@@ -66,7 +66,11 @@ const Blogpage = () => {
     return date.slice(0, 10);
   };
 
-  let filter = reviews;
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = reviews.slice(indexOfFirstPost, indexOfLastPost);
+  let filter = currentPosts;
   if (search) {
     const filterSubjectNum = filter.filter(review => review.subjectId.toString().includes(search));
     const filterSubjectName = filter.filter(review => review.subjectName.toLowerCase().includes(search.toLowerCase()));
@@ -82,10 +86,6 @@ const Blogpage = () => {
     });
     filter = [...new Set([...subjectMajorFilter])];
   }
-  const paginate = pageNumber => setCurrentPage(pageNumber);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = filter.slice(indexOfFirstPost, indexOfLastPost);
   return (
     <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
@@ -145,7 +145,7 @@ const Blogpage = () => {
         </div>
         <hr className="line-sort" />
         <div className="">
-          {currentPosts.map((review, index) => {
+          {filter.map((review, index) => {
             return (
               <ShowReview
                 key={index}
@@ -165,7 +165,7 @@ const Blogpage = () => {
             );
           })}
           <div className="blog-pagination">
-            <Pagination postsPerPage={postsPerPage} totalPosts={filter.length} paginate={paginate} />
+            <Pagination postsPerPage={postsPerPage} totalPosts={reviews.length} paginate={paginate} />
           </div>
         </div>
       </div>
