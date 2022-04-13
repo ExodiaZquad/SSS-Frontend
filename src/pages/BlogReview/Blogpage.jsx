@@ -169,7 +169,7 @@ function Dropdown({ selected, setSelected }) {
   const [isActive, setIsActive] = useState(false);
   const options = ['All', '901', '902', '903', '904', '905'];
   return (
-    <div className="dropdown">
+    <div className="dropdown relative z-50">
       <div className="dropdown-btn" onClick={e => setIsActive(!isActive)}>
         {selected}
         <i>
