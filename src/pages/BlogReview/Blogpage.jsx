@@ -10,7 +10,6 @@ import { getToken, getUserObjId } from '../../services/authService';
 
 const Blogpage = () => {
   const { id: userId } = getUserObjId();
-  const [reRender, setReRender] = useState('');
 
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
@@ -165,7 +164,6 @@ const Blogpage = () => {
                 userId_Dislike={review.userId_Dislike}
                 getReviews={getReviews}
                 userId={userId}
-                setReRender={setReRender}
               />
             );
           })}

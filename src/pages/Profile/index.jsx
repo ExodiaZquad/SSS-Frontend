@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ShowReview from '../../components/ShowReview';
-import { getToken } from '../../services/authService';
+import { getToken, getUserObjId } from '../../services/authService';
 
 const Profile = () => {
   const [reviews, setReviews] = useState([]);
+  const { id: userId } = getUserObjId();
 
   const getReviews = async () => {
     const token = getToken();
@@ -12,7 +13,7 @@ const Profile = () => {
       headers: { 'x-auth-token': token },
     });
 
-    console.log(res.data.blogReviews);
+    console.log(res.data);
     setReviews(res.data.blogReviews);
   };
 
@@ -41,9 +42,10 @@ const Profile = () => {
                 rate={review.rate}
                 star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
                 text={review.textBlogreview}
-                likeCount={review.userId_Like.length}
-                dislikeCount={review.userId_Dislike.length}
+                userId_Like={review.userId_Like}
+                userId_Dislike={review.userId_Dislike}
                 getReviews={getReviews}
+                userId={userId}
               />
             );
           })}

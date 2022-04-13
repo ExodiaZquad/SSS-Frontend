@@ -10,7 +10,7 @@ import axios from 'axios';
 import './blogreview.css';
 import { useLocation } from 'react-router-dom';
 
-const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, setReRender }) => {
+const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId }) => {
   const [like, setlike] = useState(userId_Like.length); //like
   const [dislike, setdislike] = useState(userId_Dislike.length); //dislike
   const [likeactive, setlikeactive] = useState(false); //likeactive
@@ -33,7 +33,6 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, setReRender }
       },
     );
 
-    // setReRender('xx');
     if (likeactive) {
       setlikeactive(false);
       setlike(like - 1);
@@ -130,7 +129,6 @@ const ShowReview = ({
   objId,
   getReviews,
   userId,
-  setReRender,
 }) => {
   const colorStar = Array.from(Array(rate).keys());
   const lineStar = Array.from(Array(5 - rate).keys());
@@ -174,16 +172,10 @@ const ShowReview = ({
           <p className="overflow-auto h-20">{text}</p>
         </div>
         <div className="review__like">
-          <LikeDislike
-            objId={objId}
-            userId_Like={userId_Like}
-            userId_Dislike={userId_Dislike}
-            userId={userId}
-            setReRender={setReRender}
-          />
+          <LikeDislike objId={objId} userId_Like={userId_Like} userId_Dislike={userId_Dislike} userId={userId} />
         </div>
 
-        {location.pathname === '/profile' && <DeleteBtn objId={objId} getReviews={getReviews} />}
+        {location.pathname === '/profile' && <DeleteBtn objId={objId} />}
       </div>
     </div>
   );
