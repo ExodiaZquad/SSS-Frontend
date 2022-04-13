@@ -3,6 +3,8 @@ import './blogreview.css';
 import likeIcon from '../../assets/icons/like.svg';
 import dislikeIcon from '../../assets/icons/dislike.svg';
 import { useState } from 'react';
+import { FaStar } from 'react-icons/fa';
+import { FaRegStar } from 'react-icons/fa';
 
 const LikeDislike = ({ likeCount, dislikeCount }) => {
   const [like, setlike] = useState(likeCount); //like
@@ -54,7 +56,21 @@ const LikeDislike = ({ likeCount, dislikeCount }) => {
   );
 };
 
-const ShowReview = ({ subject_id, subject_name, img, reviewer_name, date, text, star, likeCount, dislikeCount }) => {
+const ShowReview = ({
+  subject_id,
+  subject_name,
+  img,
+  reviewer_name,
+  date,
+  rate,
+  text,
+  star,
+  likeCount,
+  dislikeCount,
+}) => {
+  const colorStar = Array.from(Array(rate).keys());
+  const lineStar = Array.from(Array(5 - rate).keys());
+
   return (
     <div className="review__box">
       <div className="review__type review__grid--column">
@@ -81,7 +97,14 @@ const ShowReview = ({ subject_id, subject_name, img, reviewer_name, date, text, 
         </div>
         <div className="review__text">
           <div className="review__star">
-            <img src={star} alt="" />
+            <div className="flex">
+              {colorStar.map(star => (
+                <FaStar />
+              ))}
+              {lineStar.map(star => (
+                <FaRegStar />
+              ))}
+            </div>
           </div>
           <p className="overflow-auto h-20">{text}</p>
         </div>
