@@ -175,7 +175,7 @@ const ShowReview = ({
           <LikeDislike objId={objId} userId_Like={userId_Like} userId_Dislike={userId_Dislike} userId={userId} />
         </div>
 
-        {location.pathname === '/profile' && <DeleteBtn objId={objId} />}
+        {location.pathname === '/profile' && <DeleteBtn objId={objId} getReviews={getReviews} />}
       </div>
     </div>
   );
