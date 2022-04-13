@@ -12,7 +12,7 @@ const Blogpage = () => {
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(3);
+  const [postsPerPage] = useState(10);
   const [search, setSearch] = useState('');
   const [newReview, setNewReview] = useState({
     subjectId: '',
@@ -144,7 +144,7 @@ const Blogpage = () => {
           </div>
         </div>
         <hr className="line-sort" />
-        <div className="mt-3">
+        <div className="">
           {currentPosts.map((review, index) => {
             return (
               <ShowReview
