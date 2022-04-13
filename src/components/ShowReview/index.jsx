@@ -97,12 +97,12 @@ const ShowReview = ({
         </div>
         <div className="review__text">
           <div className="review__star">
-            <div className="flex">
+            <div className="flex mb-1">
               {colorStar.map(star => (
-                <FaStar />
+                <FaStar className="text-[#f27405] w-[18px]" />
               ))}
               {lineStar.map(star => (
-                <FaRegStar />
+                <FaRegStar className="text-[#d1d0d0] w-[18px]" />
               ))}
             </div>
           </div>
