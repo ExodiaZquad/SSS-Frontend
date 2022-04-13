@@ -66,8 +66,8 @@ const Blogpage = () => {
   let filter = reviews;
   if (search) {
     const filterSubjectNum = filter.filter(review => review.subjectId.toString().includes(search));
-    // const filterSubjectName = filter.filter(review => review.toLowerCase().includes(search.toLowerCase()));
-    filter = [...new Set([...filterSubjectNum])];
+    const filterSubjectName = filter.filter(review => review.subjectName.toLowerCase().includes(search.toLowerCase()));
+    filter = [...new Set([...filterSubjectNum, ...filterSubjectName])];
   }
   if (selected) {
     const subjectMajorFilter = filter.filter(review => {
