@@ -8,6 +8,7 @@ import { FaRegStar } from 'react-icons/fa';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 import './blogreview.css';
+import { useLocation } from 'react-router-dom';
 
 const LikeDislike = ({ likeCount, dislikeCount }) => {
   const [like, setlike] = useState(likeCount); //like
@@ -59,19 +60,20 @@ const LikeDislike = ({ likeCount, dislikeCount }) => {
   );
 };
 
-const DeleteBtn = objId => {
+const DeleteBtn = ({ objId, getReviews }) => {
   const onDelete = async () => {
     const token = getToken();
-    console.log(objId.objId);
+
     const res = await axios.post(
       'http://localhost:3005/api/blogreviews/delete',
-      { target_id: objId.objId },
+      { target_id: objId },
       {
         headers: { 'x-auth-token': token },
       },
     );
 
     alert('Delete on!!!');
+    getReviews();
     console.log(res.data);
   };
 
@@ -94,9 +96,11 @@ const ShowReview = ({
   likeCount,
   dislikeCount,
   objId,
+  getReviews,
 }) => {
   const colorStar = Array.from(Array(rate).keys());
   const lineStar = Array.from(Array(5 - rate).keys());
+  const location = useLocation();
 
   return (
     <div className="review__box">
@@ -139,7 +143,7 @@ const ShowReview = ({
           <LikeDislike likeCount={likeCount} dislikeCount={dislikeCount} />
         </div>
 
-        <DeleteBtn objId={objId} />
+        {location.pathname === '/profile' && <DeleteBtn objId={objId} getReviews={getReviews} />}
       </div>
     </div>
   );

@@ -42,6 +42,7 @@ const Blogpage = () => {
     if (res) console.log(res.data);
 
     setModalOpen(false);
+    getReviews();
     alert('Auan tum kuay rai i sus !?');
   };
 
@@ -79,7 +80,7 @@ const Blogpage = () => {
     });
     filter = [...new Set([...subjectMajorFilter])];
   }
-  console.log(filter);
+
   return (
     <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
@@ -154,6 +155,7 @@ const Blogpage = () => {
                 text={review.textBlogreview}
                 likeCount={review.userId_Like.length}
                 dislikeCount={review.userId_Dislike.length}
+                getReviews={getReviews}
               />
             );
           })}
