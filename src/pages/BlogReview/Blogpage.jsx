@@ -19,6 +19,7 @@ const Blogpage = () => {
   });
 
   const [reviews, setReviews] = useState([]);
+  console.log(reviews);
 
   const handleNewReview = ({ currentTarget: target }) => {
     let temp = { ...newReview };
@@ -142,13 +143,16 @@ const Blogpage = () => {
             return (
               <ShowReview
                 key={index}
-                subject_name={'ENGLISH FROM ENTERTAINMENT MEDIA'}
+                subject_name={review.subjectName}
                 subject_id={review.subjectId}
-                img="https://media.discordapp.net/attachments/910957790992941129/956834086184423444/Pngtreeman_laugh_icon_3732075.png?width=676&height=676"
-                reviewer_name="Thanakorn"
+                img={review.imageUrl}
+                reviewer_name={review.userName_Blogreview}
                 date={transformDate(review.date)}
+                rate={review.rate}
                 star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
                 text={review.textBlogreview}
+                likeCount={review.userId_Like.length}
+                dislikeCount={review.userId_Dislike.length}
               />
             );
           })}
