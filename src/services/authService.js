@@ -1,6 +1,7 @@
 // import 'dotenv/config';
 import config from '../config';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
 const apiLogin = config.API_URL + '/auth';
 
@@ -28,6 +29,15 @@ export function getToken() {
     return token;
   } catch (error) {
     console.log(error);
+    return null;
+  }
+}
+
+export function getUserObjId() {
+  try {
+    const token = localStorage.getItem('token');
+    return jwtDecode(token);
+  } catch (error) {
     return null;
   }
 }
