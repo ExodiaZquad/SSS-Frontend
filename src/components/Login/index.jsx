@@ -14,6 +14,8 @@ const Login = () => {
   const [userImg, setUserImg] = useState('');
   const [isActive, setIsActive] = useState(false);
 
+  const location = useLocation();
+
   const handleDropdownClick = () => {
     setIsActive(!isActive);
   };
@@ -76,26 +78,35 @@ const Login = () => {
       ) : (
         <div className="font-medium flex justify-center items-center gap-2 relative">
           {/* User's profile image */}
-          <img src={userImg} alt="" className="h-10 w-10 ring ring-orange-500 rounded-full shadow-md" />
+          <img
+            src={userImg}
+            alt=""
+            className={
+              'h-10 w-10 ring rounded-full shadow-md' +
+              (location.pathname === '/' ? '  ring-white' : ' ring-orange-500')
+            }
+          />
           {/* User's Name */}
-          <div className="">{userName}</div>
+          <div className={' ' + (location.pathname === '/' ? 'text-white' : '')}>{userName}</div>
           {!isActive && (
             <VscTriangleDown
-              className="hover:cursor-pointer text-gray-400"
+              className="hover:cursor-pointer"
               onClick={() => {
                 handleDropdownClick();
               }}
+              color={location.pathname === '/' ? 'white' : 'gray'}
             />
           )}
           {isActive && (
             <div>
               <VscTriangleUp
-                className="hover:cursor-pointer text-gray-400"
+                className="hover:cursor-pointer"
                 onClick={() => {
                   handleDropdownClick();
                 }}
+                color={location.pathname === '/' ? 'white' : 'gray'}
               />
-              <div className="bg-white absolute top-[140%] right-0 shadow-md border rounded-xl flex flex-col">
+              <div className="bg-white absolute top-[140%] right-0 shadow-md border rounded-xl flex flex-col z-10">
                 <Link to="/profile">
                   <button
                     className="w-full rounded-t-xl py-2 pl-4 pr-14 hover:bg-zinc-200"
