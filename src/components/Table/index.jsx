@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import axios from 'axios';
 
-const Table = () => {
+const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
   const [classId, setClassId] = useState('');
-  const [subjects, setSubjects] = useState([]);
+  // const [subjects, setSubjects] = useState([]);
   const [dropDownControl, setDropDownControl] = useState([]);
   const [creditCount, setCreditCount] = useState(0);
+  // const [secSelected, setSecSelected] = useState([]);
 
   const getSubject = async () => {
     const res = await axios.get('http://localhost:3005/api/subject/', {
@@ -14,6 +15,7 @@ const Table = () => {
     });
     // setDropDownControl([...dropDownControl.concat([false])]);
     setDropDownControl(prev => prev.concat([false]));
+    setSecSelected(prev => prev.concat(['-1']));
     console.log('control: ', dropDownControl);
     // setSubjects([...subjects.concat(res.data)]);
     setSubjects(prevSubjects => prevSubjects.concat(res.data));
@@ -30,12 +32,12 @@ const Table = () => {
     <div className="mt-4">
       <table className="w-full text-center font-medium ">
         <tr className="rounded">
-          <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500">รหัสวิชา</th>
+          <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500  w-[300px]">รหัสวิชา</th>
           <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500">ชื่อวิชา</th>
           <th className="p-3 bg-orange-200 text-orange-500">หน่วยกิต</th>
           <th className="p-3 bg-orange-200 text-orange-500">ประเภท</th>
           <th className="p-3 bg-orange-200 text-orange-500">กลุ่ม</th>
-          <th className="p-3 bg-orange-200 text-orange-500">เวลาเรียน</th>
+          <th className="p-3 bg-orange-200 text-orange-500  w-[300px]">เวลาเรียน</th>
         </tr>
         {subjects.map((subject, idx) => {
           return (
@@ -46,15 +48,20 @@ const Table = () => {
               credit={subject.credit}
               type={subject.type}
               sec={subject.sec}
+              theoryTime={subject.theoryTime}
+              labSec={subject.labSec}
+              labTime={subject.labTime}
               hasLab={subject.hasLab}
               dropDownControl={dropDownControl}
               setDropDownControl={setDropDownControl}
+              secSelected={secSelected}
+              setSecSelected={setSecSelected}
             />
           );
         })}
         {/* input field table row */}
         <tr className="hover:bg-zinc-100">
-          <td className="p-3 w-[300px]">
+          <td className="p-3">
             <input
               type="text"
               className="rounded border-none outline-none py-2 pl-2 w-1/2 h-3/4 font-medium bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-orange-200"
@@ -81,8 +88,37 @@ const Table = () => {
   );
 };
 
-const TableRow = ({ index, id, name, credit, type, sec, date, hasLab, dropDownControl, setDropDownControl }) => {
+const TableRow = ({
+  index,
+  id,
+  name,
+  credit,
+  type,
+  sec,
+  theoryTime,
+  labSec,
+  labTime,
+  hasLab,
+  dropDownControl,
+  setDropDownControl,
+  secSelected,
+  setSecSelected,
+}) => {
   const [selected, setSelected] = useState('ALL');
+  const [theoryDate, setTheoryDate] = useState('');
+  const [labDate, setLabDate] = useState('');
+  const [labSecText, setLabSecText] = useState('');
+
+  useEffect(() => {
+    setTheoryDate(theoryTime[sec.findIndex(element => element === selected)]);
+    if (hasLab) {
+      let idx = sec.findIndex(element => element === selected);
+      if (idx === -1) {
+        setLabSecText('ALL');
+      } else setLabSecText(labSec[idx]);
+      setLabDate(labTime[idx]);
+    }
+  }, [selected]);
 
   return (
     <>
@@ -101,17 +137,19 @@ const TableRow = ({ index, id, name, credit, type, sec, date, hasLab, dropDownCo
                 dropDownControl={dropDownControl}
                 setDropDownControl={setDropDownControl}
                 index={index}
+                secSelected={secSelected}
+                setSecSelected={setSecSelected}
               />
             </td>
-            <td className="p-3 border">{date}</td>
+            <td className="p-3 border">{theoryDate}</td>
           </tr>
           <tr className="hover:bg-zinc-100">
             <td className="p-3 border-x border-b"></td>
             <td className="p-3 max-w-xs border-x border-b"></td>
             <td className="p-3 border-x border-b"></td>
             <td className="p-3 border">Lab</td>
-            <td className="p-3 flex justify-center items-center border">yo</td>
-            <td className="p-3 border">{date}</td>
+            <td className="p-3 flex justify-center items-center border">{labSecText}</td>
+            <td className="p-3 border">{labDate}</td>
           </tr>
         </>
       ) : (
@@ -128,16 +166,27 @@ const TableRow = ({ index, id, name, credit, type, sec, date, hasLab, dropDownCo
               dropDownControl={dropDownControl}
               setDropDownControl={setDropDownControl}
               index={index}
+              secSelected={secSelected}
+              setSecSelected={setSecSelected}
             />
           </td>
-          <td className="p-3 border">{date}</td>
+          <td className="p-3 border">{theoryDate}</td>
         </tr>
       )}
     </>
   );
 };
 
-const Dropdown = ({ sections, selected, setSelected, dropDownControl, setDropDownControl, index }) => {
+const Dropdown = ({
+  sections,
+  selected,
+  setSelected,
+  dropDownControl,
+  setDropDownControl,
+  index,
+  secSelected,
+  setSecSelected,
+}) => {
   const options = ['ALL', ...sections];
   return (
     <div className="select-none relative">
@@ -164,6 +213,11 @@ const Dropdown = ({ sections, selected, setSelected, dropDownControl, setDropDow
               className="py-1 px-3 hover:bg-zinc-200 rounded-md active:ring transition hover:cursor-pointer"
               onClick={e => {
                 setSelected(option);
+                if (option === 'ALL') {
+                  secSelected[index] = '-1';
+                } else secSelected[index] = option;
+                setSecSelected([...secSelected]);
+                console.log('sec selected : ', secSelected);
                 dropDownControl[index] = false;
                 setDropDownControl([...dropDownControl]);
               }}
