@@ -42,6 +42,7 @@ const Blogpage = () => {
     if (res) console.log(res.data);
 
     setModalOpen(false);
+    getReviews();
     alert('Auan tum kuay rai i sus !?');
   };
 
@@ -79,7 +80,7 @@ const Blogpage = () => {
     });
     filter = [...new Set([...subjectMajorFilter])];
   }
-  console.log(filter);
+
   return (
     <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
@@ -143,6 +144,7 @@ const Blogpage = () => {
             return (
               <ShowReview
                 key={index}
+                objId={review._id}
                 subject_name={review.subjectName}
                 subject_id={review.subjectId}
                 img={review.imageUrl}
@@ -153,6 +155,7 @@ const Blogpage = () => {
                 text={review.textBlogreview}
                 likeCount={review.userId_Like.length}
                 dislikeCount={review.userId_Dislike.length}
+                getReviews={getReviews}
               />
             );
           })}
@@ -206,7 +209,7 @@ function Searchbar({ search, setSearch }) {
 }
 function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
   return (
-    <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center">
+    <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center z-50">
       <div
         className="w-screen h-screen absolute top-0 left-0 bg-black/70 cursor-pointer"
         onClick={() => setOpenModal(false)}
