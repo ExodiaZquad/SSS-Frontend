@@ -43,8 +43,11 @@ const Schedule = ({ data }) => {
     alldate.push(dateReviver(fak.class.start).getDay());
     alldate.push(dateReviver(fak.class.end).getDay());
 
-    allhour.push(dateReviver(fak.class.start).getHours());
-    allhour.push(dateReviver(fak.class.end).getHours());
+
+    let st = dateReviver(fak.class.start).getHours();
+    let ed = dateReviver(fak.class.end).getHours();
+    allhour.push(st);
+    allhour.push(ed);
   });
   console.log(alldate, allhour);
 
