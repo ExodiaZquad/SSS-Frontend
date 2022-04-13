@@ -144,7 +144,7 @@ const Blogpage = () => {
           </div>
         </div>
         <hr className="line-sort" />
-        <div className="h-[68vh]  mt-3">
+        <div className="mt-3">
           {currentPosts.map((review, index) => {
             return (
               <ShowReview
