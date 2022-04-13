@@ -4,7 +4,7 @@ import Login from '../Login';
 
 const Navbar = () => {
   return (
-    <div className="bg-white-800 h-16 w-full">
+    <div className="bg-white-800  h-16 w-full">
       <div className="max-w-screen-2xl mx-auto h-full flex justify-between items-center">
         <div className="flex justify-center items-center gap-10">
           <Link to="/">
