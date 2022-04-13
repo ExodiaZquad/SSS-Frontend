@@ -5,6 +5,8 @@ import dislikeIcon from '../../assets/icons/dislike.svg';
 import { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { FaRegStar } from 'react-icons/fa';
+import { FaTrashAlt } from 'react-icons/fa';
+import axios from 'axios';
 
 const LikeDislike = ({ likeCount, dislikeCount }) => {
   const [like, setlike] = useState(likeCount); //like
@@ -56,6 +58,18 @@ const LikeDislike = ({ likeCount, dislikeCount }) => {
   );
 };
 
+const DeleteBtn = id => {
+  const onDelete = () => {
+    // axios.delete('http://localhost:3005/api/blogreviews/delete', { target_id: id });
+  };
+
+  return (
+    <div className="absolute bottom-5 right-7 bg-[#FF5349] p-2 rounded shadow-md cursor-pointer" onClick={onDelete}>
+      <FaTrashAlt className="text-lg text-white" />
+    </div>
+  );
+};
+
 const ShowReview = ({
   subject_id,
   subject_name,
@@ -73,7 +87,7 @@ const ShowReview = ({
 
   return (
     <div className="review__box">
-      <div className="review__type review__grid--column">
+      <div className="review__type review__grid--column relative">
         <div className="review__sub">
           <div className="sub_name">
             <h2>{subject_name}</h2>
@@ -111,6 +125,8 @@ const ShowReview = ({
         <div className="review__like">
           <LikeDislike likeCount={likeCount} dislikeCount={dislikeCount} />
         </div>
+
+        <DeleteBtn />
       </div>
     </div>
   );
