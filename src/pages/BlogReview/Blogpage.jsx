@@ -11,6 +11,8 @@ import { getToken } from '../../services/authService';
 const Blogpage = () => {
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(3);
   const [search, setSearch] = useState('');
   const [newReview, setNewReview] = useState({
     subjectId: '',
@@ -80,7 +82,10 @@ const Blogpage = () => {
     });
     filter = [...new Set([...subjectMajorFilter])];
   }
-
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filter.slice(indexOfFirstPost, indexOfLastPost);
   return (
     <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
@@ -139,8 +144,8 @@ const Blogpage = () => {
           </div>
         </div>
         <hr className="line-sort" />
-        <div className="h-[68vh] overflow-auto mt-3">
-          {filter.map((review, index) => {
+        <div className="h-[68vh]  mt-3">
+          {currentPosts.map((review, index) => {
             return (
               <ShowReview
                 key={index}
@@ -159,6 +164,9 @@ const Blogpage = () => {
               />
             );
           })}
+          <div className="blog-pagination">
+            <Pagination postsPerPage={postsPerPage} totalPosts={filter.length} paginate={paginate} />
+          </div>
         </div>
       </div>
     </div>
@@ -325,6 +333,25 @@ const styles = {
     width: 300,
     padding: 10,
   },
+};
+const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+  const pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  return (
+    <div className="pagination justify-end">
+      {pageNumbers.map(number => (
+        <div key={number} className="page-item">
+          <div onClick={() => paginate(number)} href="!#" className="page-link ">
+            {number}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Blogpage;
