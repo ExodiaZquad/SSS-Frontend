@@ -41,16 +41,21 @@ const Blogpage = () => {
   };
 
   const submitReview = async () => {
-    const token = getToken();
-    const res = await axios.post(config.API_URL + '/blogreviews', newReview, {
-      headers: { 'x-auth-token': token },
-    });
+    try {
+      const token = getToken();
+      const res = await axios.post(config.API_URL + '/blogreviews', newReview, {
+        headers: { 'x-auth-token': token },
+      });
 
-    if (res) console.log(res.data);
+      if (res) console.log(res.data);
 
-    setModalOpen(false);
-    getReviews();
-    alert('Auan tum kuay rai i sus !?');
+      setModalOpen(false);
+      getReviews();
+      alert('Post Completed!!!');
+    } catch (error) {
+      alert('Subject Id not found.');
+      return null;
+    }
   };
 
   const getReviews = async () => {
@@ -230,8 +235,8 @@ function Searchbar({ search, setSearch, setCurrentPage }) {
 }
 function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview, newReview }) {
   const [passCaptcha, setPassCaptcha] = useState(false);
-  const { textBlogreview } = newReview;
-  console.log(textBlogreview, textBlogreview.length);
+  const { subjectId, textBlogreview } = newReview;
+  console.log(newReview);
 
   function onChange(value) {
     // console.log('Captcha value:', value);
@@ -295,7 +300,7 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview, new
           </div>
 
           <div className="flex justify-center mt-8">
-            {passCaptcha && textBlogreview.length <= 250 ? (
+            {passCaptcha && textBlogreview.length <= 250 && subjectId && textBlogreview ? (
               <div
                 className="bg-blue-300 px-6 py-3 rounded-full select-none cursor-pointer active:bg-blue-500 hover:bg-blue-400"
                 onClick={submitReview}
