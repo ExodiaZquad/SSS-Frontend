@@ -140,7 +140,7 @@ const ShowReview = ({
 
   return (
     <div className="review__box">
-      <div className="review__type review__grid--column relative">
+      <div className="review__type review__grid--column relative shadow-md">
         <div className="review__sub">
           <div className="sub_name">
             <h2>{subject_name}</h2>
@@ -173,7 +173,7 @@ const ShowReview = ({
               ))}
             </div>
           </div>
-          <p className="overflow-auto h-20">{text}</p>
+          <p className="overflow-auto h-20 whitespace-normal">{text}</p>
         </div>
         <div className="review__like">
           <LikeDislike
