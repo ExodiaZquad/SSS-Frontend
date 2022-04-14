@@ -61,7 +61,7 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
         })}
         {/* input field table row */}
         <tr className="hover:bg-zinc-100">
-          <td className="p-3">
+          <td className="p-3 border">
             <input
               type="text"
               className="rounded border-none outline-none py-2 pl-2 w-1/2 h-3/4 font-medium bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-orange-200"
@@ -76,11 +76,11 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
               }}
             />
           </td>
-          <td className="p-3"></td>
-          <td className="p-3"></td>
-          <td className="p-3"></td>
-          <td className="p-3"></td>
-          <td className="p-3"></td>
+          <td className="p-3 border"></td>
+          <td className="p-3 border"></td>
+          <td className="p-3 border"></td>
+          <td className="p-3 border"></td>
+          <td className="p-3 border"></td>
         </tr>
       </table>
       <h2 className="text-center font-bold">หน่วยกิตทั้งหมด {creditCount}</h2>
