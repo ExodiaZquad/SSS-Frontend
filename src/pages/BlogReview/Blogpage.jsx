@@ -95,7 +95,7 @@ const Blogpage = () => {
         <div className="Blog-function">
           <Dropdown selected={selected} setSelected={setSelected} setCurrentPage={setCurrentPage} />
           <div className="search-post">
-            <Searchbar search={search} setSearch={setSearch} />
+            <Searchbar search={search} setSearch={setSearch} setCurrentPage={setCurrentPage} />
             <button
               className="openModalBtn"
               onClick={() => {
@@ -206,9 +206,10 @@ function Dropdown({ selected, setSelected, setCurrentPage }) {
     </div>
   );
 }
-function Searchbar({ search, setSearch }) {
+function Searchbar({ search, setSearch, setCurrentPage }) {
   const searchWord = word => {
     setSearch(word);
+    setCurrentPage(1);
   };
   return (
     <div className="search-bar">
