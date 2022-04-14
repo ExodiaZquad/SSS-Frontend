@@ -1,10 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Login from '../Login';
 
 const Navbar = () => {
+  console.log(useLocation());
+
   return (
-    <div className="bg-white-800  h-16 w-full">
+    <div className={'bg-white-800  h-16 w-full' + (useLocation().pathname === '/' ? '' : ' shadow-md')}>
       <div className="max-w-screen-2xl mx-auto h-full flex justify-between items-center">
         <div className="flex justify-center items-center gap-10">
           <Link to="/">

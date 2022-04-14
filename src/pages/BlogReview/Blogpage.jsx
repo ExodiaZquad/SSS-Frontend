@@ -6,11 +6,15 @@ import { FaSistrix } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import ShowReview from '../../components/ShowReview';
 import config from '../../config';
-import { getToken } from '../../services/authService';
+import { getToken, getUserObjId } from '../../services/authService';
 
 const Blogpage = () => {
+  const { id: userId } = getUserObjId();
+
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
   const [search, setSearch] = useState('');
   const [newReview, setNewReview] = useState({
     subjectId: '',
@@ -42,6 +46,7 @@ const Blogpage = () => {
     if (res) console.log(res.data);
 
     setModalOpen(false);
+    getReviews();
     alert('Auan tum kuay rai i sus !?');
   };
 
@@ -63,11 +68,15 @@ const Blogpage = () => {
     return date.slice(0, 10);
   };
 
-  let filter = reviews;
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = reviews.slice(indexOfFirstPost, indexOfLastPost);
+  let filter = currentPosts;
   if (search) {
     const filterSubjectNum = filter.filter(review => review.subjectId.toString().includes(search));
-    // const filterSubjectName = filter.filter(review => review.toLowerCase().includes(search.toLowerCase()));
-    filter = [...new Set([...filterSubjectNum])];
+    const filterSubjectName = filter.filter(review => review.subjectName.toLowerCase().includes(search.toLowerCase()));
+    filter = [...new Set([...filterSubjectNum, ...filterSubjectName])];
   }
   if (selected) {
     const subjectMajorFilter = filter.filter(review => {
@@ -79,7 +88,6 @@ const Blogpage = () => {
     });
     filter = [...new Set([...subjectMajorFilter])];
   }
-  console.log(filter);
   return (
     <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
@@ -138,11 +146,12 @@ const Blogpage = () => {
           </div>
         </div>
         <hr className="line-sort" />
-        <div className="h-[68vh] overflow-auto mt-3">
+        <div className="">
           {filter.map((review, index) => {
             return (
               <ShowReview
                 key={index}
+                objId={review._id}
                 subject_name={review.subjectName}
                 subject_id={review.subjectId}
                 img={review.imageUrl}
@@ -151,11 +160,16 @@ const Blogpage = () => {
                 rate={review.rate}
                 star="https://media.discordapp.net/attachments/936258296136990743/956858765297192980/5.png?width=1440&height=350"
                 text={review.textBlogreview}
-                likeCount={review.userId_Like.length}
-                dislikeCount={review.userId_Dislike.length}
+                userId_Like={review.userId_Like}
+                userId_Dislike={review.userId_Dislike}
+                getReviews={getReviews}
+                userId={userId}
               />
             );
           })}
+          <div className="blog-pagination">
+            <Pagination postsPerPage={postsPerPage} totalPosts={reviews.length} paginate={paginate} />
+          </div>
         </div>
       </div>
     </div>
@@ -166,7 +180,7 @@ function Dropdown({ selected, setSelected }) {
   const [isActive, setIsActive] = useState(false);
   const options = ['All', '901', '902', '903', '904', '905'];
   return (
-    <div className="dropdown">
+    <div className="dropdown relative z-50">
       <div className="dropdown-btn" onClick={e => setIsActive(!isActive)}>
         {selected}
         <i>
@@ -206,7 +220,7 @@ function Searchbar({ search, setSearch }) {
 }
 function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
   return (
-    <div className="w-screen h-screen absolute top-0 left-0 flex justify-center items-center">
+    <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center z-50">
       <div
         className="w-screen h-screen absolute top-0 left-0 bg-black/70 cursor-pointer"
         onClick={() => setOpenModal(false)}
@@ -322,6 +336,25 @@ const styles = {
     width: 300,
     padding: 10,
   },
+};
+const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+  const pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  return (
+    <div className="pagination justify-end">
+      {pageNumbers.map(number => (
+        <div key={number} className="page-item">
+          <div onClick={() => paginate(number)} href="!#" className="page-link ">
+            {number}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Blogpage;
