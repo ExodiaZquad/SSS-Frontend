@@ -23,7 +23,7 @@ const Blogpage = () => {
   const [newReview, setNewReview] = useState({
     subjectId: '',
     textBlogreview: '',
-    rate: 0,
+    rate: 1,
   });
 
   const [reviews, setReviews] = useState([]);
