@@ -19,14 +19,9 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
     console.log('control: ', dropDownControl);
     // setSubjects([...subjects.concat(res.data)]);
     setSubjects(prevSubjects => prevSubjects.concat(res.data));
+    setCreditCount(prev => prev + res.data.credit);
     setClassId('');
   };
-
-  useEffect(() => {
-    subjects.forEach(subject => {
-      setCreditCount(prev => prev + parseInt(subject.credit));
-    });
-  }, [subjects]);
 
   return (
     <div className="mt-4">
@@ -83,7 +78,7 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
           <td className="p-3 border"></td>
         </tr>
       </table>
-      <h2 className="text-center font-bold">หน่วยกิตทั้งหมด {creditCount}</h2>
+      <h2 className="text-center font-bold mt-7">หน่วยกิตทั้งหมด {creditCount}</h2>
     </div>
   );
 };
