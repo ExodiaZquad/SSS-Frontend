@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '../../components/Table';
 import Schedule from '../../components/Schedule';
 import axios from 'axios';
@@ -193,6 +193,7 @@ const ScheduleGenerator = () => {
 
   const [subjects, setSubjects] = useState([]);
   const [secSelected, setSecSelected] = useState([]);
+  const [isBtnWorking, setIsBtnWorking] = useState(false);
   const [data, setData] = useState([]);
 
   const onGenerate = async () => {
@@ -213,6 +214,19 @@ const ScheduleGenerator = () => {
     console.log('res : ', res.data);
   };
 
+  useEffect(() => {
+    updateGenerateBtn();
+  }, [subjects]);
+
+  const updateGenerateBtn = () => {
+    let totalCredit = 0;
+    subjects.forEach(subject => {
+      totalCredit += subject.credit;
+    });
+    if (totalCredit === 0 || totalCredit >= 25) setIsBtnWorking(false);
+    else setIsBtnWorking(true);
+  };
+
   return (
     <div>
       <div className="max-w-screen-2xl mx-auto flex flex-col justify-center">
@@ -225,12 +239,16 @@ const ScheduleGenerator = () => {
         />
         {/* <h2 className="text-center font-bold">หน่วยกิตทั้งหมด {12}</h2> */}
         <div className="flex justify-center items-center mt-7">
-          <button
-            className="bg-blue-500 py-3 px-7 rounded-lg text-white hover:brightness-105 active:scale-95"
-            onClick={onGenerate}
-          >
-            Generate
-          </button>
+          {isBtnWorking ? (
+            <button
+              className="bg-blue-500 py-3 px-7 rounded-lg text-white hover:brightness-105 active:scale-95"
+              onClick={onGenerate}
+            >
+              Generate
+            </button>
+          ) : (
+            <div className="bg-zinc-400 py-3 px-7 rounded-lg text-white ">Generate</div>
+          )}
         </div>
         <h1 className="mt-14 font-bold text-3xl">My Schedule</h1>
         {data.map(dataItem => (
