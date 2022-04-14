@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import Login from '../Login';
 
 const Navbar = () => {
-  console.log(useLocation());
+  const location = useLocation();
+  console.log(location.pathname);
 
   return (
     <div className={'bg-white-800  h-16 w-full' + (useLocation().pathname === '/' ? '' : ' shadow-md')}>
@@ -18,13 +19,34 @@ const Navbar = () => {
           </Link>
           <nav className="flex text-gray-800 font-medium gap-10">
             <Link to="/generator">
-              <div className="hover:cursor-pointer hover:text-gray-500">Schedule Generator</div>
+              <div
+                className={
+                  'hover:cursor-pointer hover:text-gray-500' +
+                  (location.pathname === '/generator' ? ' text-red-500 hover:text-red-400' : '')
+                }
+              >
+                Schedule Generator
+              </div>
             </Link>
             <Link to="/filter">
-              <div className="hover:cursor-pointer hover:text-gray-500">Filter Subject</div>
+              <div
+                className={
+                  'hover:cursor-pointer hover:text-gray-500' +
+                  (location.pathname === '/filter' ? ' text-red-500 hover:text-red-400' : '')
+                }
+              >
+                Filter Subject
+              </div>
             </Link>
             <Link to="/review">
-              <div className="hover:cursor-pointer hover:text-gray-500">Blog Review</div>
+              <div
+                className={
+                  'hover:cursor-pointer hover:text-gray-500' +
+                  (location.pathname === '/review' ? ' text-red-500 hover:text-red-400' : '')
+                }
+              >
+                Blog Review
+              </div>
             </Link>
           </nav>
         </div>
