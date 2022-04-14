@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FaCaretDown } from 'react-icons/fa';
 import { FaSistrix } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import ShowReview from '../../components/ShowReview';
 import config from '../../config';
 import close from '../../assets/icons/close.svg';
@@ -99,7 +100,7 @@ const Blogpage = () => {
           <div className="search-post">
             <Searchbar search={search} setSearch={setSearch} setCurrentPage={setCurrentPage} />
             <button
-              className="openModalBtn"
+              className="openModalBtn shadow-md hover:bg-[#ff7957] active:bg-[#ff8357]/[0.5]"
               onClick={() => {
                 setModalOpen(true);
               }}
@@ -115,6 +116,7 @@ const Blogpage = () => {
               setRate={setRate}
               submitReview={submitReview}
               handleNewReview={handleNewReview}
+              newReview={newReview}
             />
           )}
         </div>
@@ -170,7 +172,12 @@ const Blogpage = () => {
             );
           })}
           <div className="blog-pagination">
-            <Pagination postsPerPage={postsPerPage} totalPosts={filter.length} paginate={paginate} />
+            <Pagination
+              postsPerPage={postsPerPage}
+              totalPosts={filter.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
           </div>
         </div>
       </div>
@@ -214,16 +221,18 @@ function Searchbar({ search, setSearch, setCurrentPage }) {
     setCurrentPage(1);
   };
   return (
-    <div className="search-bar">
+    <div className="search-bar shadow-md">
       <i>
         <FaSistrix />
       </i>
-      <input type="text" placeholder="search" onChange={e => searchWord(e.currentTarget.value)} />
+      <input type="text" placeholder="search" onChange={e => searchWord(e.currentTarget.value)} className="py-2" />
     </div>
   );
 }
-function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
+function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview, newReview }) {
   const [passCaptcha, setPassCaptcha] = useState(false);
+  const { textBlogreview } = newReview;
+  console.log(textBlogreview, textBlogreview.length);
 
   function onChange(value) {
     // console.log('Captcha value:', value);
@@ -240,13 +249,19 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
       {/*  px-16 py-14 */}
       <div className="bg-white pt-14 pb-10 px-16 absolute rounded-lg shadow-lg relative">
         <div className="flex justify-between">
-          <div className="text-3xl font-bold pb-8 ">Review subject</div>
+          <div className="text-3xl font-bold pb-8 ">Post Review</div>
 
           <div className="">
-            <img src={close} alt="" className="w-11 cursor-pointer" onClick={() => setOpenModal(false)} />
+            {/* <img src={close} alt="" className="w-11 cursor-pointer" onClick={() => setOpenModal(false)} /> */}
+            <AiOutlineCloseCircle
+              className="text-3xl rounded-full cursor-pointer  hover:text-[#ff8357] active:text-[#ff8357]/[0.5]"
+              onClick={() => setOpenModal(false)}
+            />
           </div>
         </div>
-        <div className="h-[0.5px] bg-[#E3E9EF] absolute w-full left-0"></div>
+
+        <div className="h-[1px] bg-[#E3E9EF] absolute w-full left-0"></div>
+
         <div className="pt-8">
           <div className="mb-5">
             <h1 className="text-xl font-semibold mb-2">
@@ -281,7 +296,7 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
           </div>
 
           <div className="flex justify-center mt-8">
-            {passCaptcha ? (
+            {passCaptcha && textBlogreview.length <= 250 ? (
               <div
                 className="bg-blue-300 px-6 py-3 rounded-full select-none cursor-pointer active:bg-blue-500 hover:bg-blue-400"
                 onClick={submitReview}
@@ -289,7 +304,7 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
                 Confirm
               </div>
             ) : (
-              <div className="bg-black/70 px-6 py-3 rounded-full select-none">Confirm</div>
+              <div className="bg-black/70 px-6 py-3 rounded-full select-none cursor-default">Confirm</div>
             )}
           </div>
         </div>
@@ -367,7 +382,7 @@ const styles = {
     padding: 10,
   },
 };
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -378,7 +393,14 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
     <div className="pagination justify-end">
       {pageNumbers.map(number => (
         <div key={number} className="page-item">
-          <div onClick={() => paginate(number)} href="!#" className="page-link ">
+          <div
+            onClick={() => paginate(number)}
+            href="!#"
+            className={
+              'page-link text-white shadow-md ' +
+              (number === currentPage ? 'bg-[#ff8357] hover:bg-[#ff7957]' : ' bg-white text-black hover:bg-[#d6d6d6]')
+            }
+          >
             {number}
           </div>
         </div>

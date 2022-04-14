@@ -5,6 +5,8 @@
   flex-direction: column;
   align-items: center;
   background-color: #e9ecf4;
+  /* background-color: red; */
+  min-height: 100vh;
   padding-top: 3.2rem;
 }
 .Blog-contain {
@@ -70,9 +72,11 @@
   justify-content: space-between;
 }
 .search-bar {
-  max-width: 19rem;
-  width: 100%;
-  height: 2rem;
+  /* max-width: 19rem; */
+  /* width: 100%; */
+  width: 330px;
+  /* height: 2rem; */
+
   background-color: white;
   border-radius: 5.5rem;
   display: grid;
@@ -84,8 +88,9 @@
   margin-left: 1rem;
 }
 .search-bar input {
-  width: 17rem;
-  background: none;
+  width: 100%;
+  border-radius: 5.5rem;
+  
   outline: none;
   border: none;
   font-weight: 500;
@@ -242,16 +247,16 @@ hr.line-sort{
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: black;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
+  /* color: black; */
+  /* background-color: #ff7957; */
+  /* border: 0.5px solid rgb(116, 116, 116); */
 }
 .pagination :hover{
-  z-index: 2;
-  color: black;
-  text-decoration: none;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
+  /* z-index: 2; */
+  /* color: black; */
+  /* text-decoration: none; */
+  /* background-color: #e9ecef; */
+  /* border-color: #dee2e6; */
 }
 /* .page-item{
   padding: 1rem;
