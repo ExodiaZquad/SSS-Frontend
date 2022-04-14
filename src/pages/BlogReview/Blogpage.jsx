@@ -14,7 +14,7 @@ const Blogpage = () => {
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(currentPage);
+  // console.log(currentPage);
   const [postsPerPage] = useState(10);
   const [search, setSearch] = useState('');
   const [newReview, setNewReview] = useState({
@@ -24,7 +24,7 @@ const Blogpage = () => {
   });
 
   const [reviews, setReviews] = useState([]);
-  console.log(reviews);
+  // console.log(reviews);
 
   const handleNewReview = ({ currentTarget: target }) => {
     let temp = { ...newReview };
@@ -57,7 +57,6 @@ const Blogpage = () => {
       headers: { 'x-auth-token': token },
     });
 
-    // console.log(res.data);
     setReviews(res.data);
   };
 
