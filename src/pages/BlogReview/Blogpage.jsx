@@ -7,7 +7,6 @@ import { FaStar } from 'react-icons/fa';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import ShowReview from '../../components/ShowReview';
 import config from '../../config';
-import close from '../../assets/icons/close.svg';
 import { getToken, getUserObjId } from '../../services/authService';
 import ReCAPTCHA from 'react-google-recaptcha';
 
