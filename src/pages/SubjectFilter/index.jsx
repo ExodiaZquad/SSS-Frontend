@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Table from '../../components/Table';
+import OutputTable from '../../components/OutputTable';
 
 const SubjectFilter = () => {
   const [subjects, setSubjects] = useState([]);
   const [secSelected, setSecSelected] = useState([]);
   const [isBtnWorking, setIsBtnWorking] = useState(false);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     updateGenerateBtn();
@@ -29,10 +31,17 @@ const SubjectFilter = () => {
       };
       req.push(temp);
     });
-    const res = await axios.post('http://localhost:3005/api/subject/filter', {
-      subjects: req,
-    });
-    console.log(res.data);
+
+    try {
+      const res = await axios.post('http://localhost:3005/api/subject/filter', {
+        subjects: req,
+      });
+      console.log('res : ', res.data);
+      setData(res.data);
+      console.log('data : ', data);
+    } catch (err) {
+      alert('Nothing found.');
+    }
     // setData(res.data);
     // console.log('data', data);
     // console.log('req.body : ', req);
@@ -61,6 +70,13 @@ const SubjectFilter = () => {
             <div className="bg-zinc-400 py-3 px-10 rounded-lg text-white text-center">Filter</div>
           )}
         </div>
+
+        {data.length !== 0 && (
+          <>
+            <h1 className="mt-14 font-bold text-3xl">Result</h1>
+            <OutputTable subjects={data} />
+          </>
+        )}
       </div>
     </div>
   );
