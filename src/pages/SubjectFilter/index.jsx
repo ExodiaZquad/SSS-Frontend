@@ -52,13 +52,13 @@ const SubjectFilter = () => {
         <div className="flex justify-center items-center mt-7">
           {isBtnWorking ? (
             <button
-              className="bg-blue-500 py-3 w-[150px] rounded-lg text-white hover:brightness-105 active:scale-95"
+              className="bg-blue-500 py-3 px-10 rounded-lg text-white hover:brightness-105 active:scale-95"
               onClick={onFilter}
             >
               Filter
             </button>
           ) : (
-            <div className="bg-zinc-400 py-3 w-[150px] rounded-lg text-white text-center">Filter</div>
+            <div className="bg-zinc-400 py-3 px-10 rounded-lg text-white text-center">Filter</div>
           )}
         </div>
       </div>
