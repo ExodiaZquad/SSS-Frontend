@@ -26,9 +26,16 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="bg-[#e9ecf4] flex justify-center">
+    <div>
+      <div className='h-[35vh] bg-gradient-to-b from-[#CBE7FF] to-[#ffffff] flex flex-col gap-y-1 justify-center items-center'>
+          <div className='h-[16vh] w-[16vh] bg-[#000000] rounded-[50%] mb-2'></div>
+          <div className='text-[25px]'>Thanakorn Wihokkun</div>
+          <div className='text-[15px] text-[#999999]'>63010235@gmail.com</div>
+          <div className='bg-[#FF8357] text-white px-4 py-1 rounded-md mt-1'>student</div>
+      </div>
+      <div className="bg-[#E9ECF4] flex justify-center">
       <div className="Blog-contain">
-        <div className="h-[68vh] overflow-auto mt-3">
+        <div className="h-[40vh] overflow-auto mt-3">
           {reviews.map((review, index) => {
             return (
               <ShowReview
@@ -51,6 +58,7 @@ const Profile = () => {
           })}
         </div>
       </div>
+    </div>
     </div>
   );
 };

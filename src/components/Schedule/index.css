@@ -39,8 +39,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(223, 217, 217);
-  background-color: rgb(95, 95, 95);
+  color: white;
+  background-color: #4D4D4D;
 }
 
 .sch_body {
@@ -53,6 +53,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #4D4D4D;
+  color: white;
 }
 
 .sch_barbox {
@@ -60,73 +62,86 @@
   /* background-color: rgb(207, 214, 207); */
 }
 
-/* const colors = ['#45B99B','#DD8430','#9253A1','#F063A4','#2DC5F4'] */
 /* const colors = ['#3ae8b0','#19afd0','#6967ce','#ffb900','#fd636b','#8ad879','#a5e1e9','#d5edb9','#c4bdf3','#fce8a5','#ffc296','#f8cadc'] */
-.sch_barbox-act0 {
-  height: 100%;
-  width: 7.5%;
-  background-color: #3ae8b0;
-}
+/* const colors = [
+    '#853AC9',
+    '#F27B76',
+    '#FFEE3F',
+    '#F2993D',
+    '#80ED82',
+    '#0078FF',
+    '#5CE0F8',
+    '#F32B4F',
+    '#00AD23',
+    '#D9B282',
+    '#73461F',
+    '#CF64FF',
+  ]; */
 .sch_barbox-act1 {
   height: 100%;
   width: 7.5%;
-  background-color: #19afd0;
+  background-color: #853AC9;
 }
 .sch_barbox-act2 {
   height: 100%;
   width: 7.5%;
-  background-color: #6967ce;
+  background-color: #F27B76;
 }
 .sch_barbox-act3 {
   height: 100%;
   width: 7.5%;
-  background-color: #ffb900;
+  background-color: #FFEE3F;
 }
 .sch_barbox-act4 {
   height: 100%;
   width: 7.5%;
-  background-color: #fd636b;
+  background-color: #F2993D;
 }
 .sch_barbox-act5 {
   height: 100%;
   width: 7.5%;
-  background-color: #8ad879;
+  background-color: #80ED82;
 }
 .sch_barbox-act6 {
   height: 100%;
   width: 7.5%;
-  background-color: #a5e1e9;
+  background-color: #0078FF;
 }
 .sch_barbox-act7 {
   height: 100%;
   width: 7.5%;
-  background-color: #d5edb9;
+  background-color: #5CE0F8;
 }
 .sch_barbox-act8 {
   height: 100%;
   width: 7.5%;
-  background-color: #c4bdf3;
+  background-color: #F32B4F;
 }
 .sch_barbox-act9 {
   height: 100%;
   width: 7.5%;
-  background-color: #fce8a5;
+  background-color: #00AD23;
 }
 .sch_barbox-act10 {
   height: 100%;
   width: 7.5%;
-  background-color: #ffc296;
+  background-color: #D9B282;
 }
 .sch_barbox-act11 {
   height: 100%;
   width: 7.5%;
-  background-color: #f8cadc;
+  background-color: #73461F;
+}
+.sch_barbox-act0 {
+  height: 100%;
+  width: 7.5%;
+  background-color: #CF64FF;
 }
 
 .sch_barbox-nact {
   height: 100%;
   width: 7.5%;
-  background-color: rgb(255, 255, 255);
+  background-color: #E6E6E6;
 }
 
 .sch_tailbox {

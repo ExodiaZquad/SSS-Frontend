@@ -6,18 +6,18 @@ import './index.css';
 const Schedule = ({ data }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const colors = [
-    '#19afd0',
-    '#6967ce',
-    '#ffb900',
-    '#fd636b',
-    '#8ad879',
-    '#a5e1e9',
-    '#d5edb9',
-    '#c4bdf3',
-    '#fce8a5',
-    '#ffc296',
-    '#f8cadc',
-    '#3ae8b0',
+    '#853AC9',
+    '#F27B76',
+    '#FFEE3F',
+    '#F2993D',
+    '#80ED82',
+    '#0078FF',
+    '#5CE0F8',
+    '#F32B4F',
+    '#00AD23',
+    '#D9B282',
+    '#73461F',
+    '#CF64FF',
   ];
   const [fav, setFav] = useState(false);
   const runcolor = useRef(0);
