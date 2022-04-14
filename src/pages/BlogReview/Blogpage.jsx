@@ -17,7 +17,7 @@ const Blogpage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   // console.log(currentPage);
-  const [postsPerPage] = useState(10);
+  const [postsPerPage] = useState(3);
   const [search, setSearch] = useState('');
   const [newReview, setNewReview] = useState({
     subjectId: '',

@@ -56,7 +56,7 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, getReviews })
     );
 
     await getReviews();
-    toggleLike();
+    // toggleLike();
   };
 
   const onDisLike = async () => {
@@ -70,16 +70,24 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, getReviews })
     );
 
     await getReviews();
-    toggleDislike();
+    // toggleDislike();
   };
 
   return (
     <div className="review_button">
-      <button onClick={onLike} className={likeactive ? 'active_like' : 'btn-like'}>
+      {/* <button onClick={onLike} className={likeactive ? 'active_like' : 'btn-like'}>
         <img src={likeIcon} alt="" className="img_btn" />
         <div className="btn_like">{userId_Like.length}</div>
       </button>
       <button onClick={onDisLike} className={dislikeactive ? 'active_like' : 'btn-like'}>
+        <img src={dislikeIcon} alt="" className="img_btn" />
+        <div className="btn_like">{userId_Dislike.length}</div>
+      </button> */}
+      <button onClick={onLike} className={userId_Like.includes(userId) ? 'active_like' : 'btn-like'}>
+        <img src={likeIcon} alt="" className="img_btn" />
+        <div className="btn_like">{userId_Like.length}</div>
+      </button>
+      <button onClick={onDisLike} className={userId_Dislike.includes(userId) ? 'active_like' : 'btn-like'}>
         <img src={dislikeIcon} alt="" className="img_btn" />
         <div className="btn_like">{userId_Dislike.length}</div>
       </button>
