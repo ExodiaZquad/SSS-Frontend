@@ -22,7 +22,7 @@ const FavoriteSchedules = () => {
   return <div>Favorite Schedules</div>;
 };
 
-const Reviews = () => {
+const Reviews = ({}) => {
   const [reviews, setReviews] = useState([]);
   const { id: userId } = getUserObjId();
 
