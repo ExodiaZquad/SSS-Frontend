@@ -17,9 +17,12 @@
   align-items: center;
   margin-bottom: 10px;
 }
+/* .btn-like .like {
+  color: white;
+} */
 .btn-like {
   background-color: white;
-  color: black;
+  /* color: black; */
   border: 2px solid #9a9a9a;
   font-size: 18px;
 }

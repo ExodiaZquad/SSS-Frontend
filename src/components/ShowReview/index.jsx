@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
 import { getToken } from '../../services/authService';
-import likeIcon from '../../assets/icons/like.svg';
-import dislikeIcon from '../../assets/icons/dislike.svg';
+
 import { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { FaRegStar } from 'react-icons/fa';
 import { FaTrashAlt } from 'react-icons/fa';
+
+import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart } from 'react-icons/ai';
+import { AiFillDislike } from 'react-icons/ai';
+import { AiOutlineDislike } from 'react-icons/ai';
+
 import axios from 'axios';
 import './blogreview.css';
 import { useLocation } from 'react-router-dom';
@@ -75,20 +80,12 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, getReviews })
 
   return (
     <div className="review_button">
-      {/* <button onClick={onLike} className={likeactive ? 'active_like' : 'btn-like'}>
-        <img src={likeIcon} alt="" className="img_btn" />
-        <div className="btn_like">{userId_Like.length}</div>
-      </button>
-      <button onClick={onDisLike} className={dislikeactive ? 'active_like' : 'btn-like'}>
-        <img src={dislikeIcon} alt="" className="img_btn" />
-        <div className="btn_like">{userId_Dislike.length}</div>
-      </button> */}
       <button onClick={onLike} className={userId_Like.includes(userId) ? 'active_like' : 'btn-like'}>
-        <img src={likeIcon} alt="" className="img_btn" />
+        <span className="mr-2">{userId_Like.includes(userId) ? <AiFillHeart /> : <AiOutlineHeart />}</span>
         <div className="btn_like">{userId_Like.length}</div>
       </button>
       <button onClick={onDisLike} className={userId_Dislike.includes(userId) ? 'active_like' : 'btn-like'}>
-        <img src={dislikeIcon} alt="" className="img_btn" />
+        <span className="mr-2">{userId_Dislike.includes(userId) ? <AiFillDislike /> : <AiOutlineDislike />}</span>
         <div className="btn_like">{userId_Dislike.length}</div>
       </button>
     </div>
