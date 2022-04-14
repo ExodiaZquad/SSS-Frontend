@@ -19,14 +19,8 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
     console.log('control: ', dropDownControl);
     // setSubjects([...subjects.concat(res.data)]);
     setSubjects(prevSubjects => prevSubjects.concat(res.data));
-    setClassId('');
+    setCreditCount(prev => prev + res.data.credit);
   };
-
-  useEffect(() => {
-    subjects.forEach(subject => {
-      setCreditCount(prev => prev + parseInt(subject.credit));
-    });
-  }, [subjects]);
 
   return (
     <div className="mt-4">
@@ -61,7 +55,7 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
         })}
         {/* input field table row */}
         <tr className="hover:bg-zinc-100">
-          <td className="p-3">
+          <td className="p-3 border">
             <input
               type="text"
               className="rounded border-none outline-none py-2 pl-2 w-1/2 h-3/4 font-medium bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-orange-200"
@@ -71,19 +65,32 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
                 // not the best approach! ask someone later!
                 if (e.key === 'Enter') {
                   // prevent error here vvvv (no more 8 char no less 8 char no special char no alphabet)
-                  getSubject();
+                  if (classId === '' || classId.length !== 8 || classId.includes(' ')) {
+                    alert('Invalid Input');
+                  } else {
+                    // console.log('subjects : ', subjects, 'classId : ', classId);
+                    let check = false;
+                    subjects.forEach(subject => {
+                      if (subject.id === classId) {
+                        alert('Duplicated Input');
+                        check = true;
+                      }
+                    });
+                    if (!check) getSubject();
+                  }
+                  setClassId('');
                 }
               }}
             />
           </td>
-          <td className="p-3"></td>
-          <td className="p-3"></td>
-          <td className="p-3"></td>
-          <td className="p-3"></td>
-          <td className="p-3"></td>
+          <td className="p-3 border"></td>
+          <td className="p-3 border"></td>
+          <td className="p-3 border"></td>
+          <td className="p-3 border"></td>
+          <td className="p-3 border"></td>
         </tr>
       </table>
-      <h2 className="text-center font-bold">หน่วยกิตทั้งหมด {creditCount}</h2>
+      <h2 className="text-center font-bold mt-7">หน่วยกิตทั้งหมด {creditCount}</h2>
     </div>
   );
 };
