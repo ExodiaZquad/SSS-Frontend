@@ -8,6 +8,7 @@ import ShowReview from '../../components/ShowReview';
 import config from '../../config';
 import close from '../../assets/icons/close.svg';
 import { getToken, getUserObjId } from '../../services/authService';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Blogpage = () => {
   const { id: userId } = getUserObjId();
@@ -222,6 +223,13 @@ function Searchbar({ search, setSearch, setCurrentPage }) {
   );
 }
 function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
+  const [passCaptcha, setPassCaptcha] = useState(false);
+
+  function onChange(value) {
+    // console.log('Captcha value:', value);
+    setPassCaptcha(true);
+  }
+
   return (
     <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center z-50">
       <div
@@ -230,7 +238,7 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
       ></div>
 
       {/*  px-16 py-14 */}
-      <div className="bg-white py-14 px-16 absolute rounded-lg shadow-lg relative">
+      <div className="bg-white pt-14 pb-10 px-16 absolute rounded-lg shadow-lg relative">
         <div className="flex justify-between">
           <div className="text-3xl font-bold pb-8 ">Review subject</div>
 
@@ -239,7 +247,6 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
           </div>
         </div>
         <div className="h-[0.5px] bg-[#E3E9EF] absolute w-full left-0"></div>
-
         <div className="pt-8">
           <div className="mb-5">
             <h1 className="text-xl font-semibold mb-2">
@@ -268,15 +275,22 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
             ></textarea>
           </div>
 
-          <Star rate={rate} setRate={setRate} />
+          <div className="flex justify-between">
+            <Star rate={rate} setRate={setRate} />
+            <ReCAPTCHA sitekey="6LcRF_UdAAAAAPV35EbgUVJoz-SGy2MyqpcR3DcZ" onChange={onChange} />
+          </div>
 
-          <div className="flex justify-center mt-6">
-            <div
-              className="bg-blue-300 px-6 py-3 rounded-full select-none cursor-pointer active:bg-blue-500 hover:bg-blue-400"
-              onClick={submitReview}
-            >
-              Confirm
-            </div>
+          <div className="flex justify-center mt-8">
+            {passCaptcha ? (
+              <div
+                className="bg-blue-300 px-6 py-3 rounded-full select-none cursor-pointer active:bg-blue-500 hover:bg-blue-400"
+                onClick={submitReview}
+              >
+                Confirm
+              </div>
+            ) : (
+              <div className="bg-black/70 px-6 py-3 rounded-full select-none">Confirm</div>
+            )}
           </div>
         </div>
       </div>
