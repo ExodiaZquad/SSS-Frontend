@@ -10,16 +10,18 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
   // const [secSelected, setSecSelected] = useState([]);
 
   const getSubject = async () => {
-    const res = await axios.get('http://localhost:3005/api/subject/', {
-      params: { id: classId },
-    });
-    // setDropDownControl([...dropDownControl.concat([false])]);
-    setDropDownControl(prev => prev.concat([false]));
-    setSecSelected(prev => prev.concat(['-1']));
-    console.log('control: ', dropDownControl);
-    // setSubjects([...subjects.concat(res.data)]);
-    setSubjects(prevSubjects => prevSubjects.concat(res.data));
-    setCreditCount(prev => prev + res.data.credit);
+    try {
+      const res = await axios.get('http://localhost:3005/api/subject/', {
+        params: { id: classId },
+      });
+      setDropDownControl(prev => prev.concat([false]));
+      setSecSelected(prev => prev.concat(['-1']));
+      // console.log('control: ', dropDownControl);
+      setSubjects(prevSubjects => prevSubjects.concat(res.data));
+      setCreditCount(prev => prev + res.data.credit);
+    } catch (err) {
+      alert('Subject not found.');
+    }
   };
 
   return (
@@ -91,6 +93,9 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
         </tr>
       </table>
       <h2 className="text-center font-bold mt-7">หน่วยกิตทั้งหมด {creditCount}</h2>
+      {creditCount >= 25 && (
+        <h2 className="text-center text-xs font-semibold mt-1 text-red-600">*หน่วยกิตห้ามเกิน 25</h2>
+      )}
     </div>
   );
 };
