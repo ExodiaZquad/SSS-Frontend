@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Table from '../../components/Table';
+import OutputTable from '../../components/OutputTable';
 
 const SubjectFilter = () => {
   const [subjects, setSubjects] = useState([]);
   const [secSelected, setSecSelected] = useState([]);
   const [isBtnWorking, setIsBtnWorking] = useState(false);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     updateGenerateBtn();
@@ -29,10 +31,17 @@ const SubjectFilter = () => {
       };
       req.push(temp);
     });
-    const res = await axios.post('http://localhost:3005/api/subject/filter', {
-      subjects: req,
-    });
-    console.log(res.data);
+
+    try {
+      const res = await axios.post('http://localhost:3005/api/subject/filter', {
+        subjects: req,
+      });
+      console.log('res : ', res.data);
+      setData(res.data);
+      console.log('data : ', data);
+    } catch (err) {
+      alert('Nothing found.');
+    }
     // setData(res.data);
     // console.log('data', data);
     // console.log('req.body : ', req);
@@ -52,15 +61,22 @@ const SubjectFilter = () => {
         <div className="flex justify-center items-center mt-7">
           {isBtnWorking ? (
             <button
-              className="bg-blue-500 py-3 w-[150px] rounded-lg text-white hover:brightness-105 active:scale-95"
+              className="bg-blue-500 py-3 px-10 rounded-lg text-white hover:brightness-105 active:scale-95"
               onClick={onFilter}
             >
               Filter
             </button>
           ) : (
-            <div className="bg-zinc-400 py-3 w-[150px] rounded-lg text-white text-center">Filter</div>
+            <div className="bg-zinc-400 py-3 px-10 rounded-lg text-white text-center">Filter</div>
           )}
         </div>
+
+        {data.length !== 0 && (
+          <>
+            <h1 className="mt-14 font-bold text-3xl">Result</h1>
+            <OutputTable subjects={data} />
+          </>
+        )}
       </div>
     </div>
   );
