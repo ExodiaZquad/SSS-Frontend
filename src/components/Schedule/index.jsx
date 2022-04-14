@@ -73,6 +73,10 @@ const Schedule = ({ data }) => {
     //collect start point what box is start
     start_point[alldate[i] - 1].push(allhour[i] - 8);
   }
+  for (let i = 0; i < start_point.length; i += 1) {
+    //startPoint
+    start_point[i].sort(function(a, b){return a - b});
+  }
   console.log('start point(index) = ', start_point);
   console.log('bars_temp = ', bars_temp);
 
