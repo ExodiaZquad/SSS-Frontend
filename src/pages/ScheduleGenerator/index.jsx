@@ -250,7 +250,7 @@ const ScheduleGenerator = () => {
             <div className="bg-zinc-400 py-3 px-7 rounded-lg text-white ">Generate</div>
           )}
         </div>
-        <h1 className="mt-14 font-bold text-3xl">My Schedule</h1>
+        {data.length !== 0 && <h1 className="mt-14 font-bold text-3xl">My Schedule</h1>}
         {data.map(dataItem => (
           <Schedule data={dataItem} />
         ))}
