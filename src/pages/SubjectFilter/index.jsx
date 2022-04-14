@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Table from '../../components/Table';
 
@@ -19,6 +20,25 @@ const SubjectFilter = () => {
     else setIsBtnWorking(true);
   };
 
+  const onFilter = async () => {
+    let req = [];
+    subjects.forEach((subject, index) => {
+      const temp = {
+        id: subject.id,
+        sec: secSelected[index],
+      };
+      req.push(temp);
+    });
+    const res = await axios.post('http://localhost:3005/api/subject/filter', {
+      subjects: req,
+    });
+    console.log(res.data);
+    // setData(res.data);
+    // console.log('data', data);
+    // console.log('req.body : ', req);
+    // console.log('res : ', res.data);
+  };
+
   return (
     <div>
       <div className="max-w-screen-2xl mx-auto flex flex-col jusitfy-center">
@@ -31,7 +51,10 @@ const SubjectFilter = () => {
         />
         <div className="flex justify-center items-center mt-7">
           {isBtnWorking ? (
-            <button className="bg-blue-500 py-3 w-[150px] rounded-lg text-white hover:brightness-105 active:scale-95">
+            <button
+              className="bg-blue-500 py-3 w-[150px] rounded-lg text-white hover:brightness-105 active:scale-95"
+              onClick={onFilter}
+            >
               Filter
             </button>
           ) : (
