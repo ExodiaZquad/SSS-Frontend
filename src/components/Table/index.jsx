@@ -20,7 +20,6 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
     // setSubjects([...subjects.concat(res.data)]);
     setSubjects(prevSubjects => prevSubjects.concat(res.data));
     setCreditCount(prev => prev + res.data.credit);
-    setClassId('');
   };
 
   return (
@@ -66,7 +65,20 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
                 // not the best approach! ask someone later!
                 if (e.key === 'Enter') {
                   // prevent error here vvvv (no more 8 char no less 8 char no special char no alphabet)
-                  getSubject();
+                  if (classId === '' || classId.length !== 8 || classId.includes(' ')) {
+                    alert('Invalid Input');
+                  } else {
+                    // console.log('subjects : ', subjects, 'classId : ', classId);
+                    let check = false;
+                    subjects.forEach(subject => {
+                      if (subject.id === classId) {
+                        alert('Duplicated Input');
+                        check = true;
+                      }
+                    });
+                    if (!check) getSubject();
+                  }
+                  setClassId('');
                 }
               }}
             />
