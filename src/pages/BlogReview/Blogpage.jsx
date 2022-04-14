@@ -6,6 +6,7 @@ import { FaSistrix } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa';
 import ShowReview from '../../components/ShowReview';
 import config from '../../config';
+import close from '../../assets/icons/close.svg';
 import { getToken, getUserObjId } from '../../services/authService';
 
 const Blogpage = () => {
@@ -227,42 +228,55 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview }) {
         className="w-screen h-screen absolute top-0 left-0 bg-black/70 cursor-pointer"
         onClick={() => setOpenModal(false)}
       ></div>
-      <div className="bg-white px-16 py-14 absolute rounded-lg shadow-lg">
-        <div className="mb-5">
-          <h1 className="text-2xl font-bold mb-2">
-            Subject ID<span className="text-red-500">*</span>
-          </h1>
-          <input
-            name="subjectId"
-            type="text"
-            onChange={handleNewReview}
-            className="text-lg px-4 py-2 border rounded"
-            placeholder="รหัสวิชา"
-            maxLength="8"
-          />
+
+      {/*  px-16 py-14 */}
+      <div className="bg-white py-14 px-16 absolute rounded-lg shadow-lg relative">
+        <div className="flex justify-between">
+          <div className="text-3xl font-bold pb-8 ">Review subject</div>
+
+          <div className="">
+            <img src={close} alt="" className="w-11 cursor-pointer" onClick={() => setOpenModal(false)} />
+          </div>
         </div>
+        <div className="h-[0.5px] bg-[#E3E9EF] absolute w-full left-0"></div>
 
-        <div className="mb-2">
-          <h1 className="text-2xl font-bold mb-2">
-            Detail<span className="text-red-500">*</span>
-          </h1>
-          <textarea
-            name="textBlogreview"
-            placeholder="รีวิววิชา"
-            onChange={handleNewReview}
-            className="p-4 w-[700px] h-80 border rounded text-lg resize-none"
-            maxLength="250"
-          ></textarea>
-        </div>
+        <div className="pt-8">
+          <div className="mb-5">
+            <h1 className="text-xl font-semibold mb-2">
+              Subject ID<span className="text-red-500">*</span>
+            </h1>
+            <input
+              name="subjectId"
+              type="text"
+              onChange={handleNewReview}
+              className="text-lg px-4 py-2 border rounded"
+              placeholder="รหัสวิชา"
+              maxLength="8"
+            />
+          </div>
 
-        <Star rate={rate} setRate={setRate} />
+          <div className="mb-2">
+            <h1 className="text-xl font-semibold mb-2">
+              Detail<span className="text-red-500">*</span>
+            </h1>
+            <textarea
+              name="textBlogreview"
+              placeholder="รีวิววิชา"
+              onChange={handleNewReview}
+              className="p-4 w-[700px] h-80 border rounded text-lg resize-none"
+              maxLength="250"
+            ></textarea>
+          </div>
 
-        <div className="flex justify-center mt-6">
-          <div
-            className="bg-blue-300 px-6 py-3 rounded-full select-none cursor-pointer active:bg-blue-500"
-            onClick={submitReview}
-          >
-            Confirm
+          <Star rate={rate} setRate={setRate} />
+
+          <div className="flex justify-center mt-6">
+            <div
+              className="bg-blue-300 px-6 py-3 rounded-full select-none cursor-pointer active:bg-blue-500 hover:bg-blue-400"
+              onClick={submitReview}
+            >
+              Confirm
+            </div>
           </div>
         </div>
       </div>
@@ -289,7 +303,7 @@ function Star({ rate: currentValue, setRate: setCurrentValue }) {
   return (
     <div style={styles.container}>
       {/* <textarea placeholder="What's your experience?" style={styles.textarea} /> */}
-      <h1 className="text-2xl font-bold mb-2">Rate</h1>
+      <h1 className="text-xl font-semibold mb-2">Rate</h1>
       <div style={styles.stars}>
         {stars.map((_, index) => {
           return (
