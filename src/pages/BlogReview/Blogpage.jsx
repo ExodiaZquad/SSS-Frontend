@@ -14,6 +14,7 @@ const Blogpage = () => {
   const [selected, setSelected] = useState('Subject Major filter');
   const [modalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  console.log(currentPage);
   const [postsPerPage] = useState(10);
   const [search, setSearch] = useState('');
   const [newReview, setNewReview] = useState({
@@ -67,12 +68,7 @@ const Blogpage = () => {
   const transformDate = date => {
     return date.slice(0, 10);
   };
-
-  const paginate = pageNumber => setCurrentPage(pageNumber);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = reviews.slice(indexOfFirstPost, indexOfLastPost);
-  let filter = currentPosts;
+  let filter = reviews;
   if (search) {
     const filterSubjectNum = filter.filter(review => review.subjectId.toString().includes(search));
     const filterSubjectName = filter.filter(review => review.subjectName.toLowerCase().includes(search.toLowerCase()));
@@ -88,12 +84,17 @@ const Blogpage = () => {
     });
     filter = [...new Set([...subjectMajorFilter])];
   }
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filter.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
     <div className="Review-container overflow-y-hidden">
       <div className="Blog-contain">
         <div className="Blog-header">Blog Review</div>
         <div className="Blog-function">
-          <Dropdown selected={selected} setSelected={setSelected} />
+          <Dropdown selected={selected} setSelected={setSelected} setCurrentPage={setCurrentPage} />
           <div className="search-post">
             <Searchbar search={search} setSearch={setSearch} />
             <button
@@ -147,7 +148,7 @@ const Blogpage = () => {
         </div>
         <hr className="line-sort" />
         <div className="">
-          {filter.map((review, index) => {
+          {currentPosts.map((review, index) => {
             return (
               <ShowReview
                 key={index}
@@ -168,7 +169,7 @@ const Blogpage = () => {
             );
           })}
           <div className="blog-pagination">
-            <Pagination postsPerPage={postsPerPage} totalPosts={reviews.length} paginate={paginate} />
+            <Pagination postsPerPage={postsPerPage} totalPosts={filter.length} paginate={paginate} />
           </div>
         </div>
       </div>
@@ -176,7 +177,7 @@ const Blogpage = () => {
   );
 };
 
-function Dropdown({ selected, setSelected }) {
+function Dropdown({ selected, setSelected, setCurrentPage }) {
   const [isActive, setIsActive] = useState(false);
   const options = ['All', '901', '902', '903', '904', '905'];
   return (
@@ -193,6 +194,7 @@ function Dropdown({ selected, setSelected }) {
             <div
               onClick={e => {
                 setSelected(option);
+                setCurrentPage(1);
                 setIsActive(false);
               }}
               className="dropdown-item"
