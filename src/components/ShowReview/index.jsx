@@ -10,22 +10,44 @@ import axios from 'axios';
 import './blogreview.css';
 import { useLocation } from 'react-router-dom';
 
-const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId }) => {
-  const [like, setlike] = useState(userId_Like.length); //like
-  const [dislike, setdislike] = useState(userId_Dislike.length); //dislike
+const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, getReviews }) => {
   const [likeactive, setlikeactive] = useState(false); //likeactive
   const [dislikeactive, setdislikeactive] = useState(false); //dislikeactive
-
-  // console.log(userId_Like.includes(userId));
-  // console.log(userId_Like, userId_Dislike);
 
   const isLiked = userId_Like.includes(userId);
   const isDisLiked = userId_Dislike.includes(userId);
 
-  //function Like
-  const Like_on = () => {
+  useEffect(() => {
+    console.log('x');
+    if (isLiked) setlikeactive(true);
+    if (isDisLiked) setdislikeactive(true);
+  }, []);
+
+  const toggleLike = () => {
+    if (likeactive) {
+      setlikeactive(false);
+    } else {
+      setlikeactive(true);
+      if (dislikeactive) {
+        setdislikeactive(false);
+      }
+    }
+  };
+
+  const toggleDislike = () => {
+    if (dislikeactive) {
+      setdislikeactive(false);
+    } else {
+      setdislikeactive(true);
+      if (likeactive) {
+        setlikeactive(false);
+      }
+    }
+  };
+
+  const onLike = async () => {
     const token = getToken();
-    const res = axios.put(
+    await axios.put(
       'http://localhost:3005/api/blogreviews/like',
       { target_id: objId },
       {
@@ -33,25 +55,13 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId }) => {
       },
     );
 
-    if (likeactive) {
-      setlikeactive(false);
-      setlike(like - 1);
-    } else {
-      setlikeactive(true);
-      setlike(like + 1);
-      if (dislikeactive) {
-        setdislikeactive(false);
-        setlike(like + 1);
-        setdislike(dislike - 1);
-      }
-    }
-
-    // console.log(userId_Like, userId_Dislike);
+    await getReviews();
+    toggleLike();
   };
-  //function Dislike
-  const Dislike_on = () => {
+
+  const onDisLike = async () => {
     const token = getToken();
-    const res = axios.put(
+    await axios.put(
       'http://localhost:3005/api/blogreviews/dislike',
       { target_id: objId },
       {
@@ -59,35 +69,19 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId }) => {
       },
     );
 
-    if (dislikeactive) {
-      setdislikeactive(false);
-      setdislike(dislike - 1);
-    } else {
-      setdislikeactive(true);
-      setdislike(dislike + 1);
-      if (likeactive) {
-        setlikeactive(false);
-        setdislike(dislike + 1);
-        setlike(like - 1);
-      }
-    }
+    await getReviews();
+    toggleDislike();
   };
-
-  useEffect(() => {
-    if (isLiked) setlikeactive(true);
-
-    if (isDisLiked) setdislikeactive(true);
-  }, []);
 
   return (
     <div className="review_button">
-      <button onClick={Like_on} className={likeactive ? 'active_like' : 'btn-like'}>
+      <button onClick={onLike} className={likeactive ? 'active_like' : 'btn-like'}>
         <img src={likeIcon} alt="" className="img_btn" />
-        <div className="btn_like">{like}</div>
+        <div className="btn_like">{userId_Like.length}</div>
       </button>
-      <button onClick={Dislike_on} className={dislikeactive ? 'active_like' : 'btn-like'}>
+      <button onClick={onDisLike} className={dislikeactive ? 'active_like' : 'btn-like'}>
         <img src={dislikeIcon} alt="" className="img_btn" />
-        <div className="btn_like">{dislike}</div>
+        <div className="btn_like">{userId_Dislike.length}</div>
       </button>
     </div>
   );
@@ -174,7 +168,13 @@ const ShowReview = ({
           <p className="overflow-auto h-20">{text}</p>
         </div>
         <div className="review__like">
-          <LikeDislike objId={objId} userId_Like={userId_Like} userId_Dislike={userId_Dislike} userId={userId} />
+          <LikeDislike
+            objId={objId}
+            userId_Like={userId_Like}
+            userId_Dislike={userId_Dislike}
+            userId={userId}
+            getReviews={getReviews}
+          />
         </div>
 
         {location.pathname === '/profile' && <DeleteBtn objId={objId} getReviews={getReviews} />}
