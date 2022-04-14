@@ -110,7 +110,10 @@ const DeleteBtn = ({ objId, getReviews }) => {
   };
 
   return (
-    <div className="absolute bottom-5 right-7 bg-[#FF5349] p-2 rounded shadow-md cursor-pointer" onClick={onDelete}>
+    <div
+      className="absolute bottom-5 right-7 bg-[#FF5349] p-2 rounded shadow-md cursor-pointer hover:bg-[#e50f0f] active:bg-[#FF5349]"
+      onClick={onDelete}
+    >
       <FaTrashAlt className="text-lg text-white" />
     </div>
   );
