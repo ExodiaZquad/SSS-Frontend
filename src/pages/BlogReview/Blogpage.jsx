@@ -308,7 +308,9 @@ function Modal({ setOpenModal, rate, setRate, submitReview, handleNewReview, new
                 Confirm
               </div>
             ) : (
-              <div className="bg-black/70 px-6 py-3 rounded-full select-none cursor-default">Confirm</div>
+              <div className="bg-black/30 text-white shadow-md px-6 py-3 rounded-full select-none cursor-default">
+                Confirm
+              </div>
             )}
           </div>
         </div>
