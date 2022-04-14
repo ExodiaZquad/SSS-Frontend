@@ -22,27 +22,12 @@ const FavoriteSchedules = () => {
   return <div>Favorite Schedules</div>;
 };
 
-const Reviews = ({}) => {
-  const [reviews, setReviews] = useState([]);
+const Reviews = ({ reviews, getReviews }) => {
   const { id: userId } = getUserObjId();
-
-  const getReviews = async () => {
-    const token = getToken();
-    const res = await axios.get('http://localhost:3005/api/users/profile/', {
-      headers: { 'x-auth-token': token },
-    });
-
-    console.log(res.data);
-    setReviews(res.data.blogReviews);
-  };
 
   const transformDate = date => {
     return date.slice(0, 10);
   };
-
-  useEffect(() => {
-    getReviews();
-  }, []);
 
   return (
     <div className="">
@@ -72,13 +57,27 @@ const Reviews = ({}) => {
 
 const ProfileTabs = () => {
   const [tab, setTab] = useState(1);
+  const [reviews, setReviews] = useState([]);
+
+  const getReviews = async () => {
+    const token = getToken();
+    const res = await axios.get('http://localhost:3005/api/users/profile/', {
+      headers: { 'x-auth-token': token },
+    });
+
+    setReviews(res.data.blogReviews);
+  };
+
+  useEffect(() => {
+    getReviews();
+  }, []);
 
   return (
     <div className="border-t-4 pt-2">
       <div className="container mx-auto">
         <div className="flex">
           <Tab label="Favorite Schdules" count={10} index={1} tab={tab} setTab={setTab} />
-          <Tab label="Review" count={20} index={2} tab={tab} setTab={setTab} />
+          <Tab label="Review" count={reviews.length} index={2} tab={tab} setTab={setTab} />
         </div>
       </div>
 
@@ -88,7 +87,7 @@ const ProfileTabs = () => {
             <FavoriteSchedules />
           </div>
           <div className={tab === 2 ? '' : 'hidden'}>
-            <Reviews />
+            <Reviews reviews={reviews} getReviews={getReviews} />
           </div>
         </div>
       </div>
