@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
+import { getHeaders } from '../../services/authService';
 
 const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
   const [classId, setClassId] = useState('');
@@ -12,9 +13,15 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
 
   const getSubject = async () => {
     try {
-      const res = await axios.get('http://localhost:3005/api/subject/', {
-        params: { id: classId },
-      });
+      const headers = getHeaders();
+      console.log(headers);
+      const res = await axios.post(
+        'http://localhost:3005/api/subject/',
+        {
+          params: { id: classId },
+        },
+        headers,
+      );
       setDropDownControl(prev => prev.concat([false]));
       setSecSelected(prev => prev.concat(['-1']));
       // console.log('control: ', dropDownControl);

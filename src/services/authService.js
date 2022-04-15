@@ -41,3 +41,10 @@ export function getUserObjId() {
     return null;
   }
 }
+
+export function getHeaders() {
+  try {
+    const token = localStorage.getItem('token');
+    return { headers: { 'x-auth-token': token } };
+  } catch (error) {}
+}

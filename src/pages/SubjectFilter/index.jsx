@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Table from '../../components/Table';
 import OutputTable from '../../components/OutputTable';
 import Error from '../../components/Error';
+import { getHeaders } from '../../services/authService';
 
 const SubjectFilter = () => {
   const [subjects, setSubjects] = useState([]);
@@ -36,9 +37,14 @@ const SubjectFilter = () => {
     });
 
     try {
-      const res = await axios.post('http://localhost:3005/api/subject/filter', {
-        subjects: req,
-      });
+      const headers = getHeaders();
+      const res = await axios.post(
+        'http://localhost:3005/api/subject/filter',
+        {
+          subjects: req,
+        },
+        headers,
+      );
 
       if (res.data.length == 0) {
         setError(true);
