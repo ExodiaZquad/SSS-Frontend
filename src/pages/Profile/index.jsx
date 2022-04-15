@@ -29,7 +29,7 @@ const Profile = () => {
         </div>
         <div className="text-[25px]">{userProfile.name}</div>
         <div className="text-[15px] text-[#999999]">{userProfile.email}</div>
-        <div className="bg-[#FF8357] text-white px-4 py-1 rounded-md mt-1">student</div>
+        <div className="bg-[#FF8357] text-white px-4 py-1 rounded-md mt-1">Student</div>
       </div>
       <ProfileTabs favSchedule={favSchedule} getUserProfile={getUserProfile} />
     </div>
