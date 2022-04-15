@@ -4,7 +4,7 @@ import ProfileTabs from '../../components/ProfileTabs';
 import { getToken } from '../../services/authService';
 
 const Profile = () => {
-  const [favSchdule, setFavSchdule] = useState([]);
+  const [favSchedule, setFavSchdule] = useState([]);
   const [userProfile, setUserProfile] = useState({});
 
   const getUserProfile = async () => {
@@ -13,9 +13,7 @@ const Profile = () => {
       headers: { 'x-auth-token': token },
     });
 
-    console.log(data);
-
-    setFavSchdule(favSchdule);
+    setFavSchdule(data.favSchedule);
     setUserProfile(data.userProfile);
   };
 
@@ -33,7 +31,7 @@ const Profile = () => {
         <div className="text-[15px] text-[#999999]">{userProfile.email}</div>
         <div className="bg-[#FF8357] text-white px-4 py-1 rounded-md mt-1">student</div>
       </div>
-      <ProfileTabs />
+      <ProfileTabs favSchedule={favSchedule} getUserProfile={getUserProfile} />
     </div>
   );
 };

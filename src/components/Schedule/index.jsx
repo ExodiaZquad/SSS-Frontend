@@ -1,9 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { getToken } from '../../services/authService';
 import { AiFillHeart } from 'react-icons/ai';
 import { BsSquareFill } from 'react-icons/bs';
+import { isEmpty, isEqual, xorWith } from 'lodash';
+import axios from 'axios';
 import './index.css';
 
-const Schedule = ({ data }) => {
+const Schedule = ({ data, onGenerate, autoFill = false }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const colors = [
     '#853AC9',
@@ -21,23 +24,79 @@ const Schedule = ({ data }) => {
   ];
   const [fav, setFav] = useState(false);
   const runcolor = useRef(0);
+
+  /* Like Dislike Schdule */
+
+  const [userFavSchedules, setUserFavSchdules] = useState([]);
+
+  const onLike = async () => {
+    try {
+      const token = getToken();
+      const res = await axios.put(
+        'http://localhost:3005/api/users/like_schedule',
+        { new_fav: data },
+        {
+          headers: { 'x-auth-token': token },
+        },
+      );
+
+      await onGenerate();
+      await mapCheckFav();
+    } catch (error) {
+      if (error.response && error.response.status == 400 && error.response.data == 'isSame') {
+        console.log(error.response);
+      }
+    }
+  };
+
+  const getFavSchedules = async () => {
+    const token = getToken();
+    const { data } = await axios.get('http://localhost:3005/api/users/profile', {
+      headers: { 'x-auth-token': token },
+    });
+
+    setUserFavSchdules(data.favSchedule);
+    return data.favSchedule;
+  };
+
+  const mapCheckFav = async () => {
+    const favSchedules = await getFavSchedules();
+
+    for (let i = 0; i < favSchedules.length; i++) {
+      const hasFav = isEmpty(xorWith(favSchedules[i].array, data, isEqual));
+      if (hasFav) {
+        setFav(true);
+        return;
+      }
+    }
+
+    setFav(false);
+  };
+
+  useEffect(() => {
+    mapCheckFav();
+  }, []);
+
+  /********************** */
+
   const dateReviver = function (value) {
     return new Date(value);
   };
-  const hyperhour = (date) => {
-    if (date.getMinutes() >=30){
-      return date.getHours()+1
+  const hyperhour = date => {
+    if (date.getMinutes() >= 30) {
+      return date.getHours() + 1;
     }
-    return date.getHours()
-  }
+    return date.getHours();
+  };
 
   const isLike = () => {
     setFav(!fav);
   };
+
   const nextColor = () => {
     runcolor.current += 1;
     runcolor.current = runcolor.current % 12;
-    console.log(runcolor.current);
+    // console.log(runcolor.current);
   };
   const reColor = () => {
     runcolor.current = 0;
@@ -55,7 +114,7 @@ const Schedule = ({ data }) => {
     allhour.push(st);
     allhour.push(ed);
   });
-  console.log(alldate, allhour);
+  // console.log(alldate, allhour);
 
   let bars_temp = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -75,10 +134,12 @@ const Schedule = ({ data }) => {
   }
   for (let i = 0; i < start_point.length; i += 1) {
     //startPoint
-    start_point[i].sort(function(a, b){return a - b});
+    start_point[i].sort(function (a, b) {
+      return a - b;
+    });
   }
-  console.log('start point(index) = ', start_point);
-  console.log('bars_temp = ', bars_temp);
+  // console.log('start point(index) = ', start_point);
+  // console.log('bars_temp = ', bars_temp);
 
   let bars = [];
   for (let i = 0; i < bars_temp.length; i++) {
@@ -93,7 +154,7 @@ const Schedule = ({ data }) => {
     bars.push(between1);
     // console.log(between1);
   }
-  console.log('bars = ', bars);
+  // console.log('bars = ', bars);
 
   //ColorZone
   reColor();
@@ -111,16 +172,16 @@ const Schedule = ({ data }) => {
         }
       });
   }
-  console.log(subjects, subjects_name_sort);
+  // console.log(subjects, subjects_name_sort);
 
   return (
     <div className="sch_box-shadow mt-7">
       <div className="sch_box">
         <div className="sch_headbox">
-          {fav ? (
-            <AiFillHeart color="red" size="2.5em" className="sch_like" onClick={isLike} />
+          {fav || autoFill ? (
+            <AiFillHeart color="red" size="2.5em" className="sch_like" onClick={onLike} />
           ) : (
-            <AiFillHeart color="gray" size="2.5em" className="sch_like" onClick={isLike} />
+            <AiFillHeart color="gray" size="2.5em" className="sch_like" onClick={onLike} />
           )}
         </div>
         <div className="sch_body">

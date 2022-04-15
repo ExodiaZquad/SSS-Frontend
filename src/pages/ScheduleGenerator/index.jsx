@@ -22,9 +22,9 @@ const ScheduleGenerator = () => {
       subjects: req,
     });
     setData(res.data);
-    console.log('data', data);
-    console.log('req.body : ', req);
-    console.log('res : ', res.data);
+    // console.log('data', data);
+    // console.log('req.body : ', req);
+    // console.log('res : ', res.data);
   };
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const ScheduleGenerator = () => {
         </div>
         {data.length !== 0 && <h1 className="mt-14 font-bold text-3xl">My Schedule</h1>}
         {data.map(dataItem => (
-          <Schedule data={dataItem} />
+          <Schedule data={dataItem} onGenerate={onGenerate} />
         ))}
       </div>
     </div>
