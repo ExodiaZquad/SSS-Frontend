@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { getToken } from '../../services/authService';
 import { AiFillHeart } from 'react-icons/ai';
 import { BsSquareFill } from 'react-icons/bs';
-import { FaRegHeart,FaHeart } from 'react-icons/fa';
-import { isEmpty, isEqual, xorWith } from 'lodash';
+import { FaRegHeart, FaHeart } from 'react-icons/fa';
+import { isEmpty, isEqual, set, xorWith } from 'lodash';
 import axios from 'axios';
 import './index.css';
 
@@ -177,61 +177,61 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
 
   return (
     // <div className="sch_box-shadow mt-7">
-      <div className="sch_box mt-7">
-        <div className="sch_headbox">
-          {fav || autoFill ? (
-            <FaHeart color="red" size="2em" className="sch_like" onClick={onLike} />
-          ) : (
-            <FaRegHeart size="2em" className="sch_like" onClick={onLike} />
-          )}
+    <div className="sch_box mt-7">
+      <div className="sch_headbox">
+        {fav || autoFill ? (
+          <FaHeart color="red" size="2em" className="sch_like" onClick={onLike} />
+        ) : (
+          <FaRegHeart size="2em" className="sch_like" onClick={onLike} />
+        )}
+      </div>
+      <div className="sch_body">
+        <div></div>
+        <div className="sch_hourbox">
+          {/* <div className="sch_eachhour"></div> */}
+          {(() => {
+            let posts = [];
+            for (let i = 0; i < 13; i++) {
+              posts.push(
+                <div key={i} className="sch_eachhour">
+                  {i + 8}
+                </div>,
+              );
+            }
+            return posts;
+          })()}
         </div>
-        <div className="sch_body">
-          <div></div>
-          <div className="sch_hourbox">
-            {/* <div className="sch_eachhour"></div> */}
-            {(() => {
-              let posts = [];
-              for (let i = 0; i < 13; i++) {
-                posts.push(
-                  <div key={i} className="sch_eachhour">
-                    {i + 8}
-                  </div>,
-                );
+      </div>
+
+      {days.map((day, index) => (
+        <div key={index} className="sch_body">
+          <div className="sch_daybox">{day}</div>
+          <div className="sch_barbox">
+            {bars[index].map((bar, indey) => {
+              for (let i = 0; i < start_point[index].length; i++) {
+                if (indey == start_point[index][i]) {
+                  nextColor();
+                }
               }
-              return posts;
-            })()}
+              if (bar) {
+                return <div key={indey} className={'sch_barbox-act sch_barbox-act' + String(runcolor.current)}></div>;
+              } else {
+                return <div key={indey} className="sch_barbox-act sch_barbox-nact"></div>;
+              }
+            })}
           </div>
         </div>
+      ))}
 
-        {days.map((day, index) => (
-          <div key={index} className="sch_body">
-            <div className="sch_daybox">{day}</div>
-            <div className="sch_barbox">
-              {bars[index].map((bar, indey) => {
-                for (let i = 0; i < start_point[index].length; i++) {
-                  if (indey == start_point[index][i]) {
-                    nextColor();
-                  }
-                }
-                if (bar) {
-                  return <div key={indey} className={'sch_barbox-act sch_barbox-act' + String(runcolor.current)}></div>;
-                } else {
-                  return <div key={indey} className="sch_barbox-act sch_barbox-nact"></div>;
-                }
-              })}
-            </div>
+      <div className="sch_tailbox">
+        {subjects.map((s, index) => (
+          <div key={index} className="sch_each-detail mr-3">
+            <BsSquareFill color={String(colors[index])} className="mr-1 text-[12px]" />
+            {s.name + ' (' + s.type + ' ' + s.sec + ')'}
           </div>
         ))}
-
-          <div className="sch_tailbox">
-            {subjects.map((s, index) => (
-              <div key={index} className="sch_each-detail mr-3">
-                <BsSquareFill color={String(colors[index])} className='mr-1 text-[12px]' />
-                {s.name+" ("+s.type+" "+s.sec+")"}
-              </div>
-            ))}
-          </div>
       </div>
+    </div>
     // </div>
   );
 };

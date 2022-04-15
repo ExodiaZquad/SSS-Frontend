@@ -13,6 +13,7 @@ const ScheduleGenerator = () => {
   const [error, setError] = useState(false);
 
   const onGenerate = async () => {
+    setData([]);
     let req = [];
     subjects.forEach((subject, index) => {
       const temp = {
