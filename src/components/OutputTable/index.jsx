@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
-import axios from 'axios';
+import React from 'react';
 
 const OutputTable = ({ subjects }) => {
   return (
@@ -10,7 +8,6 @@ const OutputTable = ({ subjects }) => {
           <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500  w-[300px]">รหัสวิชา</th>
           <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500">ชื่อวิชา</th>
           <th className="p-3 bg-orange-200 text-orange-500">หน่วยกิต</th>
-          <th className="p-3 bg-orange-200 text-orange-500">ประเภท</th>
           <th className="p-3 bg-orange-200 text-orange-500">กลุ่ม</th>
         </tr>
         {subjects.map(subject => {
@@ -19,7 +16,6 @@ const OutputTable = ({ subjects }) => {
               id={subject.id}
               name={subject.name}
               credit={subject.credit}
-              type={subject.type}
               sec={subject.sec}
               hasLab={subject.hasLab}
             />
@@ -30,14 +26,13 @@ const OutputTable = ({ subjects }) => {
   );
 };
 
-const TableRow = ({ id, name, credit, type, sec, hasLab }) => {
+const TableRow = ({ id, name, credit, sec, hasLab }) => {
   return (
     <>
       <tr className="hover:bg-zinc-100">
         <td className="p-3 border">{id}</td>
         <td className="p-3 max-w-xs border">{name}</td>
         <td className="p-3 border">{credit}</td>
-        <td className="p-3 border">{type}</td>
         <td className="p-3 flex justify-center items-center border">{sec}</td>
       </tr>
     </>
