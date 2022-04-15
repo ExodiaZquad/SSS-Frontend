@@ -4,6 +4,7 @@
 .home_main{
     margin: 0 auto;
     position: relative;
+    width: 1910px;
 }
 .home_container{
     display: flex;
@@ -40,7 +41,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
 }
 .home_btn-start:hover{
     background-color: #074d8a; /* Green */
