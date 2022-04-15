@@ -42,6 +42,7 @@ const ScheduleGenerator = () => {
       return;
     }
 
+    setData([]);
     setError(false);
     setData(res.data);
 
@@ -110,7 +111,7 @@ const ScheduleGenerator = () => {
         <div className="flex justify-center items-center mt-7">
           {isBtnWorking ? (
             <button
-              className="bg-blue-500 py-3 px-7 rounded-lg text-white hover:brightness-105 active:scale-95"
+              className="bg-blue-500 py-3 px-7 rounded-lg text-white shadow-md hover:brightness-105 active:scale-95"
               onClick={onGenerate}
             >
               Generate

@@ -149,9 +149,8 @@ const ShowReview = ({
           </div>
         </div>
         <div className="review_reviewer">
-          <div className="review__img">
-            <img src={img} alt="" />
-          </div>
+          <img src={img} alt="" />
+
           <div className="review__name_date">
             <div className="r_name">
               <h2>{reviewer_name}</h2>
