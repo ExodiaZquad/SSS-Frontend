@@ -89,7 +89,7 @@ const ProfileTabs = ({ favSchedule, getUserProfile }) => {
         </div>
       </div>
 
-      <div className="bg-[#E9ECF4] pt-5 py-10">
+      <div className="bg-[#E9ECF4] pt-5 py-10 min-h-screen">
         <div className="container mx-auto">
           <div className={tab === 1 ? '' : 'hidden'}>
             <FavoriteSchedules favSchedule={favSchedule} getUserProfile={getUserProfile} />
