@@ -82,10 +82,11 @@
   display: flex;
   margin-right: 35px;
 }
-.review__img img {
+.review_reviewer img {
   width: 60px;
+  height: 60px;
   margin-top: 3px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 .review__name_date {
   margin-left: 10px;

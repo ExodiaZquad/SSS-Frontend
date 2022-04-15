@@ -47,7 +47,7 @@ const Blogpage = () => {
         headers: { 'x-auth-token': token },
       });
 
-      if (res) console.log(res.data);
+      // if (res) console.log(res.data);
 
       setModalOpen(false);
       getReviews();
@@ -135,7 +135,7 @@ const Blogpage = () => {
             </i>
           </div>
           <div className="sort-date">
-            <h1>Date</h1>
+            <h1>Reviewer</h1>
             <i>
               <FaCaretDown size={20} />
             </i>
