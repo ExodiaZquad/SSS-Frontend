@@ -3,6 +3,7 @@ import Table from '../../components/Table';
 import Schedule from '../../components/Schedule';
 import Error from '../../components/Error';
 import axios from 'axios';
+import { getHeaders } from '../../services/authService';
 
 const ScheduleGenerator = () => {
   const [subjects, setSubjects] = useState([]);
@@ -20,9 +21,15 @@ const ScheduleGenerator = () => {
       };
       req.push(temp);
     });
-    const res = await axios.post('http://localhost:3005/api/schedule/generate', {
-      subjects: req,
-    });
+
+    const headers = getHeaders();
+    const res = await axios.post(
+      'http://localhost:3005/api/schedule/generate',
+      {
+        subjects: req,
+      },
+      headers,
+    );
 
     if (res.data.length == 0) {
       setError(true);
