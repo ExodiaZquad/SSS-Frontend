@@ -172,7 +172,7 @@ const ShowReview = ({
               ))}
             </div>
           </div>
-          <p className="overflow-auto h-20 whitespace-normal">{text}</p>
+          <div dangerouslySetInnerHTML={{ __html: text }} className="overflow-auto h-20 whitespace-normal" />
         </div>
         <div className="review__like">
           <LikeDislike
