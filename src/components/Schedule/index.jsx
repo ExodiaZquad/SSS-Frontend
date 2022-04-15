@@ -6,7 +6,7 @@ import { isEmpty, isEqual, xorWith } from 'lodash';
 import axios from 'axios';
 import './index.css';
 
-const Schedule = ({ data, onGenerate }) => {
+const Schedule = ({ data, onGenerate, autoFill = false }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const colors = [
     '#853AC9',
@@ -178,7 +178,7 @@ const Schedule = ({ data, onGenerate }) => {
     <div className="sch_box-shadow mt-7">
       <div className="sch_box">
         <div className="sch_headbox">
-          {fav ? (
+          {fav || autoFill ? (
             <AiFillHeart color="red" size="2.5em" className="sch_like" onClick={onLike} />
           ) : (
             <AiFillHeart color="gray" size="2.5em" className="sch_like" onClick={onLike} />

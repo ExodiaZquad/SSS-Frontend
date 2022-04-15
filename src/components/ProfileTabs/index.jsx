@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ShowReview from '../../components/ShowReview';
 import { getToken, getUserObjId } from '../../services/authService';
 import axios from 'axios';
+import Schedule from '../Schedule';
 
 const Tab = ({ label, count, index, tab, setTab }) => {
   const active = index == tab;
@@ -18,8 +19,15 @@ const Tab = ({ label, count, index, tab, setTab }) => {
   );
 };
 
-const FavoriteSchedules = () => {
-  return <div>Favorite Schedules</div>;
+const FavoriteSchedules = ({ favSchedule, getUserProfile }) => {
+  console.log(favSchedule);
+  return (
+    <div>
+      {favSchedule.map(schedule => (
+        <Schedule data={schedule.array} onGenerate={getUserProfile} autoFill={true} />
+      ))}
+    </div>
+  );
 };
 
 const Reviews = ({ reviews, getReviews }) => {
@@ -55,7 +63,7 @@ const Reviews = ({ reviews, getReviews }) => {
   );
 };
 
-const ProfileTabs = () => {
+const ProfileTabs = ({ favSchedule, getUserProfile }) => {
   const [tab, setTab] = useState(1);
   const [reviews, setReviews] = useState([]);
 
@@ -76,7 +84,7 @@ const ProfileTabs = () => {
     <div className="border-t-4 pt-2">
       <div className="container mx-auto">
         <div className="flex">
-          <Tab label="Favorite Schdules" count={10} index={1} tab={tab} setTab={setTab} />
+          <Tab label="Favorite Schdules" count={favSchedule.length} index={1} tab={tab} setTab={setTab} />
           <Tab label="Review" count={reviews.length} index={2} tab={tab} setTab={setTab} />
         </div>
       </div>
@@ -84,7 +92,7 @@ const ProfileTabs = () => {
       <div className="bg-[#E9ECF4] pt-5 py-10">
         <div className="container mx-auto">
           <div className={tab === 1 ? '' : 'hidden'}>
-            <FavoriteSchedules />
+            <FavoriteSchedules favSchedule={favSchedule} getUserProfile={getUserProfile} />
           </div>
           <div className={tab === 2 ? '' : 'hidden'}>
             <Reviews reviews={reviews} getReviews={getReviews} />

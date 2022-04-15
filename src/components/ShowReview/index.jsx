@@ -23,7 +23,6 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, getReviews })
   const isDisLiked = userId_Dislike.includes(userId);
 
   useEffect(() => {
-    console.log('x');
     if (isLiked) setlikeactive(true);
     if (isDisLiked) setdislikeactive(true);
   }, []);
