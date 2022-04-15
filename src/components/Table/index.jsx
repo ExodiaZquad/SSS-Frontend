@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
+import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 
 const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
@@ -23,6 +24,17 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
       alert('Subject not found.');
     }
   };
+
+  const handleCreditCount = () => {
+    setCreditCount(0);
+    subjects.forEach(subject => {
+      setCreditCount(prev => prev + subject.credit);
+    });
+  };
+
+  useEffect(() => {
+    handleCreditCount();
+  }, [subjects]);
 
   return (
     <div className="mt-4">
@@ -48,6 +60,8 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
               labSec={subject.labSec}
               labTime={subject.labTime}
               hasLab={subject.hasLab}
+              subjects={subjects}
+              setSubjects={setSubjects}
               dropDownControl={dropDownControl}
               setDropDownControl={setDropDownControl}
               secSelected={secSelected}
@@ -92,6 +106,7 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
           <td className="p-3 border"></td>
         </tr>
       </table>
+      {subjects.length !== 0 && <ClearAllBtn setSubjects={setSubjects} />}
       <h2 className="text-center font-bold mt-7">หน่วยกิตทั้งหมด {creditCount}</h2>
       {creditCount >= 25 && (
         <h2 className="text-center text-xs font-semibold mt-1 text-red-600">*หน่วยกิตห้ามเกิน 25</h2>
@@ -111,6 +126,8 @@ const TableRow = ({
   labSec,
   labTime,
   hasLab,
+  subjects,
+  setSubjects,
   dropDownControl,
   setDropDownControl,
   secSelected,
@@ -137,7 +154,10 @@ const TableRow = ({
       {hasLab ? (
         <>
           <tr className="hover:bg-zinc-100">
-            <td className="p-3 border-x border-t">{id}</td>
+            <td className="p-3 border-x border-t relative">
+              {id}
+              <DeleteBtn index={index} subjects={subjects} setSubjects={setSubjects} />
+            </td>
             <td className="p-3 max-w-xs border-x border-t">{name}</td>
             <td className="p-3 border-x border-t">{credit}</td>
             <td className="p-3 border">{type}</td>
@@ -166,7 +186,10 @@ const TableRow = ({
         </>
       ) : (
         <tr className="hover:bg-zinc-100">
-          <td className="p-3 border">{id}</td>
+          <td className="p-3 border relative">
+            {id}
+            <DeleteBtn index={index} subjects={subjects} setSubjects={setSubjects} />
+          </td>
           <td className="p-3 max-w-xs border">{name}</td>
           <td className="p-3 border">{credit}</td>
           <td className="p-3 border">{type}</td>
@@ -186,6 +209,41 @@ const TableRow = ({
         </tr>
       )}
     </>
+  );
+};
+
+const DeleteBtn = ({ index, subjects, setSubjects }) => {
+  const onDelete = () => {
+    // console.log('subjects : ', subjects);
+    console.log('deleted item : ', subjects.splice(index, 1));
+    setSubjects([...subjects]);
+    console.log('Clicked Delete Btn of ', index);
+  };
+
+  return (
+    <div
+      className="absolute bottom-[20%] right-2 bg-[#FF5349] p-2 rounded shadow-md cursor-pointer hover:bg-[#e50f0f] active:bg-[#FF5349]"
+      onClick={onDelete}
+    >
+      <FaTrashAlt className="text-lg text-white" />
+    </div>
+  );
+};
+
+const ClearAllBtn = ({ setSubjects }) => {
+  const onClear = () => {
+    setSubjects([]);
+  };
+
+  return (
+    <div className="flex mt-4 ml-24">
+      <button
+        className="bg-red-500 py-2 px-4 rounded-lg shadow-md text-white font-semibold hover:bg-red-600 active:bg-red-400"
+        onClick={onClear}
+      >
+        Clear Input
+      </button>
+    </div>
   );
 };
 
