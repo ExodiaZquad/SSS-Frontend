@@ -21,7 +21,7 @@ const Navbar = () => {
             <Link to="/generator">
               <div
                 className={
-                  'hover:cursor-pointer hover:text-gray-500' +
+                  'hover:cursor-pointer hover:text-gray-500 select-none' +
                   (location.pathname === '/generator' ? ' text-red-500 hover:text-red-400' : '')
                 }
               >
@@ -31,7 +31,7 @@ const Navbar = () => {
             <Link to="/filter">
               <div
                 className={
-                  'hover:cursor-pointer hover:text-gray-500' +
+                  'hover:cursor-pointer hover:text-gray-500 select-none' +
                   (location.pathname === '/filter' ? ' text-red-500 hover:text-red-400' : '')
                 }
               >
@@ -41,7 +41,7 @@ const Navbar = () => {
             <Link to="/review">
               <div
                 className={
-                  'hover:cursor-pointer hover:text-gray-500' +
+                  'hover:cursor-pointer hover:text-gray-500 select-none' +
                   (location.pathname === '/review' ? ' text-red-500 hover:text-red-400' : '')
                 }
               >
