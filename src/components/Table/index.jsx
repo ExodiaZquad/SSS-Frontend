@@ -39,13 +39,6 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectI
     });
   };
 
-  // set each row to subject's data from the list of subject ids from selected favortie schedule
-  useEffect(() => {
-    lstSubjectIdFromFav.forEach(subjectId => {
-      getSubjectById(subjectId);
-    });
-  }, [lstSubjectIdFromFav]);
-
   // get subject data by subject's id
   const getSubjectById = async subjectId => {
     try {
@@ -61,12 +54,25 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectI
       setDropDownControl(prev => prev.concat([false]));
       setSecSelected(prev => prev.concat(['-1']));
       // console.log('control: ', dropDownControl);
+      // console.log('response data : ', res.data);
       setSubjects(prevSubjects => prevSubjects.concat(res.data));
       // setCreditCount(prev => prev + res.data.credit);
     } catch (err) {
       alert('Subject not found.');
     }
   };
+
+  // set each row to subject's data from the list of subject ids from selected favortie schedule
+  useEffect(async () => {
+    console.log('lst subject : ', lstSubjectIdFromFav);
+    // cant use this cause it's not async
+    // await lstSubjectIdFromFav.forEach(async subjectId => {
+    //   await getSubjectById(subjectId);
+    // });
+    for (let i = 0; i < lstSubjectIdFromFav.length; i++) {
+      await getSubjectById(lstSubjectIdFromFav[i]);
+    }
+  }, [lstSubjectIdFromFav]);
 
   // increase / decrease credit count when subject's data changes
   useEffect(() => {
