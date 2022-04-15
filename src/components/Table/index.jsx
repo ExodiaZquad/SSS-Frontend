@@ -4,7 +4,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 import { getHeaders } from '../../services/authService';
 
-const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
+const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectIdFromFav }) => {
   const [classId, setClassId] = useState('');
   // const [subjects, setSubjects] = useState([]);
   const [dropDownControl, setDropDownControl] = useState([]);
@@ -14,7 +14,7 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
   const getSubject = async () => {
     try {
       const headers = getHeaders();
-      console.log(headers);
+      // console.log(headers);
       const res = await axios.post(
         'http://localhost:3005/api/subject/',
         {
@@ -26,7 +26,7 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
       setSecSelected(prev => prev.concat(['-1']));
       // console.log('control: ', dropDownControl);
       setSubjects(prevSubjects => prevSubjects.concat(res.data));
-      setCreditCount(prev => prev + res.data.credit);
+      // setCreditCount(prev => prev + res.data.credit);
     } catch (err) {
       alert('Subject not found.');
     }
@@ -39,6 +39,36 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
     });
   };
 
+  // set each row to subject's data from the list of subject ids from selected favortie schedule
+  useEffect(() => {
+    lstSubjectIdFromFav.forEach(subjectId => {
+      getSubjectById(subjectId);
+    });
+  }, [lstSubjectIdFromFav]);
+
+  // get subject data by subject's id
+  const getSubjectById = async subjectId => {
+    try {
+      const headers = getHeaders();
+      // console.log(headers);
+      const res = await axios.post(
+        'http://localhost:3005/api/subject/',
+        {
+          params: { id: subjectId },
+        },
+        headers,
+      );
+      setDropDownControl(prev => prev.concat([false]));
+      setSecSelected(prev => prev.concat(['-1']));
+      // console.log('control: ', dropDownControl);
+      setSubjects(prevSubjects => prevSubjects.concat(res.data));
+      // setCreditCount(prev => prev + res.data.credit);
+    } catch (err) {
+      alert('Subject not found.');
+    }
+  };
+
+  // increase / decrease credit count when subject's data changes
   useEffect(() => {
     handleCreditCount();
   }, [subjects]);
@@ -146,6 +176,12 @@ const TableRow = ({
   const [labSecText, setLabSecText] = useState('');
 
   useEffect(() => {
+    // set selected section according to the selected favorite schedule
+    if (secSelected[index] === '-1') {
+      setSelected('ALL');
+    } else {
+      setSelected(secSelected[index]);
+    }
     setTheoryDate(theoryTime[sec.findIndex(element => element === selected)]);
     if (hasLab) {
       let idx = sec.findIndex(element => element === selected);
