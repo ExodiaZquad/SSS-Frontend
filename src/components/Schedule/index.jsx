@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { getToken } from '../../services/authService';
 import { AiFillHeart } from 'react-icons/ai';
 import { BsSquareFill } from 'react-icons/bs';
+import { FaRegHeart,FaHeart } from 'react-icons/fa';
 import { isEmpty, isEqual, xorWith } from 'lodash';
 import axios from 'axios';
 import './index.css';
@@ -9,14 +10,14 @@ import './index.css';
 const Schedule = ({ data, onGenerate, autoFill = false }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const colors = [
-    '#853AC9',
-    '#F27B76',
-    '#FFEE3F',
-    '#F2993D',
-    '#80ED82',
-    '#0078FF',
-    '#5CE0F8',
-    '#F32B4F',
+    '#8985A6',
+    '#6CA4A6',
+    '#C98667',
+    '#B9F2B6',
+    '#FAC998',
+    '#FF8E8A',
+    '#8CD1BA',
+    '#9ED1D9',
     '#00AD23',
     '#D9B282',
     '#73461F',
@@ -175,13 +176,13 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
   // console.log(subjects, subjects_name_sort);
 
   return (
-    <div className="sch_box-shadow mt-7">
-      <div className="sch_box">
+    // <div className="sch_box-shadow mt-7">
+      <div className="sch_box mt-7">
         <div className="sch_headbox">
           {fav || autoFill ? (
-            <AiFillHeart color="red" size="2.5em" className="sch_like" onClick={onLike} />
+            <FaHeart color="red" size="2em" className="sch_like" onClick={onLike} />
           ) : (
-            <AiFillHeart color="gray" size="2.5em" className="sch_like" onClick={onLike} />
+            <FaRegHeart size="2em" className="sch_like" onClick={onLike} />
           )}
         </div>
         <div className="sch_body">
@@ -213,27 +214,25 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
                   }
                 }
                 if (bar) {
-                  return <div key={indey} className={'sch_barbox-act' + String(runcolor.current)}></div>;
+                  return <div key={indey} className={'sch_barbox-act sch_barbox-act' + String(runcolor.current)}></div>;
                 } else {
-                  return <div key={indey} className="sch_barbox-nact"></div>;
+                  return <div key={indey} className="sch_barbox-act sch_barbox-nact"></div>;
                 }
               })}
             </div>
           </div>
         ))}
-        <div className="sch_body">
-          <div></div>
+
           <div className="sch_tailbox">
-            {subjects_name_sort.map((s, index) => (
-              <div key={index} className="sch_each-detail">
-                <BsSquareFill color={String(colors[index])} size="1.2em" />
-                {s}
+            {subjects.map((s, index) => (
+              <div key={index} className="sch_each-detail mr-3">
+                <BsSquareFill color={String(colors[index])} className='mr-1 text-[12px]' />
+                {s.name+" ("+s.type+" "+s.sec+")"}
               </div>
             ))}
           </div>
-        </div>
       </div>
-    </div>
+    // </div>
   );
 };
 
