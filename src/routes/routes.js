@@ -16,7 +16,7 @@ const Routes = () => {
         <Route
           path="generator"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <ScheduleGenerator />
             </ProtectedRoute>
           }
@@ -24,7 +24,7 @@ const Routes = () => {
         <Route
           path="filter"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <SubjectFilter />
             </ProtectedRoute>
           }
@@ -32,7 +32,7 @@ const Routes = () => {
         <Route
           path="review"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <BlogReview />
             </ProtectedRoute>
           }
@@ -40,7 +40,7 @@ const Routes = () => {
         <Route
           path="profile"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
