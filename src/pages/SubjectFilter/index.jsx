@@ -2,12 +2,15 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Table from '../../components/Table';
 import OutputTable from '../../components/OutputTable';
+import Error from '../../components/Error';
 
 const SubjectFilter = () => {
   const [subjects, setSubjects] = useState([]);
   const [secSelected, setSecSelected] = useState([]);
   const [isBtnWorking, setIsBtnWorking] = useState(false);
   const [data, setData] = useState([]);
+
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     updateGenerateBtn();
@@ -36,9 +39,14 @@ const SubjectFilter = () => {
       const res = await axios.post('http://localhost:3005/api/subject/filter', {
         subjects: req,
       });
-      console.log('res : ', res.data);
+
+      if (res.data.length == 0) {
+        setError(true);
+        return;
+      }
+
+      setError(false);
       setData(res.data);
-      console.log('data : ', data);
     } catch (err) {
       alert('Nothing found.');
     }
@@ -71,11 +79,18 @@ const SubjectFilter = () => {
           )}
         </div>
 
-        {data.length !== 0 && (
-          <>
-            <h1 className="mt-14 font-bold text-3xl">Result</h1>
-            <OutputTable subjects={data} />
-          </>
+        {error ? (
+          <Error
+            header="No subject can be added in this schedule"
+            tagline="Please check the subject class date and examination date"
+          />
+        ) : (
+          data.length != 0 && (
+            <>
+              <h1 className="mt-14 font-bold text-3xl">Result ({data.length})</h1>
+              <OutputTable subjects={data} />
+            </>
+          )
         )}
       </div>
     </div>

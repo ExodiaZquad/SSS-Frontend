@@ -82,13 +82,13 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected }) => {
                 if (e.key === 'Enter') {
                   // prevent error here vvvv (no more 8 char no less 8 char no special char no alphabet)
                   if (classId === '' || classId.length !== 8 || classId.includes(' ')) {
-                    alert('Invalid Input');
+                    alert('Subject Id not found.');
                   } else {
                     // console.log('subjects : ', subjects, 'classId : ', classId);
                     let check = false;
                     subjects.forEach(subject => {
                       if (subject.id === classId) {
-                        alert('Duplicated Input');
+                        alert('Duplicated Subject.');
                         check = true;
                       }
                     });

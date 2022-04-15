@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../../components/Table';
 import Schedule from '../../components/Schedule';
+import Error from '../../components/Error';
 import axios from 'axios';
 
 const ScheduleGenerator = () => {
@@ -8,6 +9,7 @@ const ScheduleGenerator = () => {
   const [secSelected, setSecSelected] = useState([]);
   const [isBtnWorking, setIsBtnWorking] = useState(false);
   const [data, setData] = useState([]);
+  const [error, setError] = useState(false);
 
   const onGenerate = async () => {
     let req = [];
@@ -21,7 +23,15 @@ const ScheduleGenerator = () => {
     const res = await axios.post('http://localhost:3005/api/schedule/generate', {
       subjects: req,
     });
+
+    if (res.data.length == 0) {
+      setError(true);
+      return;
+    }
+
+    setError(false);
     setData(res.data);
+
     // console.log('data', data);
     // console.log('req.body : ', req);
     // console.log('res : ', res.data);
@@ -63,10 +73,17 @@ const ScheduleGenerator = () => {
             <div className="bg-zinc-400 py-3 px-7 rounded-lg text-white ">Generate</div>
           )}
         </div>
-        {data.length !== 0 && <h1 className="mt-14 font-bold text-3xl">My Schedule</h1>}
-        {data.map(dataItem => (
-          <Schedule data={dataItem} onGenerate={onGenerate} />
-        ))}
+
+        {error ? (
+          <Error header="Subjects are overlapping" tagline="Please check the subject class date and examination date" />
+        ) : (
+          <>
+            {data.length !== 0 && <h1 className="mt-14 font-bold text-3xl">My Schedule ({data.length})</h1>}
+            {data.map(dataItem => (
+              <Schedule data={dataItem} onGenerate={onGenerate} />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
