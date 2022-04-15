@@ -222,7 +222,7 @@ const DeleteBtn = ({ index, subjects, setSubjects }) => {
 
   return (
     <div
-      className="absolute bottom-[20%] right-2 bg-[#FF5349] p-2 rounded shadow-md cursor-pointer hover:bg-[#e50f0f] active:bg-[#FF5349]"
+      className="absolute bottom-[18%] left-4 bg-[#FF5349] p-2 rounded shadow-md cursor-pointer hover:bg-[#e50f0f] active:bg-[#FF5349]"
       onClick={onDelete}
     >
       <FaTrashAlt className="text-lg text-white" />
