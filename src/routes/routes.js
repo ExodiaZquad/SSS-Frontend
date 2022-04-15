@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes as Switch, Route } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import ProtectedRoute from '../components/ProtectedRoute';
 import BlogReview from '../pages/BlogReview';
 import Home from '../pages/Home';
 import Profile from '../pages/Profile';
@@ -12,10 +13,38 @@ const Routes = () => {
       <Navbar />
       <Switch>
         <Route path="/" element={<Home />} />
-        <Route path="generator" element={<ScheduleGenerator />} />
-        <Route path="filter" element={<SubjectFilter />} />
-        <Route path="review" element={<BlogReview />} />
-        <Route path="profile" element={<Profile />} />
+        <Route
+          path="generator"
+          element={
+            <ProtectedRoute user={user}>
+              <ScheduleGenerator />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="filter"
+          element={
+            <ProtectedRoute user={user}>
+              <SubjectFilter />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="review"
+          element={
+            <ProtectedRoute user={user}>
+              <BlogReview />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute user={user}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Switch>
     </BrowserRouter>
   );
