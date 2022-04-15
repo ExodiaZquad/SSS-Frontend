@@ -33,6 +33,7 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
   const onLike = async () => {
     try {
       const token = getToken();
+
       const res = await axios.put(
         'http://localhost:3005/api/users/like_schedule',
         { new_fav: data },
@@ -41,8 +42,7 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
         },
       );
 
-      await onGenerate();
-      await mapCheckFav();
+      mapCheckFav();
     } catch (error) {
       if (error.response && error.response.status == 400 && error.response.data == 'isSame') {
         console.log(error.response);
@@ -61,8 +61,9 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
   };
 
   const mapCheckFav = async () => {
+    console.log('TEST');
     const favSchedules = await getFavSchedules();
-
+    setFav(undefined);
     for (let i = 0; i < favSchedules.length; i++) {
       const hasFav = isEmpty(xorWith(favSchedules[i].array, data, isEqual));
       if (hasFav) {
