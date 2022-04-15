@@ -82,12 +82,18 @@ const Login = () => {
             src={userImg}
             alt=""
             className={
-              'h-10 w-10 ring rounded-full shadow-md' +
+              'h-10 w-10 ring rounded-full shadow-md cursor-pointer select-none' +
               (location.pathname === '/' ? '  ring-white' : ' ring-orange-500')
             }
+            onClick={handleDropdownClick}
           />
           {/* User's Name */}
-          <div className={' ' + (location.pathname === '/' ? 'text-white' : '')}>{userName}</div>
+          <div
+            className={'cursor-pointer select-none ' + (location.pathname === '/' ? 'text-white' : '')}
+            onClick={handleDropdownClick}
+          >
+            {userName}
+          </div>
           {!isActive && (
             <VscTriangleDown
               className="hover:cursor-pointer"
@@ -109,7 +115,7 @@ const Login = () => {
               <div className="bg-white absolute top-[140%] right-0 shadow-md border rounded-xl flex flex-col z-10">
                 <Link to="/profile">
                   <button
-                    className="w-full rounded-t-xl py-2 pl-4 pr-14 hover:bg-zinc-200"
+                    className="w-full rounded-t-xl py-2 pl-4 pr-14 hover:bg-zinc-200 select-none"
                     onClick={() => handleDropdownClick()}
                   >
                     Profile
@@ -122,7 +128,7 @@ const Login = () => {
                   icon={false}
                   render={renderProps => (
                     <button
-                      className="py-2 pl-4 pr-14 rounded-b-xl hover:bg-zinc-200 z-10"
+                      className="py-2 pl-4 pr-14 rounded-b-xl hover:bg-zinc-200 z-10 select-none"
                       onClick={() => {
                         renderProps.onClick();
                         handleDropdownClick();
