@@ -12,16 +12,16 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
   const colors = [
     '#8985A6',
     '#6CA4A6',
-    '#C98667',
+    '#FF8E8A',
     '#B9F2B6',
     '#FAC998',
-    '#FF8E8A',
+    '#C98667',
     '#8CD1BA',
     '#9ED1D9',
-    '#00AD23',
-    '#D9B282',
-    '#73461F',
-    '#CF64FF',
+    '#A68F86',
+    '#FBBCCF',
+    '#A35D61',
+    '#A6BDDE',
   ];
   const [fav, setFav] = useState(false);
   const runcolor = useRef(0);

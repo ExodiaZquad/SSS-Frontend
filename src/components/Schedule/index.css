@@ -80,10 +80,10 @@
     '#C98667',
     '#8CD1BA',
     '#9ED1D9',
-    '#00AD23',
-    '#D9B282',
-    '#73461F',
-    '#CF64FF',
+    '#A68F86',
+    '#FBBCCF',
+    '#A35D61',
+    '#A6BDDE',
   ]; */
 
 .sch_barbox-act{
@@ -115,16 +115,16 @@
   background-color: #9ED1D9;
 }
 .sch_barbox-act9 {
-  background-color: #00AD23;
+  background-color: #A68F86;
 }
 .sch_barbox-act10 {
-  background-color: #D9B282;
+  background-color: #FBBCCF;
 }
 .sch_barbox-act11 {
-  background-color: #73461F;
+  background-color: #A35D61;
 }
 .sch_barbox-act0 {
-  background-color: #CF64FF;
+  background-color: #A6BDDE;
 }
 
 .sch_barbox-nact {
