@@ -103,7 +103,7 @@ const DeleteBtn = ({ objId, getReviews }) => {
       },
     );
 
-    alert('Delete on!!!');
+    alert('Delete Completed!!!');
     getReviews();
     console.log(res.data);
   };
