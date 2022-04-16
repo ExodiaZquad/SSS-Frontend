@@ -37,9 +37,9 @@ const SubjectFilter = () => {
     }
   };
 
-  useEffect(() => {
-    getFavSchedules();
-  }, []);
+  // useEffect(() => {
+  //   getFavSchedules();
+  // }, []);
 
   useEffect(() => {
     updateGenerateBtn();
@@ -98,6 +98,7 @@ const SubjectFilter = () => {
           setSubjects={setSubjects}
           setSecSelected={setSecSelected}
           setLstSubjectIdFromFav={setLstSubjectIdFromFav}
+          getFavSchedules={getFavSchedules}
         />
         <Table
           subjects={subjects}
@@ -145,6 +146,7 @@ const Dropdown = ({
   setSecSelected,
   setSubjects,
   setLstSubjectIdFromFav,
+  getFavSchedules,
 }) => {
   const [isActive, setIsActive] = useState(false);
   const options = [...dropdownOptions];
@@ -174,7 +176,10 @@ const Dropdown = ({
     <div className="select-none relative w-[250px] my-4">
       <div
         className="bg-white py-2 px-6 rounded-lg shadow-md flex justify-evenly items-center text-lg cursor-pointer"
-        onClick={e => setIsActive(!isActive)}
+        onClick={e => {
+          setIsActive(!isActive);
+          getFavSchedules();
+        }}
       >
         {selected}
         {isActive ? <VscTriangleUp color="orange" /> : <VscTriangleDown color="orange" />}
