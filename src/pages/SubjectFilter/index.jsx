@@ -30,7 +30,7 @@ const SubjectFilter = () => {
     } else {
       let temp = [];
       for (let i = 1; i <= data.favSchedule.length; i++) {
-        temp.push(`favourite schedule ${i}`);
+        temp.push(`Favourite Schedule ${i}`);
       }
       setDropdownOptions(temp);
       setFavSchedules(data.favSchedule);
@@ -173,7 +173,7 @@ const Dropdown = ({
   };
 
   return (
-    <div className="select-none relative w-[250px] my-4">
+    <div className="select-none relative w-[270px] my-4">
       <div
         className="bg-white py-2 px-6 rounded-lg shadow-md flex justify-evenly items-center text-lg cursor-pointer"
         onClick={e => {
@@ -181,7 +181,7 @@ const Dropdown = ({
           getFavSchedules();
         }}
       >
-        {selected}
+        <span className="mr-1">{selected}</span>
         {isActive ? <VscTriangleUp color="orange" /> : <VscTriangleDown color="orange" />}
       </div>
       {isActive && (

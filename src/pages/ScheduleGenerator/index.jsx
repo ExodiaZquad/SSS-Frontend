@@ -62,7 +62,7 @@ const ScheduleGenerator = () => {
     } else {
       let temp = [];
       for (let i = 1; i <= data.favSchedule.length; i++) {
-        temp.push(`favourite schedule ${i}`);
+        temp.push(`Favourite Schedule ${i}`);
       }
       setDropdownOptions(temp);
       setFavSchedules(data.favSchedule);
@@ -126,7 +126,7 @@ const ScheduleGenerator = () => {
           <Error header="Subjects are overlapping" tagline="Please check the subject class date and examination date" />
         ) : (
           <>
-            {data.length !== 0 && <h1 className="mt-14 font-bold text-3xl">My Schedule ({data.length})</h1>}
+            {data.length !== 0 && <h1 className="mt-14 font-bold text-3xl mb-7">My Schedule ({data.length})</h1>}
             {data.map(dataItem => (
               <Schedule data={dataItem} onGenerate={onGenerate} />
             ))}
@@ -172,7 +172,7 @@ const Dropdown = ({
   };
 
   return (
-    <div className="select-none relative w-[250px] my-4">
+    <div className="select-none relative w-[270px] my-4">
       <div
         className="bg-white py-2 px-6 rounded-lg shadow-md flex justify-evenly items-center text-lg cursor-pointer"
         onClick={e => {
@@ -180,7 +180,7 @@ const Dropdown = ({
           getFavSchedules();
         }}
       >
-        {selected}
+        <span className="mr-1">{selected}</span>
         {isActive ? <VscTriangleUp color="orange" /> : <VscTriangleDown color="orange" />}
       </div>
       {isActive && (

@@ -13,18 +13,22 @@ const Tab = ({ label, count, index, tab, setTab }) => {
 
   return (
     <div className={activeLabel + ' cursor-pointer mr-5  pb-2 relative'} onClick={() => setTab(index)}>
-      <div className="text-center">{count}</div>
       <div className={activeLine}>{label}</div>
+      <div className="text-center">{count}</div>
     </div>
   );
 };
 
 const FavoriteSchedules = ({ favSchedule, getUserProfile }) => {
-  console.log(favSchedule);
   return (
     <div>
-      {favSchedule.map(schedule => (
-        <Schedule data={schedule.array} onGenerate={getUserProfile} autoFill={true} />
+      {favSchedule.map((schedule, index) => (
+        <>
+          <div className="text-2xl mb-4 bg-[#FF837E] text-white w-fit px-5 py-2 rounded-xl shadow-md">
+            Favorite Schdule {index + 1}
+          </div>
+          <Schedule data={schedule.array} onGenerate={getUserProfile} autoFill={true} />
+        </>
       ))}
     </div>
   );
@@ -89,7 +93,7 @@ const ProfileTabs = ({ favSchedule, getUserProfile }) => {
         </div>
       </div>
 
-      <div className="bg-[#E9ECF4] pt-5 py-10 min-h-screen">
+      <div className="bg-[#E9ECF4] pt-7 py-10 min-h-screen">
         <div className="container mx-auto">
           <div className={tab === 1 ? '' : 'hidden'}>
             <FavoriteSchedules favSchedule={favSchedule} getUserProfile={getUserProfile} />

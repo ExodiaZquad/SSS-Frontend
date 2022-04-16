@@ -179,7 +179,7 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
 
   return (
     // <div className="sch_box-shadow mt-7">
-    <div className="sch_box mt-7">
+    <div className="sch_box mb-10">
       <div className="sch_headbox">
         {fav || autoFill ? (
           <FaHeart color="red" size="2em" className="sch_like" onClick={onLike} />
