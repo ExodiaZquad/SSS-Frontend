@@ -42,6 +42,7 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
         },
       );
 
+      if (autoFill) onGenerate();
       mapCheckFav();
     } catch (error) {
       if (error.response && error.response.status == 400 && error.response.data == 'isSame') {
