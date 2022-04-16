@@ -23,10 +23,7 @@ const HeadingHome = () => (
           </h2>
         </div>
         <div className="home_body">
-          <p>
-            Once I was seven years old, my mama told me Go make yourself some friends or you'll be lonely Once I was
-            seven years old
-          </p>
+          <p>System built for students to be more accommodate about their choices and preferences.</p>
         </div>
         <Link to="/generator">
           <div className="home_btn-start">

@@ -24,7 +24,7 @@ const FavoriteSchedules = ({ favSchedule, getUserProfile }) => {
     <div>
       {favSchedule.map((schedule, index) => (
         <>
-          <div className="text-2xl mb-4 bg-[#FF837E] text-white w-fit px-5 py-2 rounded-xl shadow-md">
+          <div className="text-xl mb-3 bg-[#FF837E] text-white w-fit px-5 py-2 rounded-xl shadow-md">
             Favorite Schedule {index + 1}
           </div>
           <Schedule data={schedule.array} onGenerate={getUserProfile} autoFill={true} />
