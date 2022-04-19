@@ -215,27 +215,27 @@ const Home = () => {
       <ShowType />
       <BoxSevice1
         head="Schedule Generator"
-        row1="ใส่รหัสวิชา"
-        row2="dropdown เลือก sec"
-        row3="generator ตารางเรียน"
-        row4="แสดงตารางเรียน"
-        row5="favourite ตารางเรียนที่ชอบ"
+        row1="Pick your class"
+        row2="Choose your section"
+        row3="Click generate"
+        row4="See the result"
+        row5="Save your favourite"
       />
       <BoxSevice2
         head="Filter Subject"
-        row1="ใส่รหัสวิชา"
-        row2="dropdown เลือก favourite schedule"
-        row3="dropdown เลือก sec"
-        row4="filter ตารางเรียน"
-        row5="แสดงตารางวิชาที่คัดกรองแล้ว"
+        row1="Fill in your class"
+        row2="Or choose from your favourite"
+        row3="Change the section"
+        row4="Click filter"
+        row5="See the result"
       />
       <BoxSevice3
         head="Blog Review"
-        row1="เลือกหมวดวิชา"
-        row2="เลือกวิชาที่จะรีวิว"
-        row3="พิมพ์ text เนื้อหาที่จะรีวิว"
-        row4="ให้เรทติ้งวิชา"
-        row5="like กับ dislike โพส"
+        row1="Select the type of class"
+        row2="Choose subject to make a review"
+        row3="Put in your opinions"
+        row4="Rate the class"
+        row5="Like / Dislike post"
       />
     </div>
   );
