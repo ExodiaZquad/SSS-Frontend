@@ -133,14 +133,19 @@
     font-size: 35px;
     color: #0583F2;
     text-transform: uppercase;
+    margin-bottom: 10px;
 }
 .boxservice_body{
-    margin-right: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-items: center;
+    margin-right: 120px;
     font-size: 25px;
 }
 .img_check{
     width: 20px;
-    margin-top:12px;
+    margin-top:10px;
 }
 .boxservice_row{
     display: flex;
@@ -178,7 +183,7 @@
     margin-bottom: 60px;
 }
 .boxservice_body-left{
-    padding-left: 165px;
+    padding-left: 120px;
     font-size: 25px;
 }
 .boxservice_img2{
@@ -199,6 +204,9 @@
     margin-bottom: 0px;
 }
 .boxservice_body2{
-    margin-left: 60px;
+    margin-left: 120px;
     font-size: 25px;
+}
+.head_box3{
+    padding-right: 80px;
 }
