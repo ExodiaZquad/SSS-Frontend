@@ -104,23 +104,23 @@ const BoxSevice1 = ({ head, row1, row2, row3, row4, row5 }) => (
         </h2>
       </div>
       <div className="boxservice_body">
-        <div className="boxservice_r1 boxservice_row boxservice_padding">
+        <div className="boxservice_row boxservice_padding">
           {img_check}
           <h2>{row1}</h2>
         </div>
-        <div className="boxservice_r2 boxservice_row boxservice_padding">
+        <div className="boxservice_row boxservice_padding">
           {img_check}
           <h2>{row2}</h2>
         </div>
-        <div className="boxservice_r3 boxservice_row boxservice_padding">
+        <div className="boxservice_row boxservice_padding">
           {img_check}
           <h2>{row3}</h2>
         </div>
-        <div className="boxservice_r4 boxservice_row boxservice_padding">
+        <div className="boxservice_row boxservice_padding">
           {img_check}
           <h2>{row4}</h2>
         </div>
-        <div className="boxservice_r5 boxservice_row boxservice_padding">
+        <div className="boxservice_row boxservice_padding">
           {img_check}
           <h2>{row5}</h2>
         </div>
@@ -177,7 +177,7 @@ const BoxSevice3 = ({ head, row1, row2, row3, row4, row5 }) => (
       />
     </div>
     <div className="boxservice_type2">
-      <div className="boxservice_head">
+      <div className="boxservice_head head_box3">
         <h2>
           <strong>{head}</strong>
         </h2>
