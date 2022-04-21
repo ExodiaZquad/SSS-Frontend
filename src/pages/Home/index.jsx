@@ -98,7 +98,7 @@ const BoxSevice1 = ({ head, row1, row2, row3, row4, row5 }) => (
       />
     </div>
     <div className="boxservice_type">
-      <div className="boxservice_head">
+      <div className="boxservice_head head_box1">
         <h2>
           <strong>{head}</strong>
         </h2>
