@@ -83,12 +83,12 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectI
     <div className="mt-4">
       <table className="w-full text-center font-medium ">
         <tr className="rounded">
-          <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500  w-[300px]">รหัสวิชา</th>
-          <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500">ชื่อวิชา</th>
-          <th className="p-3 bg-orange-200 text-orange-500">หน่วยกิต</th>
-          <th className="p-3 bg-orange-200 text-orange-500">ประเภท</th>
-          <th className="p-3 bg-orange-200 text-orange-500">กลุ่ม</th>
-          <th className="p-3 bg-orange-200 text-orange-500  w-[300px]">เวลาเรียน</th>
+          <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500  w-[300px] font-IBM">รหัสวิชา</th>
+          <th className="border-zinc-300 p-3 bg-orange-200 text-orange-500 font-IBM">ชื่อวิชา</th>
+          <th className="p-3 bg-orange-200 text-orange-500 font-IBM">หน่วยกิต</th>
+          <th className="p-3 bg-orange-200 text-orange-500 font-IBM">ประเภท</th>
+          <th className="p-3 bg-orange-200 text-orange-500 font-IBM">กลุ่ม</th>
+          <th className="p-3 bg-orange-200 text-orange-500  w-[300px] font-IBM">เวลาเรียน</th>
         </tr>
         {subjects.map((subject, idx) => {
           return (
