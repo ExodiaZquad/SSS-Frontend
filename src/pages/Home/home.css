@@ -135,9 +135,7 @@
     text-transform: uppercase;
     margin-bottom: 10px;
 }
-.head_box1{
-    margin-right: 25px;
-}
+
 .boxservice_body{
     display: flex;
     flex-direction: column;
@@ -211,5 +209,5 @@
     font-size: 25px;
 }
 .head_box3{
-    padding-right: 65px;
+    padding-right: 70px;
 }
