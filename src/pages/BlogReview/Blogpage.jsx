@@ -50,7 +50,13 @@ const Blogpage = () => {
       // if (res) console.log(res.data);
 
       setModalOpen(false);
+      setNewReview({
+        subjectId: '',
+        textBlogreview: '',
+        rate: 1,
+      });
       getReviews();
+
       alert('Post Completed!!!');
     } catch (error) {
       alert('Subject Id not found.');
