@@ -227,7 +227,7 @@ function Dropdown({ selected, setSelected, setCurrentPage }) {
 }
 function Searchbar({ search, setSearch, setCurrentPage }) {
   const searchWord = word => {
-    setSearch(word);
+    if (word.length <= 100) setSearch(word);
     setCurrentPage(1);
   };
   return (
@@ -235,7 +235,13 @@ function Searchbar({ search, setSearch, setCurrentPage }) {
       <i>
         <FaSistrix />
       </i>
-      <input type="text" placeholder="search" onChange={e => searchWord(e.currentTarget.value)} className="py-2" />
+      <input
+        type="text"
+        placeholder="search"
+        value={search}
+        onChange={e => searchWord(e.currentTarget.value)}
+        className="py-2"
+      />
     </div>
   );
 }
