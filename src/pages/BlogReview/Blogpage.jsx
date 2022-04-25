@@ -11,7 +11,6 @@ import { getToken, getUserObjId } from '../../services/authService';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const Blogpage = () => {
-  
   const { id: userId } = getUserObjId();
 
   const [selected, setSelected] = useState('Subject Major filter');
@@ -28,8 +27,6 @@ const Blogpage = () => {
 
   const [reviews, setReviews] = useState([]);
   // console.log(reviews);
-
-  
 
   const handleNewReview = ({ currentTarget: target }) => {
     let temp = { ...newReview };
@@ -60,7 +57,7 @@ const Blogpage = () => {
       });
       getReviews();
 
-      alert('Post Completed!!!');
+      alert('Review created!!!');
     } catch (error) {
       alert('Subject Id not found.');
       return null;
