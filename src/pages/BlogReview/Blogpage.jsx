@@ -11,6 +11,7 @@ import { getToken, getUserObjId } from '../../services/authService';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const Blogpage = () => {
+  
   const { id: userId } = getUserObjId();
 
   const [selected, setSelected] = useState('Subject Major filter');
@@ -27,6 +28,8 @@ const Blogpage = () => {
 
   const [reviews, setReviews] = useState([]);
   // console.log(reviews);
+
+  
 
   const handleNewReview = ({ currentTarget: target }) => {
     let temp = { ...newReview };
@@ -66,7 +69,7 @@ const Blogpage = () => {
 
   const getReviews = async () => {
     const token = getToken();
-    const res = await axios.get('http://localhost:3005/api/blogreviews/', {
+    const res = await axios.get(config.API_URL + '/blogreviews/', {
       headers: { 'x-auth-token': token },
     });
 

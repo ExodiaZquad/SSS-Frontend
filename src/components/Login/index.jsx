@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
 
 const clientId = '483892147915-374s85caqvj99gcantphbqmlb804tp3o.apps.googleusercontent.com';
 
@@ -13,6 +14,7 @@ const Login = () => {
   const [userName, setUserName] = useState('');
   const [userImg, setUserImg] = useState('');
   const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -38,6 +40,7 @@ const Login = () => {
     await logout();
     alert('You have been logged out successfully');
     setShowloginButton(true);
+    navigate('/')
   };
 
   // get user's data (name + imgUrl)

@@ -3,6 +3,8 @@ import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 import { getHeaders } from '../../services/authService';
+import config from '../../config';
+
 
 const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectIdFromFav }) => {
   const [classId, setClassId] = useState('');
@@ -16,7 +18,7 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectI
       const headers = getHeaders();
       // console.log(headers);
       const res = await axios.post(
-        'http://localhost:3005/api/subject/',
+        config.API_URL + '/subject/',
         {
           params: { id: classId },
         },
@@ -45,7 +47,7 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectI
       const headers = getHeaders();
       // console.log(headers);
       const res = await axios.post(
-        'http://localhost:3005/api/subject/',
+        config.API_URL + '/subject/',
         {
           params: { id: subjectId },
         },
