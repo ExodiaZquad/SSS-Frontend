@@ -14,6 +14,7 @@ import { AiOutlineDislike } from 'react-icons/ai';
 import axios from 'axios';
 import './blogreview.css';
 import { useLocation } from 'react-router-dom';
+import config from '../../config';
 
 const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, getReviews }) => {
   const [likeactive, setlikeactive] = useState(false); //likeactive
@@ -52,7 +53,7 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, getReviews })
   const onLike = async () => {
     const token = getToken();
     await axios.put(
-      'http://localhost:3005/api/blogreviews/like',
+      config.API_URL + '/blogreviews/like',
       { target_id: objId },
       {
         headers: { 'x-auth-token': token },
@@ -66,7 +67,7 @@ const LikeDislike = ({ objId, userId_Like, userId_Dislike, userId, getReviews })
   const onDisLike = async () => {
     const token = getToken();
     await axios.put(
-      'http://localhost:3005/api/blogreviews/dislike',
+      config.API_URL + '/blogreviews/dislike',
       { target_id: objId },
       {
         headers: { 'x-auth-token': token },
@@ -96,7 +97,7 @@ const DeleteBtn = ({ objId, getReviews }) => {
     const token = getToken();
 
     const res = await axios.post(
-      'http://localhost:3005/api/blogreviews/delete',
+      config.API_URL + '/blogreviews/delete',
       { target_id: objId },
       {
         headers: { 'x-auth-token': token },

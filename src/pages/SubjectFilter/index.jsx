@@ -6,6 +6,7 @@ import Error from '../../components/Error';
 import { getHeaders } from '../../services/authService';
 import { getToken } from '../../services/authService';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
+import config from '../../config';
 
 const SubjectFilter = () => {
   const [subjects, setSubjects] = useState([]);
@@ -21,7 +22,7 @@ const SubjectFilter = () => {
 
   const getFavSchedules = async () => {
     const token = getToken();
-    const { data } = await axios.get('http://localhost:3005/api/users/profile', {
+    const { data } = await axios.get(config.API_URL + '/users/profile/', {
       headers: { 'x-auth-token': token },
     });
 
@@ -67,7 +68,7 @@ const SubjectFilter = () => {
     try {
       const headers = getHeaders();
       const res = await axios.post(
-        'http://localhost:3005/api/subject/filter',
+        config.URL_API + '/subject/filter/',
         {
           subjects: req,
         },

@@ -3,6 +3,7 @@ import ShowReview from '../../components/ShowReview';
 import { getToken, getUserObjId } from '../../services/authService';
 import axios from 'axios';
 import Schedule from '../Schedule';
+import config from '../../config';
 
 const Tab = ({ label, count, index, tab, setTab }) => {
   const active = index == tab;
@@ -73,7 +74,7 @@ const ProfileTabs = ({ favSchedule, getUserProfile }) => {
 
   const getReviews = async () => {
     const token = getToken();
-    const res = await axios.get('http://localhost:3005/api/users/profile/', {
+    const res = await axios.get(config.API_URL + '/users/profile/', {
       headers: { 'x-auth-token': token },
     });
 

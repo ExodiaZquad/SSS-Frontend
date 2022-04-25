@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import config from '../../config';
 
 const clientId = '483892147915-374s85caqvj99gcantphbqmlb804tp3o.apps.googleusercontent.com';
 
@@ -40,13 +41,13 @@ const Login = () => {
     await logout();
     alert('You have been logged out successfully');
     setShowloginButton(true);
-    navigate('/')
+    navigate('/');
   };
 
   // get user's data (name + imgUrl)
   const getUserData = async () => {
     const token = getToken();
-    const res = await axios.get('http://localhost:3005/api/users/', {
+    const res = await axios.get(config.API_URL + '/users/', {
       headers: { 'x-auth-token': token },
     });
 

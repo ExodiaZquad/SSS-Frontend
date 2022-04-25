@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProfileTabs from '../../components/ProfileTabs';
 import { getToken } from '../../services/authService';
+import config from '../../config';
 
 const Profile = () => {
   const [favSchedule, setFavSchdule] = useState([]);
@@ -9,7 +10,7 @@ const Profile = () => {
 
   const getUserProfile = async () => {
     const token = getToken();
-    const { data } = await axios.get('http://localhost:3005/api/users/profile', {
+    const { data } = await axios.get(config.API_URL + '/users/profile/', {
       headers: { 'x-auth-token': token },
     });
 

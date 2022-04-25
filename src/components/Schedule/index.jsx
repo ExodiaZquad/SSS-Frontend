@@ -6,6 +6,7 @@ import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { isEmpty, isEqual, set, xorWith } from 'lodash';
 import axios from 'axios';
 import './index.css';
+import config from '../../config';
 
 const Schedule = ({ data, onGenerate, autoFill = false }) => {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -35,7 +36,7 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
       const token = getToken();
 
       const res = await axios.put(
-        'http://localhost:3005/api/users/like_schedule',
+        config.API_URL + '/users/like_schedule/',
         { new_fav: data },
         {
           headers: { 'x-auth-token': token },
@@ -53,7 +54,7 @@ const Schedule = ({ data, onGenerate, autoFill = false }) => {
 
   const getFavSchedules = async () => {
     const token = getToken();
-    const { data } = await axios.get('http://localhost:3005/api/users/profile', {
+    const { data } = await axios.get(config.API_URL + '/users/profile/', {
       headers: { 'x-auth-token': token },
     });
 
