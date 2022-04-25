@@ -5,7 +5,6 @@ import axios from 'axios';
 import { getHeaders } from '../../services/authService';
 import config from '../../config';
 
-
 const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectIdFromFav }) => {
   const [classId, setClassId] = useState('');
   // const [subjects, setSubjects] = useState([]);
@@ -152,9 +151,9 @@ const Table = ({ subjects, setSubjects, secSelected, setSecSelected, lstSubjectI
         </tr>
       </table>
       {subjects.length !== 0 && <ClearAllBtn setSubjects={setSubjects} />}
-      <h2 className="text-center font-bold mt-7">หน่วยกิตทั้งหมด {creditCount}</h2>
+      <h2 className="text-center font-bold mt-7 font-IBM">หน่วยกิตทั้งหมด {creditCount}</h2>
       {creditCount >= 25 && (
-        <h2 className="text-center text-xs font-semibold mt-1 text-red-600">*หน่วยกิตห้ามเกิน 25</h2>
+        <h2 className="text-center text-xs font-semibold mt-1 text-red-600 font-IBM">*หน่วยกิตห้ามเกิน 25</h2>
       )}
     </div>
   );

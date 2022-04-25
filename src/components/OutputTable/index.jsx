@@ -5,10 +5,10 @@ const OutputTable = ({ subjects }) => {
     <div className="mt-4 mb-14">
       <table className="w-full text-center font-medium ">
         <tr className="rounded">
-          <th className="border-zinc-300 p-3 bg-sky-200 text-sky-600 ">รหัสวิชา</th>
-          <th className="border-zinc-300 p-3 bg-sky-200 text-sky-600">ชื่อวิชา</th>
-          <th className="p-3 bg-sky-200 text-sky-600">หน่วยกิต</th>
-          <th className="p-3 bg-sky-200 text-sky-600 w-[400px]">กลุ่ม</th>
+          <th className="border-zinc-300 p-3 bg-sky-200 text-sky-600 font-IBM">รหัสวิชา</th>
+          <th className="border-zinc-300 p-3 bg-sky-200 text-sky-600 font-IBM">ชื่อวิชา</th>
+          <th className="p-3 bg-sky-200 text-sky-600 font-IBM">หน่วยกิต</th>
+          <th className="p-3 bg-sky-200 text-sky-600 w-[400px] font-IBM">กลุ่ม</th>
         </tr>
         {subjects.map(subject => {
           return (
