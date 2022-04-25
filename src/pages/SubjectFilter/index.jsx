@@ -68,7 +68,7 @@ const SubjectFilter = () => {
     try {
       const headers = getHeaders();
       const res = await axios.post(
-        config.URL_API + '/subject/filter/',
+        config.API_URL + '/subject/filter/',
         {
           subjects: req,
         },
