@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 
-const clientId = '483892147915-374s85caqvj99gcantphbqmlb804tp3o.apps.googleusercontent.com';
+const clientId = '483892147915-c3aicp0nn3jdc6r2euao3dm67qli2gtv.apps.googleusercontent.com';
 
 const Login = () => {
   const [showloginButton, setShowloginButton] = useState(true);
