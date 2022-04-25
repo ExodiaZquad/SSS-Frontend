@@ -6,6 +6,7 @@ import axios from 'axios';
 import { getHeaders } from '../../services/authService';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import { getToken } from '../../services/authService';
+import config from '../../config';
 
 const ScheduleGenerator = () => {
   const [subjects, setSubjects] = useState([]);
@@ -30,7 +31,7 @@ const ScheduleGenerator = () => {
 
     const headers = getHeaders();
     const res = await axios.post(
-      'http://localhost:3005/api/schedule/generate',
+      config.API_URL + '/schedule/generate/',
       {
         subjects: req,
       },
@@ -53,7 +54,7 @@ const ScheduleGenerator = () => {
 
   const getFavSchedules = async () => {
     const token = getToken();
-    const { data } = await axios.get('http://localhost:3005/api/users/profile', {
+    const { data } = await axios.get(config.API_URL + '/users/profile', {
       headers: { 'x-auth-token': token },
     });
 
